@@ -1,0 +1,17 @@
+{
+  "hash": "0338a54752bbc729cf9c259cc242eeec",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 3: Variables, Distributions, Summary Statistics\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n::: {.callout-caution}\n## Ups, there is no content here yet. \n\nAll materials, slides and assignments will be uploaded on the day of the class 🕐 \n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

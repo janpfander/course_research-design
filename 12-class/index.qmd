@@ -1,0 +1,16 @@
+---
+title: "Class 12: Read and Present a Scientific Paper"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+::: {.callout-caution}
+## Ups, there is no content here yet. 
+
+All materials, slides and assignments will be uploaded on the day of the class `r emoji::emoji("clock")` 
+:::
+
+

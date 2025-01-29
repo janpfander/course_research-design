@@ -1,0 +1,17 @@
+{
+  "hash": "f4e2e9ee5e62efa77acc44a6a27245cb",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 6: Statistical power\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n::: {.callout-caution}\n## Ups, there is no content here yet. \n\nAll materials, slides and assignments will be uploaded on the day of the class 🕗 \n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

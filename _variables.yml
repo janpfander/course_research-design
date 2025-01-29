@@ -1,0 +1,29 @@
+author: Jan Pfänder
+
+instructor:
+  name: Jan Pfänder
+  name_no_title: Jan Pfänder
+  email: jan.pfander@psl.eu
+  url: "https://janpfander.github.io/"
+  office: Institut Jean Nicod, ENS-PSL
+  github: janpfa
+  bluesky: "https://bsky.app/profile/janpfa.bsky.social"
+
+
+course:
+  semester: "Spring 2025"
+  days: "Thursdays"
+  time: "10:15–12:15"
+  location: "4"
+  dates: "January 8–April 30, 2024"
+  github: "https://github.com/janpfander/course_research-design"
+  url: " "
+  copyright_year: "2025"
+
+university:
+  name: Paris Sciences et Lettres (PSL)
+  url: "https://psl.eu/"
+
+school:
+  name: Sciences pour un monde durable
+  url: "https://psl.eu/en/education/psl-bachelors-degree-sustainability-sciences"
