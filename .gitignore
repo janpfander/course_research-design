@@ -13,9 +13,3 @@ slides.qmd
 # Un-ignore specific slides that have taken place
 !01-class/slides.qmd
 
-# Ignore all subfolders named "images" except for the one in "01-class"
-*/images/*
-!01-class/images/
-
-# Do not ignore the top-level "images/" folder itself
-!images/

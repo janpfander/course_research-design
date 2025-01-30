@@ -24,7 +24,6 @@ library(kableExtra)
     -   About R
     -   The R Studio IDE
     -   Import and eyeball data
-    -   Use functions
 2.  **Anatomy of a `data.frame`**
     -   Data structure
     -   Classes
@@ -369,7 +368,7 @@ result
 
 ------------------------------------------------------------------------
 
-## Import and Eyeball data
+## Import and Eyeball Data
 
 -   We now know how to **use R** as a calculator, but our goal is **to analyze data!**
 
@@ -383,7 +382,7 @@ result
 
 ## Import and Eyeball Data
 
--   You can **download** the dataset for the 2021/22 season [here](https://louissirugue.github.io/metrics_on_R/lecture1/data.zip) or from the course webpage.
+-   You can **download** the dataset for the 2021/22 season [by clicking here](https://louissirugue.github.io/metrics_on_R/lecture1/data.zip) or from the course webpage.
     -   Note that the file extension is **.csv** (for **Comma Separated Values**).
     -   Let's take a look at the **first 5 lines** of the raw `.csv` file:
 
@@ -472,6 +471,37 @@ Seems like it worked!
 
 ------------------------------------------------------------------------
 
+::: center
+![](images/view_fb_kinda.png){width="1000"}
+:::
+
+::: center
+Or kind of worked...
+:::
+
+---
+
+These kind of weird characters pop up when there is an encoding issue
+
+  - Thankfully, `read.csv()` has many options that can be set as inputs, including encoding!
+  - Usually the UTF-8 encoding is the solution to French characters
+  
+```{r}
+#| eval: false
+#| echo: true
+data <- read.csv("/Users/jan/Downloads/ligue1.csv", encoding = "UTF-8")
+```
+
+. . . 
+
+When you will be facing similar issues, check out the arguments of `read.csv()` by typing `?read.csv`
+
+::: center
+![](images/csv_help.png){width="1000"}
+:::
+
+---
+
 ## Overview
 
 :::::: columns
@@ -481,7 +511,6 @@ Seems like it worked!
     -   About R
     -   The R Studio IDE
     -   Import and eyeball data
-    -   Use functions
 :::
 
 ::: {.fragment .fade-in}
@@ -723,7 +752,7 @@ class("35")
 ::: {.column .fragment width="33%"}
 ### Logical
 
-They must be surrounded by `"` or `'`:
+Something either `TRUE` of `FALSE`:
 
 ```{r}
 #| eval: true
@@ -997,6 +1026,24 @@ vector[c(TRUE, TRUE, FALSE)]
 
 ### Practice
 
+```{r}
+countdown::countdown(
+  minutes = 4,
+  top = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
 1.  Download and import the dataset if you haven't already
 
 2.  Combine the use of `[]` and the function `nrow()` to obtain the last value of the `Wk` variable
@@ -1081,7 +1128,6 @@ data[data$Wk == last_week, c("Home", "Score", "Away")]
     -   About R
     -   The R Studio IDE
     -   Import and eyeball data
-    -   Use functions
 :::
 
 ::: {.fragment .semi-fade-out fragment-index="0"}
@@ -1147,7 +1193,6 @@ data$Home[3] # What would be the output?
     -   About R
     -   The R Studio IDE
     -   Import and eyeball data
-    -   Use functions
 :::
 
 ::: {.fragment .semi-fade-out fragment-index="0"}

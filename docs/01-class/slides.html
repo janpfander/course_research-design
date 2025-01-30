@@ -412,7 +412,6 @@
 <li>About R</li>
 <li>The R Studio IDE</li>
 <li>Import and eyeball data</li>
-<li>Use functions</li>
 </ul></li>
 <li><strong>Anatomy of a <code>data.frame</code></strong>
 <ul>
@@ -640,7 +639,7 @@
 <h3 id="practice">Practice</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8bfd2b99" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_442e54fa" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -794,7 +793,7 @@
 </div>
 </section>
 <section id="import-and-eyeball-data" class="slide level2">
-<h2>Import and Eyeball data</h2>
+<h2>Import and Eyeball Data</h2>
 <ul>
 <li><p>We now know how to <strong>use R</strong> as a calculator, but our goal is <strong>to analyze data!</strong></p>
 <ul>
@@ -808,7 +807,7 @@
 <section id="import-and-eyeball-data-1" class="slide level2">
 <h2>Import and Eyeball Data</h2>
 <ul>
-<li>You can <strong>download</strong> the dataset for the 2021/22 season <a href="https://louissirugue.github.io/metrics_on_R/lecture1/data.zip">here</a> or from the course webpage.
+<li>You can <strong>download</strong> the dataset for the 2021/22 season <a href="https://louissirugue.github.io/metrics_on_R/lecture1/data.zip">by clicking here</a> or from the course webpage.
 <ul>
 <li>Note that the file extension is <strong>.csv</strong> (for <strong>Comma Separated Values</strong>).</li>
 <li>Let’s take a look at the <strong>first 5 lines</strong> of the raw <code>.csv</code> file:</li>
@@ -901,6 +900,32 @@
 <p>Seems like it worked!</p>
 </div>
 </section>
+<section class="slide level2">
+
+<div class="center">
+<p><img data-src="images/view_fb_kinda.png" width="1000"></p>
+</div>
+<div class="center">
+<p>Or kind of worked…</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p>These kind of weird characters pop up when there is an encoding issue</p>
+<ul>
+<li>Thankfully, <code>read.csv()</code> has many options that can be set as inputs, including encoding!</li>
+<li>Usually the UTF-8 encoding is the solution to French characters</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jan/Downloads/ligue1.csv"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>When you will be facing similar issues, check out the arguments of <code>read.csv()</code> by typing <code>?read.csv</code></p>
+<div class="center">
+<p><img data-src="images/csv_help.png" width="1000"></p>
+</div>
+</div>
+</section>
 <section id="overview-1" class="slide level2">
 <h2>Overview</h2>
 <div class="columns">
@@ -912,7 +937,6 @@
 <li>About R</li>
 <li>The R Studio IDE</li>
 <li>Import and eyeball data</li>
-<li>Use functions</li>
 </ul></li>
 </ol>
 </div>
@@ -940,7 +964,7 @@
 <li>Now that we imported the data properly, we can check out its <strong><code>str()</code>ucture</strong> in more details</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-structure-1" class="slide level2">
@@ -949,7 +973,7 @@
 <li><em>Don’t be scared of the output!</em></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   380 obs. of  14 variables:
  $ Wk          : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -975,10 +999,10 @@
 <li><code>str()</code> says that <code>data</code> is a <code>data.frame</code>, and gives its numbers of <strong>observations</strong> (rows) and <strong>variables</strong> (columns)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-structure-3" class="slide level2">
@@ -987,24 +1011,24 @@
 <li>It also gives the <strong>variables names</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
-<span id="cb23-2"><a></a><span class="do">##  $ Wk          </span></span>
-<span id="cb23-3"><a></a><span class="do">##  $ Day         </span></span>
-<span id="cb23-4"><a></a><span class="do">##  $ Date        </span></span>
-<span id="cb23-5"><a></a><span class="do">##  $ Time        </span></span>
-<span id="cb23-6"><a></a><span class="do">##  $ Home        </span></span>
-<span id="cb23-7"><a></a><span class="do">##  $ xG          </span></span>
-<span id="cb23-8"><a></a><span class="do">##  $ Score       </span></span>
-<span id="cb23-9"><a></a><span class="do">##  $ xG.1        </span></span>
-<span id="cb23-10"><a></a><span class="do">##  $ Away        </span></span>
-<span id="cb23-11"><a></a><span class="do">##  $ Attendance  </span></span>
-<span id="cb23-12"><a></a><span class="do">##  $ Venue       </span></span>
-<span id="cb23-13"><a></a><span class="do">##  $ Referee     </span></span>
-<span id="cb23-14"><a></a><span class="do">##  $ Match.Report</span></span>
-<span id="cb23-15"><a></a><span class="do">##  $ Notes  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
+<span id="cb24-2"><a></a><span class="do">##  $ Wk          </span></span>
+<span id="cb24-3"><a></a><span class="do">##  $ Day         </span></span>
+<span id="cb24-4"><a></a><span class="do">##  $ Date        </span></span>
+<span id="cb24-5"><a></a><span class="do">##  $ Time        </span></span>
+<span id="cb24-6"><a></a><span class="do">##  $ Home        </span></span>
+<span id="cb24-7"><a></a><span class="do">##  $ xG          </span></span>
+<span id="cb24-8"><a></a><span class="do">##  $ Score       </span></span>
+<span id="cb24-9"><a></a><span class="do">##  $ xG.1        </span></span>
+<span id="cb24-10"><a></a><span class="do">##  $ Away        </span></span>
+<span id="cb24-11"><a></a><span class="do">##  $ Attendance  </span></span>
+<span id="cb24-12"><a></a><span class="do">##  $ Venue       </span></span>
+<span id="cb24-13"><a></a><span class="do">##  $ Referee     </span></span>
+<span id="cb24-14"><a></a><span class="do">##  $ Match.Report</span></span>
+<span id="cb24-15"><a></a><span class="do">##  $ Notes  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-structure-4" class="slide level2">
@@ -1013,24 +1037,24 @@
 <li>The <strong>first values</strong> of each variable</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
-<span id="cb25-2"><a></a><span class="do">##  $ Wk          :      1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span id="cb25-3"><a></a><span class="do">##  $ Day         :      "Fri" "Sat" "Sat" "Sun" ...</span></span>
-<span id="cb25-4"><a></a><span class="do">##  $ Date        :      "2021-08-06" "2021-08-07" "2021-08-07" "2021-08-08" ...</span></span>
-<span id="cb25-5"><a></a><span class="do">##  $ Time        :      "21:00" "17:00" "21:00" "13:00" ...</span></span>
-<span id="cb25-6"><a></a><span class="do">##  $ Home        :      "Monaco" "Lyon" "Troyes" "Rennes" ...</span></span>
-<span id="cb25-7"><a></a><span class="do">##  $ xG          :      2 1.4 0.8 0.6 0.7 0.4 0.8 2.1 0.7 0.5 ...</span></span>
-<span id="cb25-8"><a></a><span class="do">##  $ Score       :      "1–1" "1–1" "1–2" "1–1" ...</span></span>
-<span id="cb25-9"><a></a><span class="do">##  $ xG.1        :      0.3 0.8 1.2 2 3.3 0.9 0.2 1.3 1.4 2 ...</span></span>
-<span id="cb25-10"><a></a><span class="do">##  $ Away        :      "Nantes" "Brest" "Paris S-G" "Lens" ...</span></span>
-<span id="cb25-11"><a></a><span class="do">##  $ Attendance  :      7500 29018 15248 22567 18748 23250 18030 20461 15551 13500 ...</span></span>
-<span id="cb25-12"><a></a><span class="do">##  $ Venue       :      "Stade Louis II." "Groupama Stadium" "Stade de l'Aube" "Roazhon Park" ...</span></span>
-<span id="cb25-13"><a></a><span class="do">##  $ Referee     :      "Antony Gautier" "Mikael Lesage" "Amaury Delerue" "Bastien Dechepy" ...</span></span>
-<span id="cb25-14"><a></a><span class="do">##  $ Match.Report:      "Match Report" "Match Report" "Match Report" "Match Report" ...</span></span>
-<span id="cb25-15"><a></a><span class="do">##  $ Notes       :       NA NA NA NA NA NA ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
+<span id="cb26-2"><a></a><span class="do">##  $ Wk          :      1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb26-3"><a></a><span class="do">##  $ Day         :      "Fri" "Sat" "Sat" "Sun" ...</span></span>
+<span id="cb26-4"><a></a><span class="do">##  $ Date        :      "2021-08-06" "2021-08-07" "2021-08-07" "2021-08-08" ...</span></span>
+<span id="cb26-5"><a></a><span class="do">##  $ Time        :      "21:00" "17:00" "21:00" "13:00" ...</span></span>
+<span id="cb26-6"><a></a><span class="do">##  $ Home        :      "Monaco" "Lyon" "Troyes" "Rennes" ...</span></span>
+<span id="cb26-7"><a></a><span class="do">##  $ xG          :      2 1.4 0.8 0.6 0.7 0.4 0.8 2.1 0.7 0.5 ...</span></span>
+<span id="cb26-8"><a></a><span class="do">##  $ Score       :      "1–1" "1–1" "1–2" "1–1" ...</span></span>
+<span id="cb26-9"><a></a><span class="do">##  $ xG.1        :      0.3 0.8 1.2 2 3.3 0.9 0.2 1.3 1.4 2 ...</span></span>
+<span id="cb26-10"><a></a><span class="do">##  $ Away        :      "Nantes" "Brest" "Paris S-G" "Lens" ...</span></span>
+<span id="cb26-11"><a></a><span class="do">##  $ Attendance  :      7500 29018 15248 22567 18748 23250 18030 20461 15551 13500 ...</span></span>
+<span id="cb26-12"><a></a><span class="do">##  $ Venue       :      "Stade Louis II." "Groupama Stadium" "Stade de l'Aube" "Roazhon Park" ...</span></span>
+<span id="cb26-13"><a></a><span class="do">##  $ Referee     :      "Antony Gautier" "Mikael Lesage" "Amaury Delerue" "Bastien Dechepy" ...</span></span>
+<span id="cb26-14"><a></a><span class="do">##  $ Match.Report:      "Match Report" "Match Report" "Match Report" "Match Report" ...</span></span>
+<span id="cb26-15"><a></a><span class="do">##  $ Notes       :       NA NA NA NA NA NA ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-structure-5" class="slide level2">
@@ -1039,24 +1063,24 @@
 <li>As well as the <strong>class</strong> of each variable</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
-<span id="cb27-2"><a></a><span class="do">##  $ Wk          : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span id="cb27-3"><a></a><span class="do">##  $ Day         : chr  "Fri" "Sat" "Sat" "Sun" ...</span></span>
-<span id="cb27-4"><a></a><span class="do">##  $ Date        : chr  "2021-08-06" "2021-08-07" "2021-08-07" "2021-08-08" ...</span></span>
-<span id="cb27-5"><a></a><span class="do">##  $ Time        : chr  "21:00" "17:00" "21:00" "13:00" ...</span></span>
-<span id="cb27-6"><a></a><span class="do">##  $ Home        : chr  "Monaco" "Lyon" "Troyes" "Rennes" ...</span></span>
-<span id="cb27-7"><a></a><span class="do">##  $ xG          : num  2 1.4 0.8 0.6 0.7 0.4 0.8 2.1 0.7 0.5 ...</span></span>
-<span id="cb27-8"><a></a><span class="do">##  $ Score       : chr  "1–1" "1–1" "1–2" "1–1" ...</span></span>
-<span id="cb27-9"><a></a><span class="do">##  $ xG.1        : num  0.3 0.8 1.2 2 3.3 0.9 0.2 1.3 1.4 2 ...</span></span>
-<span id="cb27-10"><a></a><span class="do">##  $ Away        : chr  "Nantes" "Brest" "Paris S-G" "Lens" ...</span></span>
-<span id="cb27-11"><a></a><span class="do">##  $ Attendance  : int  7500 29018 15248 22567 18748 23250 18030 20461 15551 13500 ...</span></span>
-<span id="cb27-12"><a></a><span class="do">##  $ Venue       : chr  "Stade Louis II." "Groupama Stadium" "Stade de l'Aube" "Roazhon Park" ...</span></span>
-<span id="cb27-13"><a></a><span class="do">##  $ Referee     : chr  "Antony Gautier" "Mikael Lesage" "Amaury Delerue" "Bastien Dechepy" ...</span></span>
-<span id="cb27-14"><a></a><span class="do">##  $ Match.Report: chr  "Match Report" "Match Report" "Match Report" "Match Report" ...</span></span>
-<span id="cb27-15"><a></a><span class="do">##  $ Notes       : logi  NA NA NA NA NA NA ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
+<span id="cb28-2"><a></a><span class="do">##  $ Wk          : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb28-3"><a></a><span class="do">##  $ Day         : chr  "Fri" "Sat" "Sat" "Sun" ...</span></span>
+<span id="cb28-4"><a></a><span class="do">##  $ Date        : chr  "2021-08-06" "2021-08-07" "2021-08-07" "2021-08-08" ...</span></span>
+<span id="cb28-5"><a></a><span class="do">##  $ Time        : chr  "21:00" "17:00" "21:00" "13:00" ...</span></span>
+<span id="cb28-6"><a></a><span class="do">##  $ Home        : chr  "Monaco" "Lyon" "Troyes" "Rennes" ...</span></span>
+<span id="cb28-7"><a></a><span class="do">##  $ xG          : num  2 1.4 0.8 0.6 0.7 0.4 0.8 2.1 0.7 0.5 ...</span></span>
+<span id="cb28-8"><a></a><span class="do">##  $ Score       : chr  "1–1" "1–1" "1–2" "1–1" ...</span></span>
+<span id="cb28-9"><a></a><span class="do">##  $ xG.1        : num  0.3 0.8 1.2 2 3.3 0.9 0.2 1.3 1.4 2 ...</span></span>
+<span id="cb28-10"><a></a><span class="do">##  $ Away        : chr  "Nantes" "Brest" "Paris S-G" "Lens" ...</span></span>
+<span id="cb28-11"><a></a><span class="do">##  $ Attendance  : int  7500 29018 15248 22567 18748 23250 18030 20461 15551 13500 ...</span></span>
+<span id="cb28-12"><a></a><span class="do">##  $ Venue       : chr  "Stade Louis II." "Groupama Stadium" "Stade de l'Aube" "Roazhon Park" ...</span></span>
+<span id="cb28-13"><a></a><span class="do">##  $ Referee     : chr  "Antony Gautier" "Mikael Lesage" "Amaury Delerue" "Bastien Dechepy" ...</span></span>
+<span id="cb28-14"><a></a><span class="do">##  $ Match.Report: chr  "Match Report" "Match Report" "Match Report" "Match Report" ...</span></span>
+<span id="cb28-15"><a></a><span class="do">##  $ Notes       : logi  NA NA NA NA NA NA ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-structure-6" class="slide level2">
@@ -1065,24 +1089,24 @@
 <li>But what does the <strong>class</strong> correspond to?</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
-<span id="cb29-2"><a></a><span class="do">##  $ Wk          : int  ?</span></span>
-<span id="cb29-3"><a></a><span class="do">##  $ Day         : chr  ?</span></span>
-<span id="cb29-4"><a></a><span class="do">##  $ Date        : chr  ?</span></span>
-<span id="cb29-5"><a></a><span class="do">##  $ Time        : chr  ?</span></span>
-<span id="cb29-6"><a></a><span class="do">##  $ Home        : chr  ?</span></span>
-<span id="cb29-7"><a></a><span class="do">##  $ xG          : num  ?</span></span>
-<span id="cb29-8"><a></a><span class="do">##  $ Score       : chr  ?</span></span>
-<span id="cb29-9"><a></a><span class="do">##  $ xG.1        : num  ?</span></span>
-<span id="cb29-10"><a></a><span class="do">##  $ Away        : chr  ?</span></span>
-<span id="cb29-11"><a></a><span class="do">##  $ Attendance  : int  ?</span></span>
-<span id="cb29-12"><a></a><span class="do">##  $ Venue       : chr  ?</span></span>
-<span id="cb29-13"><a></a><span class="do">##  $ Referee     : chr  ?</span></span>
-<span id="cb29-14"><a></a><span class="do">##  $ Match.Report: chr  ?</span></span>
-<span id="cb29-15"><a></a><span class="do">##  $ Notes       : logi  ?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
+<span id="cb30-2"><a></a><span class="do">##  $ Wk          : int  ?</span></span>
+<span id="cb30-3"><a></a><span class="do">##  $ Day         : chr  ?</span></span>
+<span id="cb30-4"><a></a><span class="do">##  $ Date        : chr  ?</span></span>
+<span id="cb30-5"><a></a><span class="do">##  $ Time        : chr  ?</span></span>
+<span id="cb30-6"><a></a><span class="do">##  $ Home        : chr  ?</span></span>
+<span id="cb30-7"><a></a><span class="do">##  $ xG          : num  ?</span></span>
+<span id="cb30-8"><a></a><span class="do">##  $ Score       : chr  ?</span></span>
+<span id="cb30-9"><a></a><span class="do">##  $ xG.1        : num  ?</span></span>
+<span id="cb30-10"><a></a><span class="do">##  $ Away        : chr  ?</span></span>
+<span id="cb30-11"><a></a><span class="do">##  $ Attendance  : int  ?</span></span>
+<span id="cb30-12"><a></a><span class="do">##  $ Venue       : chr  ?</span></span>
+<span id="cb30-13"><a></a><span class="do">##  $ Referee     : chr  ?</span></span>
+<span id="cb30-14"><a></a><span class="do">##  $ Match.Report: chr  ?</span></span>
+<span id="cb30-15"><a></a><span class="do">##  $ Notes       : logi  ?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="classes" class="slide level2">
@@ -1092,13 +1116,13 @@
 <h3 id="numeric">Numeric</h3>
 <p>These are simply numbers:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">class</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">class</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">class</span>(<span class="sc">-</span><span class="fl">1.89278</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">class</span>(<span class="sc">-</span><span class="fl">1.89278</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
@@ -1115,13 +1139,13 @@
 <h3 id="character">Character</h3>
 <p>They must be surrounded by <code>"</code> or <code>'</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">class</span>(<span class="st">"Paris Saint-Germain"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">class</span>(<span class="st">"Paris Saint-Germain"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">class</span>(<span class="st">"35"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">class</span>(<span class="st">"35"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
@@ -1136,21 +1160,21 @@
 </div><div class="column fragment" style="width:33%;">
 <!-- -->
 <h3 id="logical">Logical</h3>
-<p>They must be surrounded by <code>"</code> or <code>'</code>:</p>
+<p>Something either <code>TRUE</code> of <code>FALSE</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="dv">3</span> <span class="sc">&gt;=</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="dv">3</span> <span class="sc">&gt;=</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">class</span>(<span class="dv">3</span> <span class="sc">&gt;=</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">class</span>(<span class="dv">3</span> <span class="sc">&gt;=</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "logical"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">class</span>(<span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">class</span>(<span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "logical"</code></pre>
 </div>
@@ -1210,7 +1234,7 @@
 <div class="fragment">
 <p>Guess the output!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">as.numeric</span>(<span class="st">"2022"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">as.numeric</span>(<span class="st">"2022"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1221,7 +1245,7 @@
 <div class="fragment">
 <p>What about this one?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="fu">as.character</span>(<span class="dv">2022-2023</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="fu">as.character</span>(<span class="dv">2022-2023</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1232,7 +1256,7 @@
 <div class="fragment">
 <p>And a final one.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a><span class="fu">as.character</span>(<span class="dv">2022</span><span class="sc">&gt;</span><span class="dv">2023</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="fu">as.character</span>(<span class="dv">2022</span><span class="sc">&gt;</span><span class="dv">2023</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1298,7 +1322,7 @@ Returns NA otherwise</td>
 <h2>Classes</h2>
 <p>One last mystery…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   380 obs. of  14 variables:
  $ Wk          : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -1322,31 +1346,31 @@ Returns NA otherwise</td>
 <h2>Classes</h2>
 <p>Are these dollar signs here for a reason?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
-<span id="cb53-2"><a></a><span class="do">##  $ Wk          </span></span>
-<span id="cb53-3"><a></a><span class="do">##  $ Day         </span></span>
-<span id="cb53-4"><a></a><span class="do">##  $ Date        </span></span>
-<span id="cb53-5"><a></a><span class="do">##  $ Time        </span></span>
-<span id="cb53-6"><a></a><span class="do">##  $ Home        </span></span>
-<span id="cb53-7"><a></a><span class="do">##  $ xG          </span></span>
-<span id="cb53-8"><a></a><span class="do">##  $ Score       </span></span>
-<span id="cb53-9"><a></a><span class="do">##  $ xG.1        </span></span>
-<span id="cb53-10"><a></a><span class="do">##  $ Away        </span></span>
-<span id="cb53-11"><a></a><span class="do">##  $ Attendance  </span></span>
-<span id="cb53-12"><a></a><span class="do">##  $ Venue       </span></span>
-<span id="cb53-13"><a></a><span class="do">##  $ Referee     </span></span>
-<span id="cb53-14"><a></a><span class="do">##  $ Match.Report</span></span>
-<span id="cb53-15"><a></a><span class="do">##  $ Notes </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a><span class="do">## 'data.frame':    380 obs. of  14 variables:</span></span>
+<span id="cb54-2"><a></a><span class="do">##  $ Wk          </span></span>
+<span id="cb54-3"><a></a><span class="do">##  $ Day         </span></span>
+<span id="cb54-4"><a></a><span class="do">##  $ Date        </span></span>
+<span id="cb54-5"><a></a><span class="do">##  $ Time        </span></span>
+<span id="cb54-6"><a></a><span class="do">##  $ Home        </span></span>
+<span id="cb54-7"><a></a><span class="do">##  $ xG          </span></span>
+<span id="cb54-8"><a></a><span class="do">##  $ Score       </span></span>
+<span id="cb54-9"><a></a><span class="do">##  $ xG.1        </span></span>
+<span id="cb54-10"><a></a><span class="do">##  $ Away        </span></span>
+<span id="cb54-11"><a></a><span class="do">##  $ Attendance  </span></span>
+<span id="cb54-12"><a></a><span class="do">##  $ Venue       </span></span>
+<span id="cb54-13"><a></a><span class="do">##  $ Referee     </span></span>
+<span id="cb54-14"><a></a><span class="do">##  $ Match.Report</span></span>
+<span id="cb54-15"><a></a><span class="do">##  $ Notes </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="vectors" class="slide level2">
 <h2>Vectors</h2>
 <p>It’s actually just a reference to the fact that <code>$</code> allows to <strong>extract a variable</strong> from a dataset</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>data<span class="sc">$</span>Home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>data<span class="sc">$</span>Home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] "Monaco"        "Lyon"          "Troyes"        "Rennes"       
   [5] "Bordeaux"      "Strasbourg"    "Nice"          "Saint-Étienne"
@@ -1459,8 +1483,8 @@ Returns NA otherwise</td>
 <div class="fragment">
 <p>We make our own vectors using the <code>c()</code>oncatenate function</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>some_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Hello world"</span>, <span class="dv">35</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb56-2"><a></a>some_vector </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>some_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Hello world"</span>, <span class="dv">35</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb57-2"><a></a>some_vector </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Hello world" "35"          "FALSE"      </code></pre>
 </div>
@@ -1469,7 +1493,7 @@ Returns NA otherwise</td>
 <div class="fragment">
 <p>Note that R will coerce the different elements into the same class when we create a vector (in this case character)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a><span class="fu">class</span>(some_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">class</span>(some_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
@@ -1482,14 +1506,14 @@ Returns NA otherwise</td>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">/</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">/</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3333333 0.6666667 1.0000000</code></pre>
 </div>
 </div>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a><span class="dv">3</span> <span class="sc">/</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a><span class="dv">3</span> <span class="sc">/</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.0 1.5 1.0</code></pre>
 </div>
@@ -1522,7 +1546,7 @@ Returns NA otherwise</td>
 <div class="fragment">
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a>data[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"Venue"</span>, <span class="st">"Attendance"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>data[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"Venue"</span>, <span class="st">"Attendance"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Venue Attendance
 1 Stade Louis II.       7500</code></pre>
@@ -1530,8 +1554,8 @@ Returns NA otherwise</td>
 </div>
 <p>We can also subset single vectors:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb66-2"><a></a>vector[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb67-2"><a></a>vector[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3 2</code></pre>
 </div>
@@ -1543,6 +1567,14 @@ Returns NA otherwise</td>
 <section class="slide level2">
 
 <h3 id="practice-1">Practice</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_d020267b" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
 <ol type="1">
 <li><p>Download and import the dataset if you haven’t already</p></li>
 <li><p>Combine the use of <code>[]</code> and the function <code>nrow()</code> to obtain the last value of the <code>Wk</code> variable</p></li>
@@ -1569,14 +1601,14 @@ Returns NA otherwise</td>
 <li>Download and import the dataset if you haven’t already</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jan/Downloads/ligue1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jan/Downloads/ligue1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Combine the use of <code>[]</code> and the function <code>nrow()</code> to obtain the last value of the <code>Wk</code> variable.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>last_week <span class="ot">&lt;-</span> data[<span class="fu">nrow</span>(data), <span class="st">"Wk"</span>]</span>
-<span id="cb69-2"><a></a>last_week</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a></a>last_week <span class="ot">&lt;-</span> data[<span class="fu">nrow</span>(data), <span class="st">"Wk"</span>]</span>
+<span id="cb70-2"><a></a>last_week</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 38</code></pre>
 </div>
@@ -1589,7 +1621,7 @@ Returns NA otherwise</td>
 </ol>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Wk"           "Day"          "Date"         "Time"         "Home"        
  [6] "xG"           "Score"        "xG.1"         "Away"         "Attendance"  
@@ -1599,7 +1631,7 @@ Returns NA otherwise</td>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a>data[Wk <span class="sc">==</span> last_week, <span class="fu">c</span>(<span class="st">"Home"</span>, <span class="st">"Score"</span>, <span class="st">"Away"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a></a>data[Wk <span class="sc">==</span> last_week, <span class="fu">c</span>(<span class="st">"Home"</span>, <span class="st">"Score"</span>, <span class="st">"Away"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-error">
@@ -1621,7 +1653,7 @@ Returns NA otherwise</td>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a></a>data[data<span class="sc">$</span>Wk <span class="sc">==</span> last_week, <span class="fu">c</span>(<span class="st">"Home"</span>, <span class="st">"Score"</span>, <span class="st">"Away"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a></a>data[data<span class="sc">$</span>Wk <span class="sc">==</span> last_week, <span class="fu">c</span>(<span class="st">"Home"</span>, <span class="st">"Score"</span>, <span class="st">"Away"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Home Score          Away
 371         Lille   2-2        Rennes
@@ -1650,7 +1682,6 @@ Returns NA otherwise</td>
 <li>About R</li>
 <li>The R Studio IDE</li>
 <li>Import and eyeball data</li>
-<li>Use functions</li>
 </ul></li>
 </ol>
 </div>
@@ -1681,14 +1712,14 @@ Returns NA otherwise</td>
 <!-- -->
 <h3 id="import-data">Import data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jan/Downloads/ligue1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jan/Downloads/ligue1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <!-- -->
 <h3 id="class">Class</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a></a><span class="fu">is.numeric</span>(<span class="st">"1.6180339"</span>) <span class="co"># What would be the output?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a></a><span class="fu">is.numeric</span>(<span class="st">"1.6180339"</span>) <span class="co"># What would be the output?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1700,7 +1731,7 @@ Returns NA otherwise</td>
 <!-- -->
 <h3 id="subsetting-1">Subsetting</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a></a>data<span class="sc">$</span>Home[<span class="dv">3</span>] <span class="co"># What would be the output?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a></a>data<span class="sc">$</span>Home[<span class="dv">3</span>] <span class="co"># What would be the output?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1720,7 +1751,6 @@ Returns NA otherwise</td>
 <li>About R</li>
 <li>The R Studio IDE</li>
 <li>Import and eyeball data</li>
-<li>Use functions</li>
 </ul></li>
 </ol>
 </div>
@@ -1978,14 +2008,14 @@ Returns NA otherwise</td>
 <li>Quarto and RMarkdown are publishing systems which use markdown language.</li>
 <li>They allow you to render to different outcome formats</li>
 </ul>
-<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a></a><span class="co"># To HTML</span></span>
-<span id="cb82-2"><a></a><span class="ex">quarto</span> render manuscript.qmd <span class="at">--to</span> html</span>
-<span id="cb82-3"><a></a></span>
-<span id="cb82-4"><a></a><span class="co"># To Word</span></span>
-<span id="cb82-5"><a></a><span class="ex">quarto</span> render manuscript.qmd <span class="at">--to</span> docx</span>
-<span id="cb82-6"><a></a></span>
-<span id="cb82-7"><a></a><span class="co"># To PDF (through LaTeX)</span></span>
-<span id="cb82-8"><a></a><span class="ex">quarto</span> render manuscript.qmd <span class="at">--to</span> pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a></a><span class="co"># To HTML</span></span>
+<span id="cb83-2"><a></a><span class="ex">quarto</span> render manuscript.qmd <span class="at">--to</span> html</span>
+<span id="cb83-3"><a></a></span>
+<span id="cb83-4"><a></a><span class="co"># To Word</span></span>
+<span id="cb83-5"><a></a><span class="ex">quarto</span> render manuscript.qmd <span class="at">--to</span> docx</span>
+<span id="cb83-6"><a></a></span>
+<span id="cb83-7"><a></a><span class="co"># To PDF (through LaTeX)</span></span>
+<span id="cb83-8"><a></a><span class="ex">quarto</span> render manuscript.qmd <span class="at">--to</span> pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>They allow to combine code, figures, tables, images, text etc. (more on that now)</li>
 </ul>
@@ -2111,14 +2141,14 @@ Returns NA otherwise</td>
 <ul>
 <li>It should be specified at the very beginning of the document and surrounded by three dashes like this:</li>
 </ul>
-<div class="sourceCode" id="cb83"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb83-1"><a></a><span class="co">---</span></span>
-<span id="cb83-2"><a></a><span class="an">title:</span><span class="co"> "My first Quarto document"</span></span>
-<span id="cb83-3"><a></a><span class="an">subtitle:</span><span class="co"> "What a blast"</span></span>
-<span id="cb83-4"><a></a><span class="an">author:</span><span class="co"> "My Name"</span></span>
-<span id="cb83-5"><a></a><span class="an">date:</span><span class="co"> "05/01/2024"</span></span>
-<span id="cb83-6"><a></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb83-7"><a></a><span class="an">editor:</span><span class="co"> source</span></span>
-<span id="cb83-8"><a></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb84-1"><a></a><span class="co">---</span></span>
+<span id="cb84-2"><a></a><span class="an">title:</span><span class="co"> "My first Quarto document"</span></span>
+<span id="cb84-3"><a></a><span class="an">subtitle:</span><span class="co"> "What a blast"</span></span>
+<span id="cb84-4"><a></a><span class="an">author:</span><span class="co"> "My Name"</span></span>
+<span id="cb84-5"><a></a><span class="an">date:</span><span class="co"> "05/01/2024"</span></span>
+<span id="cb84-6"><a></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb84-7"><a></a><span class="an">editor:</span><span class="co"> source</span></span>
+<span id="cb84-8"><a></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="basic-principles-1" class="slide level2">
@@ -2132,7 +2162,7 @@ Returns NA otherwise</td>
 <li>You can insert a code chunk using <code>Ctrl + Alt + i</code> or by typing the backticks chunk delimiters as follows</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -2143,7 +2173,7 @@ Returns NA otherwise</td>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -2161,14 +2191,14 @@ Returns NA otherwise</td>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb87"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb87-1"><a></a><span class="in">```{r, echo = F}</span></span>
-<span id="cb87-2"><a></a><span class="in">1+1</span></span>
-<span id="cb87-3"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb88-1"><a></a><span class="in">```{r, echo = F}</span></span>
+<span id="cb88-2"><a></a><span class="in">1+1</span></span>
+<span id="cb88-3"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb88"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb88-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb88-2"><a></a><span class="in">#| echo: false</span></span>
-<span id="cb88-3"><a></a><span class="in">1+1 </span></span>
-<span id="cb88-4"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb89-1"><a></a><span class="in">```{r}</span></span>
+<span id="cb89-2"><a></a><span class="in">#| echo: false</span></span>
+<span id="cb89-3"><a></a><span class="in">1+1 </span></span>
+<span id="cb89-4"><a></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <ul>
 <li>And the output will only be</li>
@@ -2182,7 +2212,7 @@ Returns NA otherwise</td>
 <li>Instead of</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -2256,13 +2286,13 @@ Returns NA otherwise</td>
 <ul>
 <li>For an option to be the default for the whole document, set it up in the YAML header:</li>
 </ul>
-<div class="sourceCode" id="cb92"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb92-1"><a></a><span class="co">---</span></span>
-<span id="cb92-2"><a></a><span class="an">title:</span><span class="co"> "My first Quarto document"</span></span>
-<span id="cb92-3"><a></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb92-4"><a></a><span class="an">execute:</span></span>
-<span id="cb92-5"><a></a><span class="co">  echo: false</span></span>
-<span id="cb92-6"><a></a><span class="co">  warning: false</span></span>
-<span id="cb92-7"><a></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb93-1"><a></a><span class="co">---</span></span>
+<span id="cb93-2"><a></a><span class="an">title:</span><span class="co"> "My first Quarto document"</span></span>
+<span id="cb93-3"><a></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb93-4"><a></a><span class="an">execute:</span></span>
+<span id="cb93-5"><a></a><span class="co">  echo: false</span></span>
+<span id="cb93-6"><a></a><span class="co">  warning: false</span></span>
+<span id="cb93-7"><a></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="basic-principles-5" class="slide level2">
 <h2>Basic principles</h2>
@@ -2288,10 +2318,10 @@ Returns NA otherwise</td>
 </thead>
 <tbody>
 <tr class="odd">
-<td><div class="sourceCode" id="cb93"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb93-1"><a></a>Some text in a paragraph.</span>
-<span id="cb93-2"><a></a></span>
-<span id="cb93-3"><a></a>More text in the next paragraph. Always</span>
-<span id="cb93-4"><a></a>use empty lines between paragraphs.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
+<td><div class="sourceCode" id="cb94"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb94-1"><a></a>Some text in a paragraph.</span>
+<span id="cb94-2"><a></a></span>
+<span id="cb94-3"><a></a>More text in the next paragraph. Always</span>
+<span id="cb94-4"><a></a>use empty lines between paragraphs.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></td>
 <td><p>Some text in a paragraph.</p>
 <p>More text in the next paragraph. Always use empty lines between paragraphs.</p></td>
 </tr>
@@ -2358,13 +2388,13 @@ Returns NA otherwise</td>
 <li>Quarto allows to include R output directly in text</li>
 <li>To do this, use <code>`r r_code_here`</code></li>
 </ul>
-<div class="sourceCode" id="cb94"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb94-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb94-2"><a></a><span class="in">#| label: find-avg-mpg</span></span>
-<span id="cb94-3"><a></a><span class="in">#| echo: false</span></span>
-<span id="cb94-4"><a></a><span class="in">number_of_days &lt;- 5</span></span>
-<span id="cb94-5"><a></a><span class="in">```</span></span>
-<span id="cb94-6"><a></a></span>
-<span id="cb94-7"><a></a>We are <span class="in">`r number_of_days`</span> days into the week. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb95-1"><a></a><span class="in">```{r}</span></span>
+<span id="cb95-2"><a></a><span class="in">#| label: find-avg-mpg</span></span>
+<span id="cb95-3"><a></a><span class="in">#| echo: false</span></span>
+<span id="cb95-4"><a></a><span class="in">number_of_days &lt;- 5</span></span>
+<span id="cb95-5"><a></a><span class="in">```</span></span>
+<span id="cb95-6"><a></a></span>
+<span id="cb95-7"><a></a>We are <span class="in">`r number_of_days`</span> days into the week. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>… would render to this:</p>
 <blockquote>
 <p>We are 5 days into the week.</p>

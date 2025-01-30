@@ -5305,7 +5305,7 @@
     "href": "01-class/slides.html#overview",
     "title": "Introduction to R, RStudio and Quarto",
     "section": "Overview",
-    "text": "Overview\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\nUse functions\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting\n\nWrap Up\n\nSummary and key takeaways\n\n\n\n\nMarkdown and universal writing\n\nOffice Model vs. Engineering Model\nExcel failures\nMarkdown\n\nWriting reports in Quarto\n\nWhat is Quarto?\nYAML header\nCode chunks\nText formatting\nRun and render your code\nInline code\nTables\nPreset themes\nReport parameters"
+    "text": "Overview\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting\n\nWrap Up\n\nSummary and key takeaways\n\n\n\n\nMarkdown and universal writing\n\nOffice Model vs. Engineering Model\nExcel failures\nMarkdown\n\nWriting reports in Quarto\n\nWhat is Quarto?\nYAML header\nCode chunks\nText formatting\nRun and render your code\nInline code\nTables\nPreset themes\nReport parameters"
   },
   {
     "objectID": "01-class/slides.html#about-r",
@@ -5325,15 +5325,15 @@
     "objectID": "01-class/slides.html#import-and-eyeball-data",
     "href": "01-class/slides.html#import-and-eyeball-data",
     "title": "Introduction to R, RStudio and Quarto",
-    "section": "Import and Eyeball data",
-    "text": "Import and Eyeball data\n\nWe now know how to use R as a calculator, but our goal is to analyze data!\n\nTake for instance the statistics from the last season of Ligue 1 available at fbref.com"
+    "section": "Import and Eyeball Data",
+    "text": "Import and Eyeball Data\n\nWe now know how to use R as a calculator, but our goal is to analyze data!\n\nTake for instance the statistics from the last season of Ligue 1 available at fbref.com"
   },
   {
     "objectID": "01-class/slides.html#import-and-eyeball-data-1",
     "href": "01-class/slides.html#import-and-eyeball-data-1",
     "title": "Introduction to R, RStudio and Quarto",
     "section": "Import and Eyeball Data",
-    "text": "Import and Eyeball Data\n\nYou can download the dataset for the 2021/22 season here or from the course webpage.\n\nNote that the file extension is .csv (for Comma Separated Values).\nLet’s take a look at the first 5 lines of the raw .csv file:\n\n\n\nWk,Day,Date,Time,Home,xG,Score,xG,Away,Attendance,Venue,Referee,Match Report,Notes\n1,Fri,2021-08-06,21:00,Monaco,2.0,1–1,0.3,Nantes,7500,Stade Louis II.,Antony Gautier,Match Report,\n1,Sat,2021-08-07,17:00,Lyon,1.4,1–1,0.8,Brest,29018,Groupama Stadium,Mikael Lesage,Match Report,\n1,Sat,2021-08-07,21:00,Troyes,0.8,1–2,1.2,Paris S-G,15248,Stade de l'Aube,Amaury Delerue,Match Report,\n1,Sun,2021-08-08,13:00,Rennes,0.6,1–1,2.0,Lens,22567,Roazhon Park,Bastien Dechepy,Match Report,\n\n\n\nThe .csv format is very common and follows a specific structure:\n\nEach line corresponds to a row (the first row typically contains column names).\nFor each row, values of each column are separated by commas.\n\nBut how do we get it into our RStudio environment?"
+    "text": "Import and Eyeball Data\n\nYou can download the dataset for the 2021/22 season by clicking here or from the course webpage.\n\nNote that the file extension is .csv (for Comma Separated Values).\nLet’s take a look at the first 5 lines of the raw .csv file:\n\n\n\nWk,Day,Date,Time,Home,xG,Score,xG,Away,Attendance,Venue,Referee,Match Report,Notes\n1,Fri,2021-08-06,21:00,Monaco,2.0,1–1,0.3,Nantes,7500,Stade Louis II.,Antony Gautier,Match Report,\n1,Sat,2021-08-07,17:00,Lyon,1.4,1–1,0.8,Brest,29018,Groupama Stadium,Mikael Lesage,Match Report,\n1,Sat,2021-08-07,21:00,Troyes,0.8,1–2,1.2,Paris S-G,15248,Stade de l'Aube,Amaury Delerue,Match Report,\n1,Sun,2021-08-08,13:00,Rennes,0.6,1–1,2.0,Lens,22567,Roazhon Park,Bastien Dechepy,Match Report,\n\n\n\nThe .csv format is very common and follows a specific structure:\n\nEach line corresponds to a row (the first row typically contains column names).\nFor each row, values of each column are separated by commas.\n\nBut how do we get it into our RStudio environment?"
   },
   {
     "objectID": "01-class/slides.html#import-and-eyeball-data-2",
@@ -5347,7 +5347,7 @@
     "href": "01-class/slides.html#overview-1",
     "title": "Introduction to R, RStudio and Quarto",
     "section": "Overview",
-    "text": "Overview\n\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\nUse functions\n\n\n\n\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting"
+    "text": "Overview\n\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\n\n\n\n\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting"
   },
   {
     "objectID": "01-class/slides.html#data-structure",
@@ -5403,7 +5403,7 @@
     "href": "01-class/slides.html#classes",
     "title": "Introduction to R, RStudio and Quarto",
     "section": "Classes",
-    "text": "Classes\n\n\nNumeric\nThese are simply numbers:\n\nclass(3)\n\n[1] \"numeric\"\n\n\n\nclass(-1.89278)\n\n[1] \"numeric\"\n\n\n\nNumeric variable classes include:\n\nint for round numbers\ndbl for 2-decimal numbers\n\n\n\n\nCharacter\nThey must be surrounded by \" or ':\n\nclass(\"Paris Saint-Germain\")\n\n[1] \"character\"\n\n\n\nclass(\"35\")\n\n[1] \"character\"\n\n\n\nWe also call these values:\n\nCharacter strings\nOr just strings\n\n\n\n\nLogical\nThey must be surrounded by \" or ':\n\n3 &gt;= 4\n\n[1] FALSE\n\n\n\nclass(3 &gt;= 4)\n\n[1] \"logical\"\n\n\n\nclass(TRUE)\n\n[1] \"logical\"\n\n\n\n\n\n\n\nOperator\nMeaning\n\n\n\n\n==\nEqual to\n\n\n&gt;\nGreater than\n\n\n&lt;\nLess than\n\n\n&gt;=\nGreater than or equal to\n\n\n&lt;=\nLess than or equal to\n\n\n&\nAnd\n\n\n|\nOr\n\n\n!\nOpposite"
+    "text": "Classes\n\n\nNumeric\nThese are simply numbers:\n\nclass(3)\n\n[1] \"numeric\"\n\n\n\nclass(-1.89278)\n\n[1] \"numeric\"\n\n\n\nNumeric variable classes include:\n\nint for round numbers\ndbl for 2-decimal numbers\n\n\n\n\nCharacter\nThey must be surrounded by \" or ':\n\nclass(\"Paris Saint-Germain\")\n\n[1] \"character\"\n\n\n\nclass(\"35\")\n\n[1] \"character\"\n\n\n\nWe also call these values:\n\nCharacter strings\nOr just strings\n\n\n\n\nLogical\nSomething either TRUE of FALSE:\n\n3 &gt;= 4\n\n[1] FALSE\n\n\n\nclass(3 &gt;= 4)\n\n[1] \"logical\"\n\n\n\nclass(TRUE)\n\n[1] \"logical\"\n\n\n\n\n\n\n\nOperator\nMeaning\n\n\n\n\n==\nEqual to\n\n\n&gt;\nGreater than\n\n\n&lt;\nLess than\n\n\n&gt;=\nGreater than or equal to\n\n\n&lt;=\nLess than or equal to\n\n\n&\nAnd\n\n\n|\nOr\n\n\n!\nOpposite"
   },
   {
     "objectID": "01-class/slides.html#classes-1",
@@ -5459,7 +5459,7 @@
     "href": "01-class/slides.html#overview-2",
     "title": "Introduction to R, RStudio and Quarto",
     "section": "Overview",
-    "text": "Overview\n\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\nUse functions\n\n\n\n\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting\n\n\n\n\n\nWrap Up\n\nSummary and key take-aways"
+    "text": "Overview\n\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\n\n\n\n\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting\n\n\n\n\n\nWrap Up\n\nSummary and key take-aways"
   },
   {
     "objectID": "01-class/slides.html#wrap-up",
@@ -5473,7 +5473,7 @@
     "href": "01-class/slides.html#overview-3",
     "title": "Introduction to R, RStudio and Quarto",
     "section": "Overview",
-    "text": "Overview\n\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\nUse functions\n\n\n\n\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting\n\n\n\n\n\nWrap Up\n\nSummary and key take-aways\n\n\n\n\n\n\nMarkdown and universal writing\n\nOffice Model vs. Engineering Model\nExcel failures\nMarkdown"
+    "text": "Overview\n\n\n\n\nGetting Started\n\nAbout R\nThe R Studio IDE\nImport and eyeball data\n\n\n\n\n\nAnatomy of a data.frame\n\nData structure\nClasses\nVectors\nSubsetting\n\n\n\n\n\nWrap Up\n\nSummary and key take-aways\n\n\n\n\n\n\nMarkdown and universal writing\n\nOffice Model vs. Engineering Model\nExcel failures\nMarkdown"
   },
   {
     "objectID": "01-class/slides.html#office-model-vs.-engineering-model",
