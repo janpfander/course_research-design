@@ -7,8 +7,16 @@ bibliography: ../references.bib
 source(here::here("R", "slide-things.R"))
 ```
 
-::: {.callout-caution}
-## Ups, there is no content here yet. 
+## Slides
 
-All materials, slides and assignments will be uploaded on the day of the class `r emoji::emoji("clock")` 
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("slides")
+```
+
+::: {.callout-caution}
+## More to come...
+
+This section will contain additional slides and homework next week (13/02).
 :::

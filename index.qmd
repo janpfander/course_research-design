@@ -25,9 +25,10 @@ library(kableExtra)
 #| echo: false
 schedule <- data.frame(
   a = c(" ", 
-        1:15),
+        0:14),
   b = c(
     " ",
+    text_spec("Welcome and Installation Party", link = "guides/install.qmd"),
     text_spec("Introduction to R, RStudio and Quarto", link = "01-class/index.qmd"),
     text_spec("Data Manipulation", link = "02-class/index.qmd"),
     text_spec("Variables, Distributions and Summary Statistics", link = "03-class/index.qmd"),
@@ -41,8 +42,7 @@ schedule <- data.frame(
     text_spec("Writing a Preregistration", link = "11-class/index.qmd"),
     text_spec("How to Read and Present a Scientific Paper", link = "12-class/index.qmd"),
     text_spec("Presentations Group Project", link = "13-class/index.qmd"),
-    text_spec("Meta-Analyses", link = "14-class/index.qmd"),
-    text_spec("Buffer Lecture", link = "15-class/index.qmd")
+    text_spec("Meta-Analyses", link = "14-class/index.qmd")
   ),
   c = c(
     "Date",

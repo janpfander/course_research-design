@@ -48,7 +48,7 @@
     "href": "01-class/index.html#assignment",
     "title": "Class 1: Introduction to R, Rstudio and Quarto",
     "section": "Assignment",
-    "text": "Assignment\n\nTask 1\nGet familiar with the syllabus of this course.\n\n\nTask 2\nRead the guide “Welcome to R, RStudio, and the tidyverse” on installation and install R, Rstudio, tidyverse (we’ll talk more about that soon) and tinytex.\n\n\nTask 3\nRead the guide on Rprojects, including the reference to this short chapter.\n\n\nTask 4\n\nCreate an RStudio Project.\nCreate a folder named “data” in the project folder you just made.\nDownload this CSV file and place it in that folder:\n\n\n cars.csv\n\n\nIn RStudio, go to “File” &gt; “New File…” &gt; “Quarto Document…” and click “OK” in the dialog without changing anything.\nDelete all the placeholder text in that new file and replace it by copy-pasting this:\n\n---\ntitle: \"Problem set 1\"\nauthor: \"Put your name here\"\nformat: \nhtml:\ntoc: true\npdf:\ntoc: true\ndocx:\ntoc: true\n---\n\n```{r packages}\nlibrary(tidyverse)\n```\n\n# Learning R\n\n[Give me some Feedback on how the this first class went.]\n\n[WRITE SOMETHING HERE LIKE \"It was not so hard and I managed to get it all done\" or whatever.]\n\n# Read the data\n\n&gt; Read the `cars.csv` data into R. Make sure to use the correct path (\"data/cars.csv\"). Name the data frame \"cars\" when reading it in. You don't need to understand what all the variables mean. \n\n[PUT CHUNK HERE]\n\n# What's the class of the `model` and the `year` variable?\n\n[PUT CHUNK HERE]\n\n&gt; Subset the cars data by selecting only rows that correspond to the manufacturer \"honda\" and that shows only the columns for models and the year. Name that subset \"honda_data\" and print it. \n\n[PUT CHUNK HERE] \n\n# My first plots\n\n&gt; You haven't learned about plots yet. But to give you a taste for what's coming, execute the code chunk below and let the magic happen. Make sure your data frame is named \"cars\" for this to work\n\nA plot on the distance that cars can travel per gallon. Note that we will hide the code when rendering by setting `echo: false`.\n\n```{r plot-data}\n#| echo: false\nggplot(cars, aes(x = hwy)) +\ngeom_histogram() +\nlabs(\ntitle = \"A Histogram\",\nx = \"Higway MPG*\", \ncaption = \"*miles per gallon, is the distance, measured in miles, that a car can travel per gallon of fuel.\"\n)\n```\n\nSave the Quarto file with some sort of name (without any spaces!)\nYour project folder should look something like this:\n\n\n\n\n\n\n\n\n\n\n\n\nTask 5\nWork with R:\n\nRemove all the place holder text indicated by [ ].\n\n\n\n\n\n\n\n\n\n\n\nFollow the instructions for the three chunks of code.\nRender your document as a PDF file. Use the “Render” menu:\n\n\n\n\n\n\n\n\n\n\n\nUpload the rendered document in the Homework section of this week on Moodle [add link].\n🎉 Party! 🎉\n\n\n\n\n\n\n\nTip\n\n\n\nYou’ll be doing this same process for all your future problem sets. Each problem set will involve a Quarto file. You can either create a new RStudio Project directory for all your work:\n\n\n\n\n\n\n\n\n\nOr you can create individual projects for each assignment and project:",
+    "text": "Assignment\n\nTask 1\nGet familiar with the syllabus of this course.\n\n\nTask 2\nRead the guide “Welcome to R, RStudio, and the tidyverse” on installation and install R, Rstudio, tidyverse (we’ll talk more about that soon) and tinytex.\n\n\nTask 3\nRead the guide on Rprojects, including the reference to this short chapter.\n\n\nTask 4\n\nCreate an RStudio Project.\nCreate a folder named “data” in the project folder you just made.\nDownload this CSV file and place it in that folder:\n\n\n cars.csv\n\n\nIn RStudio, go to “File” &gt; “New File…” &gt; “Quarto Document…” and click “OK” in the dialog without changing anything.\nDelete all the placeholder text in that new file and replace it by copy-pasting this:\n\n---\ntitle: \"Problem set 1\"\nauthor: \"Put your name here\"\nformat: \nhtml:\ntoc: true\npdf:\ntoc: true\ndocx:\ntoc: true\n---\n\n```{r packages}\nlibrary(tidyverse)\n```\n\n# Learning R\n\n[Give me some Feedback on how the this first class went.]\n\n[WRITE SOMETHING HERE LIKE \"It was not so hard and I managed to get it all done\" or whatever.]\n\n# Read the data\n\n&gt; Read the `cars.csv` data into R. Make sure to use the correct path (\"data/cars.csv\"). Name the data frame \"cars\" when reading it in. You don't need to understand what all the variables mean. \n\n[PUT CHUNK HERE]\n\n# What's the class of the `model` and the `year` variable?\n\n[PUT CHUNK HERE]\n\n&gt; Subset the cars data by selecting only rows that correspond to the manufacturer \"honda\" and that shows only the columns for models and the year. Name that subset \"honda_data\" and print it. \n\n[PUT CHUNK HERE] \n\n# My first plots\n\n&gt; You haven't learned about plots yet. But to give you a taste for what's coming, execute the code chunk below and let the magic happen. Make sure your data frame is named \"cars\" for this to work\n\nA plot on the distance that cars can travel per gallon. Note that we will hide the code when rendering by setting `echo: false`.\n\n```{r plot-data}\n#| echo: false\nggplot(cars, aes(x = hwy)) +\ngeom_histogram() +\nlabs(\ntitle = \"A Histogram\",\nx = \"Higway MPG*\", \ncaption = \"*miles per gallon, is the distance, measured in miles, that a car can travel per gallon of fuel.\"\n)\n```\n\nSave the Quarto file with some sort of name (without any spaces!)\nYour project folder should look something like this:\n\n\n\n\n\n\n\n\n\n\n\n\nTask 5\nWork with R:\n\nRemove all the place holder text indicated by [ ].\n\n\n\n\n\n\n\n\n\n\n\nFollow the instructions for the three chunks of code.\nRender your document, either as a .pdf or a .html file. Use the “Render” menu:\n\n\n\n\n\n\n\n\n\n\n\nUpload the rendered document in the Homework section on Moodle, under “Assignment 1”.\n🎉 Party! 🎉\n\n\n\n\n\n\n\nTip\n\n\n\nYou’ll be doing this same process for all your future problem sets. Each problem set will involve a Quarto file. You can either create a new RStudio Project directory for all your work:\n\n\n\n\n\n\n\n\n\nOr you can create individual projects for each assignment and project:",
     "crumbs": [
       "Content",
       "01 - Introduction to R, RStudio and Quarto"
@@ -203,21 +203,21 @@
     "href": "02-class/slides.html#packages-2",
     "title": "Data manipulation basics",
     "section": "Packages",
-    "text": "Packages\n\nSo far we only used functions that are directly available in R\n\nBut there are tons of user-created functions out there that can make your life so much easier\nThese functions are shared in what we call packages\n\nPackages are bundles of functions that R users put at the disposal of other R users\n\nPackages are centralized on the Comprehensive R Archive Network (CRAN)\nTo download and install a CRAN package you can simply type `install.packages()"
+    "text": "Packages\n\n\nSo far we only used functions that are directly available in R\n\nBut there are tons of user-created functions out there that can make your life so much easier\nThese functions are shared in what we call packages\n\nPackages are bundles of functions that R users put at the disposal of other R users\n\nPackages are centralized on the Comprehensive R Archive Network (CRAN)\nTo download and install a CRAN package you can simply type `install.packages()"
   },
   {
     "objectID": "02-class/slides.html#using-packages",
     "href": "02-class/slides.html#using-packages",
     "title": "Data manipulation basics",
     "section": "Using packages",
-    "text": "Using packages\n\n\n\ninstall.packages(\"name\")\n\nDownloads files to your computer\nDo this once per computer\n\n\nlibrary(\"name\")\n\nLoads the package\nDo this once per R session"
+    "text": "Using packages\n\n\n\n\n\ninstall.packages(\"name\")\n\n\n\nfiles to your computer\nDo this once per computer\n\n\n\n\nlibrary(\"name\")\n\n\n\nLoads the package\nDo this once per R session"
   },
   {
     "objectID": "02-class/slides.html#the-tidyverse-1",
     "href": "02-class/slides.html#the-tidyverse-1",
     "title": "Data manipulation basics",
     "section": "The tidyverse",
-    "text": "The tidyverse\n\n\n“The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.”\n… the tidyverse makes data science faster, easier and more fun…"
+    "text": "The tidyverse\n\n\n“The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.”\n\n… the tidyverse makes data science faster, easier and more fun…"
   },
   {
     "objectID": "02-class/slides.html#the-tidyverse-2",
@@ -259,7 +259,7 @@
     "href": "02-class/slides.html#filter",
     "title": "Data manipulation basics",
     "section": "filter()",
-    "text": "filter()\nExtract rows that meet some sort of test\n\n\nThe general idea:\n\nfilter(\n  some_data, \n  ... # one or more tests \n  )\n\n\nLet’s try this on the gapminder data set that you’ve installed earlier.\n\nfilter(.data = gapminder, country == \"Denmark\")\n\n\n\n\n\n\ncountry\ncontinent\nyear\n\n\n\n\nDenmark\nEurope\n1952\n\n\nDenmark\nEurope\n1957\n\n\nDenmark\nEurope\n1962\n\n\nDenmark\nEurope\n1967\n\n\nDenmark\nEurope\n1972\n\n\n…\n…\n…"
+    "text": "filter()\nExtract rows that meet some sort of test\n\n\nThe general idea:\n\nfilter(\n  some_data, \n  ... # one or more tests \n  )\n\n\n\nLet’s try this on the gapminder data set that you’ve installed earlier.\n\n\n\nfilter(.data = gapminder, country == \"Denmark\")\n\n\n\n\n\n\n\n\ncountry\ncontinent\nyear\n\n\n\n\nDenmark\nEurope\n1952\n\n\nDenmark\nEurope\n1957\n\n\nDenmark\nEurope\n1962\n\n\nDenmark\nEurope\n1967\n\n\nDenmark\nEurope\n1972\n\n\n…\n…\n…"
   },
   {
     "objectID": "02-class/slides.html#logical-tests",
@@ -273,21 +273,21 @@
     "href": "02-class/slides.html#your-turn-1-filtering",
     "title": "Data manipulation basics",
     "section": "Your turn #1: Filtering",
-    "text": "Your turn #1: Filtering\nUse filter() and logical tests to show…\n\nThe data for Canada\nAll data for countries in Oceania\nRows where the life expectancy is greater than 82\n\n\n\n\n−+\n05:00"
+    "text": "Your turn #1: Filtering\nUse filter() and logical tests to show…\n\nThe data for Canada\nAll data for countries in Oceania\nRows where the life expectancy is greater than 82\n\n\n\n\n−+\n04:00"
   },
   {
     "objectID": "02-class/slides.html#your-turn-1-filtering-1",
     "href": "02-class/slides.html#your-turn-1-filtering-1",
     "title": "Data manipulation basics",
     "section": "Your turn #1: Filtering",
-    "text": "Your turn #1: Filtering\nUse filter() and logical tests to show…\n\nThe data for Canada\n\n\nfilter(gapminder, country == \"Canada\")\n\n\nAll data for countries in Oceania\n\n\nfilter(gapminder, continent == \"Oceania\")\n\n\nRows where the life expectancy is greater than 82\n\n\nfilter(gapminder, lifeExp &gt; 82)"
+    "text": "Your turn #1: Filtering\nUse filter() and logical tests to show…\n\n\nThe data for Canada\n\n\nfilter(gapminder, country == \"Canada\")\n\n\n\n\nAll data for countries in Oceania\n\n\nfilter(gapminder, continent == \"Oceania\")\n\n\n\n\nRows where the life expectancy is greater than 82\n\n\nfilter(gapminder, lifeExp &gt; 82)"
   },
   {
     "objectID": "02-class/slides.html#common-mistakes",
     "href": "02-class/slides.html#common-mistakes",
     "title": "Data manipulation basics",
     "section": "Common Mistakes",
-    "text": "Common Mistakes\n\nUsing = instead of ==\n\n\nBad\n\nfilter(gapminder, country = \"Canada\")\n\n\nGood\n\nfilter(gapminder, country == \"Canada\")\n\n\n\n\n\n\nForgetting quotes\n\n\nBad\n\nfilter(gapminder, country == Canada)\n\n\nGood\n\nfilter(gapminder, country == \"Canada\")"
+    "text": "Common Mistakes\n\nUsing = instead of ==\n\n\n\n\nBad\n\nfilter(gapminder, country = \"Canada\")\n\n\n\n\nGood\n\nfilter(gapminder, country == \"Canada\")\n\n\n\n\n\n\nForgetting quotes (\"\")\n\n\n\n\nBad\n\nfilter(gapminder, country == Canada)\n\n\n\n\nGood\n\nfilter(gapminder, country == \"Canada\")"
   },
   {
     "objectID": "02-class/slides.html#filter-with-multiple-conditions",
@@ -308,7 +308,7 @@
     "href": "02-class/slides.html#boolean-operators-1",
     "title": "Data manipulation basics",
     "section": "Boolean operators",
-    "text": "Boolean operators\nThe default is “and”\nThese do the same thing\n\n\n\nfilter(gapminder, \n       country == \"Denmark\", \n       year &gt; 2000)\n\n\n\nfilter(gapminder, \n       country == \"Denmark\" & \n         year &gt; 2000)"
+    "text": "Boolean operators\n\nThe default is “and”\n\n\nThese do the same thing:\n\n\n\nfilter(gapminder, \n       country == \"Denmark\", \n       year &gt; 2000)\n\n\n\nfilter(gapminder, \n       country == \"Denmark\" & \n         year &gt; 2000)"
   },
   {
     "objectID": "02-class/slides.html#your-turn-2-filtering",
@@ -329,7 +329,7 @@
     "href": "02-class/slides.html#common-mistakes-1",
     "title": "Data manipulation basics",
     "section": "Common Mistakes",
-    "text": "Common Mistakes\n\nCollapsing multiple tests into one\n\n\nBad\n\nfilter(gapminder, \n       1960 &lt; year &lt; 1980)\n\n\nGood\n\nfilter(gapminder,\n       year &gt; 1960, \n       year &lt; 1980)\n\n\n\n\n\n\nUsing multiple tests instead of %in%\n\n\nBad\n\nfilter(gapminder,\n       country == \"Mexico\",\n       country == \"Canada\",\n       country == \"United States\")\n\n\nGood\n\nfilter(gapminder,\n       country %in% c(\"Mexico\", \"Canada\",\n                      \"United States\"))"
+    "text": "Common Mistakes\n\nCollapsing multiple tests into one\n\n\n\n\nBad\n\nfilter(gapminder, \n       1960 &lt; year &lt; 1980)\n\n\n\n\nGood\n\nfilter(gapminder,\n       year &gt; 1960, \n       year &lt; 1980)\n\n\n\n\n\n\nUsing multiple tests instead of %in%\n\n\n\n\nBad\n\nfilter(gapminder,\n       country == \"Mexico\",\n       country == \"Canada\",\n       country == \"United States\")\n\n\n\n\nGood\n\nfilter(gapminder,\n       country %in% c(\"Mexico\", \"Canada\",\n                      \"United States\"))"
   },
   {
     "objectID": "02-class/slides.html#common-syntax",
@@ -343,14 +343,14 @@
     "href": "02-class/slides.html#mutate",
     "title": "Data manipulation basics",
     "section": "mutate()",
-    "text": "mutate()\nCreate new columns\n\n\nThe general idea:\n\nmutate(\n  some_data, \n  ... # new columns to make\n  )\n\n\n\nLet’s try this on the gapminder data\n\nmutate(gapminder, gdp = gdpPercap * pop)\n\n\n\n\n\n\ncountry\nyear\n…\ngdp\n\n\n\n\nAfghanistan\n1952\n…\n6567086330\n\n\nAfghanistan\n1957\n…\n7585448670\n\n\nAfghanistan\n1962\n…\n8758855797\n\n\nAfghanistan\n1967\n…\n9648014150\n\n\nAfghanistan\n1972\n…\n9678553274\n\n\nAfghanistan\n1977\n…\n11697659231"
+    "text": "mutate()\nCreate new columns\n\n\nThe general idea:\n\nmutate(\n  some_data, \n  ... # new columns to make\n  )\n\n\n\nLet’s try this on the gapminder data\n\nmutate(gapminder, gdp = gdpPercap * pop)\n\n\n\n\n\n\n\n\ncountry\nyear\n…\ngdp\n\n\n\n\nAfghanistan\n1952\n…\n6567086330\n\n\nAfghanistan\n1957\n…\n7585448670\n\n\nAfghanistan\n1962\n…\n8758855797\n\n\nAfghanistan\n1967\n…\n9648014150\n\n\nAfghanistan\n1972\n…\n9678553274\n\n\nAfghanistan\n1977\n…\n11697659231"
   },
   {
     "objectID": "02-class/slides.html#mutate-1",
     "href": "02-class/slides.html#mutate-1",
     "title": "Data manipulation basics",
     "section": "mutate()",
-    "text": "mutate()\nCreate new columns\n\n\nThe general idea:\n\nmutate(\n  some_data, \n  ... # new columns to make\n  )\n\n\nLet’s try this on the gapminder data\n\nmutate(gapminder, gdp = gdpPercap * pop,\n                  pop_mil = round(pop / 1000000))\n\n\n\n\n\n\ncountry\nyear\n…\ngdp\npop_mil\n\n\n\n\nAfghanistan\n1952\n…\n6567086330\n8\n\n\nAfghanistan\n1957\n…\n7585448670\n9\n\n\nAfghanistan\n1962\n…\n8758855797\n10\n\n\nAfghanistan\n1967\n…\n9648014150\n12\n\n\nAfghanistan\n1972\n…\n9678553274\n13\n\n\nAfghanistan\n1977\n…\n11697659231\n15"
+    "text": "mutate()\nCreate new columns\n\n\nThe general idea:\n\nmutate(\n  some_data, \n  ... # new columns to make\n  )\n\n\nWe can also create multiple new columns at once\n\n\nmutate(gapminder, gdp = gdpPercap * pop,\n                  pop_mil = round(pop / 1000000))\n\n\n\n\n\n\n\n\ncountry\nyear\n…\ngdp\npop_mil\n\n\n\n\nAfghanistan\n1952\n…\n6567086330\n8\n\n\nAfghanistan\n1957\n…\n7585448670\n9\n\n\nAfghanistan\n1962\n…\n8758855797\n10\n\n\nAfghanistan\n1967\n…\n9648014150\n12\n\n\nAfghanistan\n1972\n…\n9678553274\n13\n\n\nAfghanistan\n1977\n…\n11697659231\n15"
   },
   {
     "objectID": "02-class/slides.html#ifelse",
@@ -358,6 +358,13 @@
     "title": "Data manipulation basics",
     "section": "ifelse()",
     "text": "ifelse()\nDo conditional tests within mutate()\n\n\n\n\nifelse(test,\n       value_if_true, \n       value_if_false)\n\n\ntest = a logical test\nvalue_if_true = what happens if test is true\nvalue_if_false = what happens if test is false"
+  },
+  {
+    "objectID": "02-class/slides.html#ifelse-1",
+    "href": "02-class/slides.html#ifelse-1",
+    "title": "Data manipulation basics",
+    "section": "ifelse()",
+    "text": "ifelse()\nThe new variable can take any sort of class\n\n# a new logical variable\nmutate(gapminder, \n       after_1960 = ifelse(year &gt; 1960, TRUE, FALSE)\n       )\n\n\n\n# a new character variable\nmutate(gapminder, \n       after_1960 = ifelse(year &gt; 1960, \n                           \"After 1960\", \n                           \"Before 1960\")\n       )\n\n\n\n# a new numeric variable\nmutate(gapminder, \n       after_1960 = ifelse(year &gt; 1960, 0, 1)\n       )"
   },
   {
     "objectID": "02-class/slides.html#your-turn-3-mutating",
@@ -371,7 +378,7 @@
     "href": "02-class/slides.html#your-turn-3-mutating-1",
     "title": "Data manipulation basics",
     "section": "Your turn #3: Mutating",
-    "text": "Your turn #3: Mutating\nUse mutate() to…\n\nAdd an africa column that is TRUE if the country is on the African continent\n\n\nmutate(gapminder, africa = ifelse(continent == \"Africa\", \n                                  TRUE, FALSE))\n\n\nAdd a column for logged GDP per capita (hint: use log())\n\n\nmutate(gapminder, log_gdpPercap = log(gdpPercap))\n\n\nAdd an africa_asia column that says “Africa or Asia” if the country is in Africa or Asia, and “Not Africa or Asia” if it’s not\n\n\nmutate(gapminder, \n       africa_asia = \n         ifelse(continent %in% c(\"Africa\", \"Asia\"), \n                \"Africa or Asia\", \n                \"Not Africa or Asia\"))"
+    "text": "Your turn #3: Mutating\nUse mutate() to…\n\n\nAdd an africa column that is TRUE if the country is on the African continent\n\n\nmutate(gapminder, africa = ifelse(continent == \"Africa\", \n                                  TRUE, FALSE))\n\n\n\n\nAdd a column for logged GDP per capita (hint: use log())\n\n\nmutate(gapminder, log_gdpPercap = log(gdpPercap))\n\n\n\n\nAdd an africa_asia column that says “Africa or Asia” if the country is in Africa or Asia, and “Not Africa or Asia” if it’s not\n\n\nmutate(gapminder, \n       africa_asia = \n         ifelse(continent %in% c(\"Africa\", \"Asia\"), \n                \"Africa or Asia\", \n                \"Not Africa or Asia\"))"
   },
   {
     "objectID": "02-class/slides.html#what-if-you-have-multiple-verbs",
@@ -385,14 +392,14 @@
     "href": "02-class/slides.html#section",
     "title": "Data manipulation basics",
     "section": "|>",
-    "text": "|&gt;\n\n\nleave_house(get_dressed(get_out_of_bed(wake_up(me, time = \"8:00\"), side = \"correct\"),\n    pants = TRUE, shirt = TRUE), car = TRUE, bike = FALSE)\n\n\n\n\n\nme |&gt; \n  wake_up(time = \"8:00\") |&gt; \n  get_out_of_bed(side = \"correct\") |&gt; \n  get_dressed(pants = TRUE, shirt = TRUE) |&gt; \n  leave_house(car = TRUE, bike = FALSE)"
+    "text": "|&gt;\nWhy using pipes?\n\n\nleave_house(get_dressed(get_out_of_bed(wake_up(me, time = \"8:00\"), side = \"correct\"),\n    pants = TRUE, shirt = TRUE), car = TRUE, bike = FALSE)\n\n… 🤯 not easy to read\n\n\n\n\nme |&gt; \n  wake_up(time = \"8:00\") |&gt; \n  get_out_of_bed(side = \"correct\") |&gt; \n  get_dressed(pants = TRUE, shirt = TRUE) |&gt; \n  leave_house(car = TRUE, bike = FALSE)\n\n… 🎉 easy to read"
   },
   {
     "objectID": "02-class/slides.html#vs",
     "href": "02-class/slides.html#vs",
     "title": "Data manipulation basics",
     "section": "|> vs %>%",
-    "text": "|&gt; vs %&gt;%\n\nThere are actually multiple pipes!\n%&gt;% was invented first, but requires a package to use\n|&gt; is part of base R\nThey’re interchangeable 99% of the time (Just be consistent)"
+    "text": "|&gt; vs %&gt;%\n\nThere are actually multiple pipes!\n%&gt;% was invented first, but requires a package to use\n|&gt; is part of base R\nThey’re interchangeable 99% of the time (Just be consistent)\n\n\n\n\n\n\n\n\nYou do not have to type the pipe by hand every time\n\n\nYou can use the shortcut cmd + shift + m in R Studio."
   },
   {
     "objectID": "02-class/slides.html#summarize",
@@ -413,7 +420,7 @@
     "href": "02-class/slides.html#your-turn-4-summarizing-1",
     "title": "Data manipulation basics",
     "section": "Your turn #4: Summarizing",
-    "text": "Your turn #4: Summarizing\nUse summarize() to calculate…\n\nThe first (minimum) year in the dataset\nThe last (maximum) year in the dataset\nThe number of rows in the dataset (use the cheatsheet)\nThe number of distinct countries in the dataset (use the cheatsheet)\n\n\ngapminder |&gt; \n  summarize(first = min(year),\n            last = max(year),\n            num_rows = n(),\n            num_unique = n_distinct(country))"
+    "text": "Your turn #4: Summarizing\nOne Solution for all:\n\ngapminder |&gt; \n  summarize(first = min(year),\n            last = max(year),\n            num_rows = n(),\n            num_unique = n_distinct(country))\n\n# A tibble: 1 × 4\n  first  last num_rows num_unique\n  &lt;int&gt; &lt;int&gt;    &lt;int&gt;      &lt;int&gt;\n1  1952  2007     1704        142"
   },
   {
     "objectID": "02-class/slides.html#your-turn-5-summarizing",
@@ -427,7 +434,7 @@
     "href": "02-class/slides.html#your-turn-5-summarizing-1",
     "title": "Data manipulation basics",
     "section": "Your turn #5: Summarizing",
-    "text": "Your turn #5: Summarizing\nUse filter() and summarize() to calculate…\n\nthe number of unique countries and\nthe median life expectancy\n\non the African continent in 2007.\n\ngapminder |&gt;\n  filter(continent == \"Africa\", year == 2007) |&gt;\n  summarise(n_countries = n_distinct(country), \n            med_le = median(lifeExp))"
+    "text": "Your turn #5: Summarizing\nUse filter() and summarize() to calculate…\n\nthe number of unique countries and\nthe median life expectancy\n\non the African continent in 2007.\n\ngapminder |&gt;\n  filter(continent == \"Africa\", year == 2007) |&gt;\n  summarise(n_countries = n_distinct(country), \n            med_le = median(lifeExp))\n\n# A tibble: 1 × 2\n  n_countries med_le\n        &lt;int&gt;  &lt;dbl&gt;\n1          52   52.9"
   },
   {
     "objectID": "02-class/slides.html#group_by",
@@ -1289,7 +1296,7 @@
     "href": "index.html#schedule",
     "title": "Epistémologie et Esprit Critique ",
     "section": "Schedule",
-    "text": "Schedule\n\n\n\n\n\n\n\nDate\nTime\nPlace*\n\n\nI Data Analysis\n\n\n1\nIntroduction to R, RStudio and Quarto\n30/01/2025\n10h15 - 12h15\nSalle 3\n\n\n2\nData Manipulation\n06/02/25\n10h15 - 12h15\nSalle 3\n\n\n3\nVariables, Distributions and Summary Statistics\n13/02/25\n10h15 - 12h15\nSalle 3\n\n\n4\nData Visualization\n20/02/25\n10h15 - 12h15\nSalle 3\n\n\nII Statistics\n\n\n5\nStatistical Inference\n06/03/25\n10h15 - 12h15\nSalle 3\n\n\n6\nStatistical Power\n13/03/25\n10h15 - 12h15\nSalle 3\n\n\n7\nLinear Regression\n20/03/25\n10h15 - 12h15\nSalle 3\n\n\nIII Causal Inference\n\n\n8\nColliders and Confounders\n27/03/25\n10h15 - 12h15\nSalle 3\n\n\n9\nRCTs and Validity\n02/04/25\n10h15 - 12h15\nSalle 5\n\n\nIV Science\n\n\n10\nScientific Publishing and the Replication Crisis\n03/04/25\n10h15 - 12h15\nSalle 3\n\n\n11\nWriting a Preregistration\n10/04/25\n10h15 - 12h15\nSalle 3\n\n\n12\nHow to Read and Present a Scientific Paper\n17/04/25\n10h15 - 12h15\nSalle 3\n\n\n13\nPresentations Group Project\n15/05/25\n10h15 - 12h15\nSalle 3\n\n\n14\nMeta-Analyses\n22/05/25\n10h15 - 12h15\nSalle 3\n\n\n15\nBuffer Lecture\n05/06/25\n10h15 - 12h15\nSalle 3\n\n\n\nNote:\n\n\n\n\n\n\n* 48 blvd Jourdan, Paris 14ème",
+    "text": "Schedule\n\n\n\n\n\n\n\nDate\nTime\nPlace*\n\n\nI Data Analysis\n\n\n0\nWelcome and Installation Party\n30/01/2025\n10h15 - 12h15\nSalle 3\n\n\n1\nIntroduction to R, RStudio and Quarto\n06/02/25\n10h15 - 12h15\nSalle 3\n\n\n2\nData Manipulation\n13/02/25\n10h15 - 12h15\nSalle 3\n\n\n3\nVariables, Distributions and Summary Statistics\n20/02/25\n10h15 - 12h15\nSalle 3\n\n\nII Statistics\n\n\n4\nData Visualization\n06/03/25\n10h15 - 12h15\nSalle 3\n\n\n5\nStatistical Inference\n13/03/25\n10h15 - 12h15\nSalle 3\n\n\n6\nStatistical Power\n20/03/25\n10h15 - 12h15\nSalle 3\n\n\nIII Causal Inference\n\n\n7\nLinear Regression\n27/03/25\n10h15 - 12h15\nSalle 3\n\n\n8\nColliders and Confounders\n02/04/25\n10h15 - 12h15\nSalle 5\n\n\nIV Science\n\n\n9\nRCTs and Validity\n03/04/25\n10h15 - 12h15\nSalle 3\n\n\n10\nScientific Publishing and the Replication Crisis\n10/04/25\n10h15 - 12h15\nSalle 3\n\n\n11\nWriting a Preregistration\n17/04/25\n10h15 - 12h15\nSalle 3\n\n\n12\nHow to Read and Present a Scientific Paper\n15/05/25\n10h15 - 12h15\nSalle 3\n\n\n13\nPresentations Group Project\n22/05/25\n10h15 - 12h15\nSalle 3\n\n\n14\nMeta-Analyses\n05/06/25\n10h15 - 12h15\nSalle 3\n\n\n\nNote:\n\n\n\n\n\n\n* 48 blvd Jourdan, Paris 14ème",
     "crumbs": [
       "Home"
     ]
@@ -4440,7 +4447,18 @@
     "href": "02-class/index.html",
     "title": "Class 2: Data manipulation basics",
     "section": "",
-    "text": "Ups, there is no content here yet.\n\n\n\nAll materials, slides and assignments will be uploaded on the day of the class 🕓",
+    "text": "The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\n\n\n\n\nMore to come…\n\n\n\nThis section will contain additional slides and homework next week (13/02).",
+    "crumbs": [
+      "Content",
+      "02 - Data Manipulation"
+    ]
+  },
+  {
+    "objectID": "02-class/index.html#slides",
+    "href": "02-class/index.html#slides",
+    "title": "Class 2: Data manipulation basics",
+    "section": "",
+    "text": "The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\n\n\n\n\nMore to come…\n\n\n\nThis section will contain additional slides and homework next week (13/02).",
     "crumbs": [
       "Content",
       "02 - Data Manipulation"

@@ -448,42 +448,56 @@
 </section>
 <section id="packages-2" class="slide level2">
 <h2>Packages</h2>
+<div>
 <ul>
-<li>So far we only used functions that are directly available in R
+<li class="fragment">So far we only used functions that are directly available in R
 <ul>
-<li>But there are tons of user-created functions out there that can make your life so much easier</li>
-<li>These functions are shared in what we call packages</li>
+<li class="fragment">But there are tons of user-created functions out there that can make your life so much easier</li>
+<li class="fragment">These functions are shared in what we call packages</li>
 </ul></li>
-<li>Packages are bundles of functions that R users put at the disposal of other R users
+<li class="fragment">Packages are bundles of functions that R users put at the disposal of other R users
 <ul>
-<li>Packages are centralized on the Comprehensive R Archive Network (CRAN)</li>
-<li>To download and install a CRAN package you can simply type `install.packages()</li>
+<li class="fragment">Packages are centralized on the Comprehensive R Archive Network (CRAN)</li>
+<li class="fragment">To download and install a CRAN package you can simply type `install.packages()</li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="using-packages" class="slide level2">
 <h2>Using packages</h2>
+<div>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Downloads files to your computer</p>
-<p>Do this once per computer</p>
+</div>
+<ul>
+<li class="fragment"><p>files to your computer</p></li>
+<li class="fragment"><p>Do this once per computer</p></li>
+</ul>
 </div><div class="column" style="width:50%;">
+<div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(<span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Loads the package</p>
-<p>Do this once per R session</p>
+</div>
+<ul>
+<li class="fragment"><p>Loads the package</p></li>
+<li class="fragment"><p>Do this once per R session</p></li>
+</ul>
 </div></div>
+</div>
 </section>
 <section id="the-tidyverse-1" class="slide level2">
 <h2>The <code>tidyverse</code></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>“The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.”</p>
+<p>“The tidyverse is an opinionated collection of R packages designed for data science. <span class="fragment fade-in">All packages share an underlying design philosophy, grammar, and data structures.”</span></p>
+<div class="fragment">
 <p>… the tidyverse makes data science faster, easier and more fun…</p>
+</div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/tidyverse.png"></p>
 </div></div>
@@ -588,6 +602,8 @@ Work with Stata, SPSS, and SAS data
 </section>
 <section class="slide level2">
 
+<div class="columns">
+<div class="column">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -597,7 +613,7 @@ Work with Stata, SPSS, and SAS data
 <p><strong>Data from R-Packages</strong></p>
 </div>
 <div class="callout-content">
-<p>Some data sets can be downloaded as packages in R. For example, the gapminder data set.</p>
+<p>Some data sets can be downloaded as packages in R. For example, the <a href="https://www.gapminder.org/">gapminder</a> data set.</p>
 </div>
 </div>
 </div>
@@ -607,11 +623,15 @@ Work with Stata, SPSS, and SAS data
 </div>
 <p>Then load the data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">library</span>(gapminder)</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r code-overflow-wrap number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">library</span>(gapminder)</span>
 <span id="cb9-2"><a></a></span>
-<span id="cb9-3"><a></a><span class="co"># The data() function in R is used to list, load, and access built-in or package-provided datasets. </span></span>
-<span id="cb9-4"><a></a><span class="fu">data</span>(gapminder) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a></a><span class="co"># The data() function in R is used to list, load, </span></span>
+<span id="cb9-4"><a></a><span class="co"># and access built-in or package-provided datasets. </span></span>
+<span id="cb9-5"><a></a><span class="fu">data</span>(gapminder) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div><div class="column">
+<p><img data-src="images/gapminder.jpg" width="800"></p>
+</div></div>
 </section></section>
 <section>
 <section id="the-dplyr-package" class="title-slide slide level1 center">
@@ -628,8 +648,8 @@ Work with Stata, SPSS, and SAS data
 </div>
 </div><div class="column" style="width:50%;">
 <div class="r-stack">
-<p><img data-src="images/tidyverse.png" width="500"></p>
-<p><img data-src="images/dplyr-old.png" class="fragment fade-in absolute" style="top: 75px; right: 250px; width: 200px; " data-fragment-index="1"></p>
+<p><img data-src="images/tidyverse.png" class="fragment semi-fade-out" data-fragment-index="1" width="500"></p>
+<p><img data-src="images/dplyr-old.png" class="fragment fade-in absolute" style="top: 40px; right: 250px; width: 200px; " data-fragment-index="1"></p>
 </div>
 </div></div>
 </section>
@@ -693,10 +713,15 @@ Make group summaries with<br><code>group_by() |&gt; summarize()</code>
 <span id="cb10-4"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
+<div class="fragment">
 <p>Let’s try this on the gapminder data set that you’ve installed earlier.</p>
+</div>
+<div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">filter</span>(<span class="at">.data =</span> gapminder, country <span class="sc">==</span> <span class="st">"Denmark"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top" data-quarto-postprocess="true">
@@ -742,6 +767,7 @@ Make group summaries with<br><code>group_by() |&gt; summarize()</code>
 </table>
 
 
+</div>
 </div>
 </div>
 </div></div>
@@ -843,9 +869,9 @@ Not equal to
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_34b0fbea" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_9cad5b28" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
@@ -853,59 +879,73 @@ Not equal to
 <section id="your-turn-1-filtering-1" class="slide level2">
 <h2>Your turn #1: Filtering</h2>
 <p>Use <code>filter()</code> and logical tests to show…</p>
+<div class="fragment">
 <ol type="1">
 <li>The data for Canada</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">filter</span>(gapminder, country <span class="sc">==</span> <span class="st">"Canada"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <ol start="2" type="1">
 <li>All data for countries in Oceania</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">filter</span>(gapminder, continent <span class="sc">==</span> <span class="st">"Oceania"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <ol start="3" type="1">
 <li>Rows where the life expectancy is greater than 82</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">filter</span>(gapminder, lifeExp <span class="sc">&gt;</span> <span class="dv">82</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </section>
 <section id="common-mistakes" class="slide level2">
 <h2>Common Mistakes</h2>
 <div class="fragment">
 <p>Using <code>=</code> instead of <code>==</code></p>
+</div>
 <div class="columns">
 <div class="column">
+<div class="fragment">
 <p>Bad</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">filter</span>(gapminder, <span class="at">country =</span> <span class="st">"Canada"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </div><div class="column">
+<div class="fragment">
 <p>Good</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">filter</span>(gapminder, country <span class="sc">==</span> <span class="st">"Canada"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div></div>
 </div>
+</div></div>
+<p><br></p>
+<p><br></p>
 <div class="fragment">
-<p><br></p>
-<p><br></p>
-<p>Forgetting quotes</p>
+<p>Forgetting quotes (<code>""</code>)</p>
+</div>
 <div class="columns">
 <div class="column">
+<div class="fragment">
 <p>Bad</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">filter</span>(gapminder, country <span class="sc">==</span> Canada)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </div><div class="column">
+<div class="fragment">
 <p>Good</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">filter</span>(gapminder, country <span class="sc">==</span> <span class="st">"Canada"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div></div>
 </div>
+</div></div>
 </section>
 <section id="filter-with-multiple-conditions" class="slide level2">
 <h2><code>filter()</code> with multiple conditions</h2>
@@ -962,8 +1002,11 @@ not
 </section>
 <section id="boolean-operators-1" class="slide level2">
 <h2>Boolean operators</h2>
-<h3 id="the-default-is-and">The default is “and”</h3>
-<p>These do the same thing</p>
+<p><br></p>
+<p><strong>The default is “and”</strong></p>
+<p><br></p>
+<p><br></p>
+<p>These do the same thing:</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
@@ -989,7 +1032,7 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_89f5c736" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_f35d835b" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1023,28 +1066,34 @@ not
 <h2>Common Mistakes</h2>
 <div class="fragment">
 <p>Collapsing multiple tests into one</p>
+</div>
 <div class="columns">
 <div class="column">
+<div class="fragment">
 <p>Bad</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">filter</span>(gapminder, </span>
 <span id="cb26-2"><a></a>       <span class="dv">1960</span> <span class="sc">&lt;</span> year <span class="sc">&lt;</span> <span class="dv">1980</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </div><div class="column">
+<div class="fragment">
 <p>Good</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">filter</span>(gapminder,</span>
 <span id="cb27-2"><a></a>       year <span class="sc">&gt;</span> <span class="dv">1960</span>, </span>
 <span id="cb27-3"><a></a>       year <span class="sc">&lt;</span> <span class="dv">1980</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div></div>
 </div>
+</div></div>
+<p><br></p>
+<p><br></p>
 <div class="fragment">
-<p><br></p>
-<p><br></p>
 <p>Using multiple tests instead of <code>%in%</code></p>
+</div>
 <div class="columns">
 <div class="column">
+<div class="fragment">
 <p>Bad</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">filter</span>(gapminder,</span>
@@ -1052,19 +1101,21 @@ not
 <span id="cb28-3"><a></a>       country <span class="sc">==</span> <span class="st">"Canada"</span>,</span>
 <span id="cb28-4"><a></a>       country <span class="sc">==</span> <span class="st">"United States"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </div><div class="column">
+<div class="fragment">
 <p>Good</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">filter</span>(gapminder,</span>
 <span id="cb29-2"><a></a>       country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Mexico"</span>, <span class="st">"Canada"</span>,</span>
 <span id="cb29-3"><a></a>                      <span class="st">"United States"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div></div>
 </div>
+</div></div>
 </section>
 <section id="common-syntax" class="slide level2">
 <h2>Common Syntax</h2>
-<p>Every dplyr verb function follows the same pattern</p>
+<p>Every <code>dplyr</code> verb function follows the same pattern</p>
 <p><br></p>
 <div class="columns">
 <div class="column">
@@ -1095,6 +1146,8 @@ not
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">gdp =</span> gdpPercap <span class="sc">*</span> pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top" data-quarto-postprocess="true">
@@ -1165,11 +1218,14 @@ not
 <span id="cb33-4"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<p>Let’s try this on the gapminder data</p>
+<p>We can also create multiple new columns at once</p>
+<div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">gdp =</span> gdpPercap <span class="sc">*</span> pop,</span>
 <span id="cb34-2"><a></a>                  <span class="at">pop_mil =</span> <span class="fu">round</span>(pop <span class="sc">/</span> <span class="dv">1000000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top" data-quarto-postprocess="true">
@@ -1231,6 +1287,7 @@ not
 
 </div>
 </div>
+</div>
 </div></div>
 </section>
 <section id="ifelse" class="slide level2">
@@ -1250,20 +1307,30 @@ not
 <p><code>value_if_false</code> = what happens if test is false</p>
 </div></div>
 </section>
-<section class="slide level2">
-
+<section id="ifelse-1" class="slide level2">
+<h2><code>ifelse()</code></h2>
+<p>The new variable can take any sort of class</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">mutate</span>(gapminder, </span>
-<span id="cb36-2"><a></a>       <span class="at">after_1960 =</span> <span class="fu">ifelse</span>(year <span class="sc">&gt;</span> <span class="dv">1960</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb36-3"><a></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="co"># a new logical variable</span></span>
+<span id="cb36-2"><a></a><span class="fu">mutate</span>(gapminder, </span>
+<span id="cb36-3"><a></a>       <span class="at">after_1960 =</span> <span class="fu">ifelse</span>(year <span class="sc">&gt;</span> <span class="dv">1960</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb36-4"><a></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">mutate</span>(gapminder, </span>
-<span id="cb37-2"><a></a>       <span class="at">after_1960 =</span> <span class="fu">ifelse</span>(year <span class="sc">&gt;</span> <span class="dv">1960</span>, </span>
-<span id="cb37-3"><a></a>                           <span class="st">"After 1960"</span>, </span>
-<span id="cb37-4"><a></a>                           <span class="st">"Before 1960"</span>)</span>
-<span id="cb37-5"><a></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="co"># a new character variable</span></span>
+<span id="cb37-2"><a></a><span class="fu">mutate</span>(gapminder, </span>
+<span id="cb37-3"><a></a>       <span class="at">after_1960 =</span> <span class="fu">ifelse</span>(year <span class="sc">&gt;</span> <span class="dv">1960</span>, </span>
+<span id="cb37-4"><a></a>                           <span class="st">"After 1960"</span>, </span>
+<span id="cb37-5"><a></a>                           <span class="st">"Before 1960"</span>)</span>
+<span id="cb37-6"><a></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="co"># a new numeric variable</span></span>
+<span id="cb38-2"><a></a><span class="fu">mutate</span>(gapminder, </span>
+<span id="cb38-3"><a></a>       <span class="at">after_1960 =</span> <span class="fu">ifelse</span>(year <span class="sc">&gt;</span> <span class="dv">1960</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb38-4"><a></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="your-turn-3-mutating" class="slide level2">
@@ -1276,7 +1343,7 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_bfc9219b" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_e7733e0d" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1286,28 +1353,34 @@ not
 <section id="your-turn-3-mutating-1" class="slide level2">
 <h2>Your turn #3: Mutating</h2>
 <p>Use <code>mutate()</code> to…</p>
+<div class="fragment">
 <ol type="1">
 <li>Add an <code>africa</code> column that is TRUE if the country is on the African continent</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">africa =</span> <span class="fu">ifelse</span>(continent <span class="sc">==</span> <span class="st">"Africa"</span>, </span>
-<span id="cb38-2"><a></a>                                  <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">africa =</span> <span class="fu">ifelse</span>(continent <span class="sc">==</span> <span class="st">"Africa"</span>, </span>
+<span id="cb39-2"><a></a>                                  <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <ol start="2" type="1">
 <li>Add a column for logged GDP per capita (hint: use <code>log()</code>)</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <ol start="3" type="1">
 <li>Add an <code>africa_asia</code> column that says “Africa or Asia” if the country is in Africa or Asia, and “Not Africa or Asia” if it’s not</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">mutate</span>(gapminder, </span>
-<span id="cb40-2"><a></a>       <span class="at">africa_asia =</span> </span>
-<span id="cb40-3"><a></a>         <span class="fu">ifelse</span>(continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Africa"</span>, <span class="st">"Asia"</span>), </span>
-<span id="cb40-4"><a></a>                <span class="st">"Africa or Asia"</span>, </span>
-<span id="cb40-5"><a></a>                <span class="st">"Not Africa or Asia"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">mutate</span>(gapminder, </span>
+<span id="cb41-2"><a></a>       <span class="at">africa_asia =</span> </span>
+<span id="cb41-3"><a></a>         <span class="fu">ifelse</span>(continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Africa"</span>, <span class="st">"Asia"</span>), </span>
+<span id="cb41-4"><a></a>                <span class="st">"Africa or Asia"</span>, </span>
+<span id="cb41-5"><a></a>                <span class="st">"Not Africa or Asia"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="what-if-you-have-multiple-verbs" class="slide level2">
@@ -1315,18 +1388,18 @@ not
 <div class="fragment">
 <p>Solution 1: Intermediate variables</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>gapminder_2002 <span class="ot">&lt;-</span> <span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2002</span>)</span>
-<span id="cb41-2"><a></a></span>
-<span id="cb41-3"><a></a>gapminder_2002_log <span class="ot">&lt;-</span> <span class="fu">mutate</span>(gapminder_2002,</span>
-<span id="cb41-4"><a></a>                             <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>gapminder_2002 <span class="ot">&lt;-</span> <span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2002</span>)</span>
+<span id="cb42-2"><a></a></span>
+<span id="cb42-3"><a></a>gapminder_2002_log <span class="ot">&lt;-</span> <span class="fu">mutate</span>(gapminder_2002,</span>
+<span id="cb42-4"><a></a>                             <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p>Solution 2: Nested functions</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">filter</span>(<span class="fu">mutate</span>(gapminder_2002, </span>
-<span id="cb42-2"><a></a>              <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap)), </span>
-<span id="cb42-3"><a></a>       year <span class="sc">==</span> <span class="dv">2002</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">filter</span>(<span class="fu">mutate</span>(gapminder_2002, </span>
+<span id="cb43-2"><a></a>              <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap)), </span>
+<span id="cb43-3"><a></a>       year <span class="sc">==</span> <span class="dv">2002</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -1335,29 +1408,32 @@ not
 <li>The <code>|&gt;</code> operator (pipe) takes an object on the left and passes it as the first argument of the function on the right</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb43-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb43-3"><a></a>  <span class="fu">mutate</span>(<span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb44-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb44-3"><a></a>  <span class="fu">mutate</span>(<span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="section" class="slide level2">
 <h2><code>|&gt;</code></h2>
+<p>Why using pipes?</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">leave_house</span>(<span class="fu">get_dressed</span>(<span class="fu">get_out_of_bed</span>(<span class="fu">wake_up</span>(me, <span class="at">time =</span> <span class="st">"8:00"</span>), <span class="at">side =</span> <span class="st">"correct"</span>),</span>
-<span id="cb44-2"><a></a>    <span class="at">pants =</span> <span class="cn">TRUE</span>, <span class="at">shirt =</span> <span class="cn">TRUE</span>), <span class="at">car =</span> <span class="cn">TRUE</span>, <span class="at">bike =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">leave_house</span>(<span class="fu">get_dressed</span>(<span class="fu">get_out_of_bed</span>(<span class="fu">wake_up</span>(me, <span class="at">time =</span> <span class="st">"8:00"</span>), <span class="at">side =</span> <span class="st">"correct"</span>),</span>
+<span id="cb45-2"><a></a>    <span class="at">pants =</span> <span class="cn">TRUE</span>, <span class="at">shirt =</span> <span class="cn">TRUE</span>), <span class="at">car =</span> <span class="cn">TRUE</span>, <span class="at">bike =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>… 🤯 not easy to read</p>
 </div>
 <p><br></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>me <span class="sc">|&gt;</span> </span>
-<span id="cb45-2"><a></a>  <span class="fu">wake_up</span>(<span class="at">time =</span> <span class="st">"8:00"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-3"><a></a>  <span class="fu">get_out_of_bed</span>(<span class="at">side =</span> <span class="st">"correct"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-4"><a></a>  <span class="fu">get_dressed</span>(<span class="at">pants =</span> <span class="cn">TRUE</span>, <span class="at">shirt =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-5"><a></a>  <span class="fu">leave_house</span>(<span class="at">car =</span> <span class="cn">TRUE</span>, <span class="at">bike =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>me <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a></a>  <span class="fu">wake_up</span>(<span class="at">time =</span> <span class="st">"8:00"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb46-3"><a></a>  <span class="fu">get_out_of_bed</span>(<span class="at">side =</span> <span class="st">"correct"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb46-4"><a></a>  <span class="fu">get_dressed</span>(<span class="at">pants =</span> <span class="cn">TRUE</span>, <span class="at">shirt =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb46-5"><a></a>  <span class="fu">leave_house</span>(<span class="at">car =</span> <span class="cn">TRUE</span>, <span class="at">bike =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>… 🎉 easy to read</p>
 </div>
 </section>
 <section id="vs" class="slide level2">
@@ -1368,6 +1444,21 @@ not
 <li><p><code>|&gt;</code> is part of base R</p></li>
 <li><p>They’re interchangeable 99% of the time (Just be consistent)</p></li>
 </ul>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>You do not have to type the pipe by hand every time</strong></p>
+</div>
+<div class="callout-content">
+<p>You can use the shortcut <code>cmd + shift + m</code> in R Studio.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="summarize" class="slide level2">
 <h2><code>summarize()</code></h2>
@@ -1433,8 +1524,8 @@ not
 <li>Make a summary</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
-<span id="cb46-2"><a></a>    <span class="fu">summarize</span>(<span class="at">mean_life =</span> <span class="fu">mean</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a></a>    <span class="fu">summarize</span>(<span class="at">mean_life =</span> <span class="fu">mean</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1448,9 +1539,9 @@ not
 <div class="fragment">
 <p>Or several summaries</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb48-2"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_life =</span> <span class="fu">mean</span>(lifeExp),</span>
-<span id="cb48-3"><a></a>            <span class="at">min_life =</span> <span class="fu">min</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_life =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb49-3"><a></a>            <span class="at">min_life =</span> <span class="fu">min</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1474,7 +1565,7 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_91325615" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_137f41e9" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1483,19 +1574,19 @@ not
 </section>
 <section id="your-turn-4-summarizing-1" class="slide level2">
 <h2>Your turn #4: Summarizing</h2>
-<p>Use <code>summarize()</code> to calculate…</p>
-<ol type="1">
-<li><p>The first (minimum) year in the dataset</p></li>
-<li><p>The last (maximum) year in the dataset</p></li>
-<li><p>The number of rows in the dataset (use the cheatsheet)</p></li>
-<li><p>The number of distinct countries in the dataset (use the cheatsheet)</p></li>
-</ol>
+<p>One Solution for all:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb50-2"><a></a>  <span class="fu">summarize</span>(<span class="at">first =</span> <span class="fu">min</span>(year),</span>
-<span id="cb50-3"><a></a>            <span class="at">last =</span> <span class="fu">max</span>(year),</span>
-<span id="cb50-4"><a></a>            <span class="at">num_rows =</span> <span class="fu">n</span>(),</span>
-<span id="cb50-5"><a></a>            <span class="at">num_unique =</span> <span class="fu">n_distinct</span>(country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb51-2"><a></a>  <span class="fu">summarize</span>(<span class="at">first =</span> <span class="fu">min</span>(year),</span>
+<span id="cb51-3"><a></a>            <span class="at">last =</span> <span class="fu">max</span>(year),</span>
+<span id="cb51-4"><a></a>            <span class="at">num_rows =</span> <span class="fu">n</span>(),</span>
+<span id="cb51-5"><a></a>            <span class="at">num_unique =</span> <span class="fu">n_distinct</span>(country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  first  last num_rows num_unique
+  &lt;int&gt; &lt;int&gt;    &lt;int&gt;      &lt;int&gt;
+1  1952  2007     1704        142</code></pre>
+</div>
 </div>
 </section>
 <section id="your-turn-5-summarizing" class="slide level2">
@@ -1508,7 +1599,7 @@ not
 <p>on the African continent in 2007.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_86b37009" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_39693ebd" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1524,17 +1615,23 @@ not
 </ol>
 <p>on the African continent in 2007.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
-<span id="cb51-2"><a></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"Africa"</span>, year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
-<span id="cb51-3"><a></a>  <span class="fu">summarise</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country), </span>
-<span id="cb51-4"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"Africa"</span>, year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a></a>  <span class="fu">summarise</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country), </span>
+<span id="cb53-4"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  n_countries med_le
+        &lt;int&gt;  &lt;dbl&gt;
+1          52   52.9</code></pre>
+</div>
 </div>
 </section>
 <section id="group_by" class="slide level2">
 <h2><code>group_by()</code></h2>
 <p>Put rows into groups based on values in a column</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>gapminder <span class="sc">|&gt;</span> <span class="fu">group_by</span>(continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>gapminder <span class="sc">|&gt;</span> <span class="fu">group_by</span>(continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>Nothing happens by itself!</p></li>
@@ -1597,8 +1694,8 @@ not
 <div class="fragment">
 <p>A simple summary</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a></a>    <span class="fu">summarize</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb56-2"><a></a>    <span class="fu">summarize</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1612,9 +1709,9 @@ not
 <div class="fragment">
 <p>A grouped summary</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb55-2"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
-<span id="cb55-3"><a></a>  <span class="fu">summarize</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb58-2"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
+<span id="cb58-3"><a></a>  <span class="fu">summarize</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1642,7 +1739,7 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_63876eb4" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown" id="timer_2c46e0e9" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -1655,22 +1752,22 @@ not
 <li>Find the minimum, maximum, and median life expectancy for each continent</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb57-2"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
-<span id="cb57-3"><a></a>  <span class="fu">summarize</span>(<span class="at">min_le =</span> <span class="fu">min</span>(lifeExp),</span>
-<span id="cb57-4"><a></a>            <span class="at">max_le =</span> <span class="fu">max</span>(lifeExp),</span>
-<span id="cb57-5"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb60-2"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
+<span id="cb60-3"><a></a>  <span class="fu">summarize</span>(<span class="at">min_le =</span> <span class="fu">min</span>(lifeExp),</span>
+<span id="cb60-4"><a></a>            <span class="at">max_le =</span> <span class="fu">max</span>(lifeExp),</span>
+<span id="cb60-5"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Find the minimum, maximum, and median life expectancy for each continent in 2007 only</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb58-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb58-3"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
-<span id="cb58-4"><a></a>  <span class="fu">summarize</span>(<span class="at">min_le =</span> <span class="fu">min</span>(lifeExp),</span>
-<span id="cb58-5"><a></a>            <span class="at">max_le =</span> <span class="fu">max</span>(lifeExp),</span>
-<span id="cb58-6"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb61-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb61-3"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
+<span id="cb61-4"><a></a>  <span class="fu">summarize</span>(<span class="at">min_le =</span> <span class="fu">min</span>(lifeExp),</span>
+<span id="cb61-5"><a></a>            <span class="at">max_le =</span> <span class="fu">max</span>(lifeExp),</span>
+<span id="cb61-6"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dplyr-verbs-for-manipulating-data-1" class="slide level2">

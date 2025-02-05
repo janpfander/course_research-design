@@ -128,13 +128,13 @@ knitr::include_graphics("images//insert-chunk-button.png", error = FALSE)
 
 2. Follow the instructions for the three chunks of code.
 
-3. Render your document as a PDF file. Use the "Render" menu:
+3. Render your document, either as a `.pdf` or a `.html` file. Use the "Render" menu:
 
 ```{r render-button, echo=FALSE, out.width="50%"}
 knitr::include_graphics("images//render-button.png", error = FALSE)
 ```
 
-4. Upload the rendered document in the Homework section of this week on Moodle [add link].
+4. Upload the rendered document in the Homework section on Moodle, under "Assignment 1".
 
 5. `r emoji::emoji("tada")` Party! `r emoji::emoji("tada")`
 
