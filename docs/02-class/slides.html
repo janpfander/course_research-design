@@ -422,10 +422,7 @@
 </ol>
 </div><div class="column" style="font-size: smaller;">
 <ol start="3" type="1">
-<li><strong>Merge and re-shape</strong>
-<ul>
-<li>Summary and key takeaways</li>
-</ul></li>
+<li><strong>The <code>tidy</code> data format</strong></li>
 </ol>
 </div></div>
 </section>
@@ -564,41 +561,45 @@
 </section>
 <section id="importing-data" class="slide level2">
 <h2>Importing data</h2>
-<table style="border-collapse: collapse; width: 100%; text-align: left;">
-<tbody><tr>
-<td style="padding: 8px; vertical-align: middle;">
-<img src="images/readr.png" alt="readr" title="readr" width="150px">
-</td>
-<td style="padding: 8px; vertical-align: middle; text-align: center;">
-Work with plain text data
-</td>
-<td style="padding: 8px; vertical-align: middle; white-space: pre-wrap; word-wrap: break-word;">
-<code>my_data &lt;- read_csv(“file.csv”)</code>
-</td>
+<table class="caption-top" style="width:99%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 28%">
+<col style="width: 29%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/readr.png" title="readr"></p>
+<figcaption>readr</figcaption>
+</figure>
+</div></td>
+<td style="text-align: center;">Work with plain text data</td>
+<td><code>my_data &lt;- read_csv("file.csv")</code></td>
 </tr>
-<tr>
-<td style="padding: 8px; vertical-align: middle;">
-<img src="images/readxl.png" alt="readxl" title="readxl" width="150px">
-</td>
-<td style="padding: 8px; vertical-align: middle; text-align: center;">
-Work with Excel files
-</td>
-<td style="padding: 8px; vertical-align: middle; white-space: pre-wrap; word-wrap: break-word;">
-<code>my_data &lt;- read_excel(“file.xlsx”)</code>
-</td>
+<tr class="even">
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/readxl.png" title="readxl"></p>
+<figcaption>readxl</figcaption>
+</figure>
+</div></td>
+<td style="text-align: center;">Work with Excel files</td>
+<td><code>my_data &lt;- read_excel("file.xlsx")</code></td>
 </tr>
-<tr>
-<td style="padding: 8px; vertical-align: middle;">
-<img src="images/haven.png" alt="haven" title="haven" width="150px">
-</td>
-<td style="padding: 8px; vertical-align: middle; text-align: center;">
-Work with Stata, SPSS, and SAS data
-</td>
-<td style="padding: 8px; vertical-align: middle; white-space: pre-wrap; word-wrap: break-word;">
-<code>my_data &lt;- read_stata(“file.dta”)</code>
-</td>
+<tr class="odd">
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/haven.png" title="haven"></p>
+<figcaption>haven</figcaption>
+</figure>
+</div></td>
+<td style="text-align: center;">Work with Stata, SPSS, and SAS data</td>
+<td><code>my_data &lt;- read_stata("file.dta")</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </section>
 <section class="slide level2">
 
@@ -656,48 +657,60 @@ Work with Stata, SPSS, and SAS data
 <section id="dplyr-verbs-for-manipulating-data" class="slide level2">
 <h2><code>dplyr</code>: verbs for manipulating data</h2>
 <div style="font-size: 3">
-<table>
-<tbody><tr>
-<td>
-Extract rows with <code>filter()</code>
-</td>
-<td>
-<img src="images/filter.png" alt="filter" title="filter" height="70px">
-</td>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Extract rows with <code>filter()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/filter.png" title="filter"></p>
+<figcaption>filter</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Extract columns with <code>select()</code>
-</td>
-<td>
-<img src="images/select.png" alt="select" title="select" height="70px">
-</td>
+<tr class="even">
+<td>Extract columns with <code>select()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/select.png" title="select"></p>
+<figcaption>select</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Arrange/sort rows with <code>arrange()</code>
-</td>
-<td>
-<img src="images/arrange.png" alt="arrange" title="arrange" height="70px">
-</td>
+<tr class="odd">
+<td>Arrange/sort rows with <code>arrange()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/arrange.png" title="arrange"></p>
+<figcaption>arrange</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Make new columns with <code>mutate()</code>
-</td>
-<td>
-<img src="images/mutate.png" alt="mutate" title="mutate" height="70px">
-</td>
+<tr class="even">
+<td>Make new columns with <code>mutate()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/mutate.png" title="mutate"></p>
+<figcaption>mutate</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Make group summaries with<br><code>group_by() |&gt; summarize()</code>
-</td>
-<td>
-<img src="images/summarize.png" alt="summarize" title="summarize" height="70px">
-</td>
+<tr class="odd">
+<td>Make group summaries with<br>
+<code>group_by() |&gt; summarize()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/summarize.png" title="summarize"></p>
+<figcaption>summarize</figcaption>
+</figure>
+</div></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 </section>
 <section id="filter" class="slide level2">
@@ -775,88 +788,60 @@ Make group summaries with<br><code>group_by() |&gt; summarize()</code>
 <section id="logical-tests" class="slide level2">
 <h2>Logical tests</h2>
 <div style="font-size: 3">
-<table>
-<tbody><tr>
-<th class="cell-center">
-Test
-</th>
-<th class="cell-left">
-Meaning
-</th>
-<th class="cell-center">
-Test
-</th>
-<th class="cell-left">
-Meaning
-</th>
+<table class="caption-top" style="width:97%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 34%">
+<col style="width: 17%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test</th>
+<th>Meaning</th>
+<th>Test</th>
+<th>Meaning</th>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">x &lt; y</code>
-</td>
-<td class="cell-left">
-Less than
-</td>
-<td class="cell-center">
-<code class="remark-inline-code">x %in% y</code>
-</td>
-<td class="cell-left">
-In (group membership)
-</td>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>x &lt; y</code></td>
+<td>Less than</td>
+<td><code>x %in% y</code></td>
+<td>In (group membership)</td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">x &gt; y</code>
-</td>
-<td class="cell-left">
-Greater than
-</td>
-<td class="cell-center">
-<code class="remark-inline-code">is.na(x)</code>
-</td>
-<td class="cell-left">
-Is missing
-</td>
+<tr class="even">
+<td><code>x &gt; y</code></td>
+<td>Greater than</td>
+<td><code>is.na(x)</code></td>
+<td>Is missing</td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">==</code>
-</td>
-<td class="cell-left">
-Equal to
-</td>
-<td class="cell-center">
-<code class="remark-inline-code">!is.na(x)</code>
-</td>
-<td class="cell-left">
-Is not missing
-</td>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Equal to</td>
+<td><code>!is.na(x)</code></td>
+<td>Is not missing</td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">x &lt;= y</code>
-</td>
-<td class="cell-left">
-Less than or equal to
-</td>
+<tr class="even">
+<td><code>x &lt;= y</code></td>
+<td>Less than or equal to</td>
+<td></td>
+<td></td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">x &gt;= y</code>
-</td>
-<td class="cell-left">
-Greater than or equal to
-</td>
+<tr class="odd">
+<td><code>x &gt;= y</code></td>
+<td>Greater than or equal to</td>
+<td></td>
+<td></td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">x != y</code>
-</td>
-<td class="cell-left">
-Not equal to
-</td>
+<tr class="even">
+<td><code>x != y</code></td>
+<td>Not equal to</td>
+<td></td>
+<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 </section>
 <section id="your-turn-1-filtering" class="slide level2">
@@ -869,41 +854,14 @@ Not equal to
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_9cad5b28" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_f6bcff63" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-1-filtering-1" class="slide level2">
-<h2>Your turn #1: Filtering</h2>
-<p>Use <code>filter()</code> and logical tests to show…</p>
-<div class="fragment">
-<ol type="1">
-<li>The data for Canada</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">filter</span>(gapminder, country <span class="sc">==</span> <span class="st">"Canada"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>All data for countries in Oceania</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">filter</span>(gapminder, continent <span class="sc">==</span> <span class="st">"Oceania"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li>Rows where the life expectancy is greater than 82</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">filter</span>(gapminder, lifeExp <span class="sc">&gt;</span> <span class="dv">82</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
+
 <section id="common-mistakes" class="slide level2">
 <h2>Common Mistakes</h2>
 <div class="fragment">
@@ -965,40 +923,32 @@ Not equal to
 </section>
 <section id="boolean-operators" class="slide level2">
 <h2>Boolean operators</h2>
-<table>
-<tbody><tr>
-<th class="cell-center">
-Operator
-</th>
-<th class="cell-center">
-Meaning
-</th>
+<table class="caption-top" style="width:29%;">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Meaning</th>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">a &amp; b</code>
-</td>
-<td class="cell-center">
-and
-</td>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>a &amp; b</code></td>
+<td>and</td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">a | b</code>
-</td>
-<td class="cell-center">
-or
-</td>
+<tr class="even">
+<td><code>a | b</code></td>
+<td>or</td>
 </tr>
-<tr>
-<td class="cell-center">
-<code class="remark-inline-code">!a</code>
-</td>
-<td class="cell-center">
-not
-</td>
+<tr class="odd">
+<td><code>!a</code></td>
+<td>not</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </section>
 <section id="boolean-operators-1" class="slide level2">
 <h2>Boolean operators</h2>
@@ -1032,36 +982,14 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_f35d835b" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_41f678c3" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-2-filtering-1" class="slide level2">
-<h2>Your turn #2: Filtering</h2>
-<p>Use <code>filter()</code> and Boolean logical tests to show…</p>
-<ol type="1">
-<li>Canada before 1970</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">filter</span>(gapminder, country <span class="sc">==</span> <span class="st">"Canada"</span>, year <span class="sc">&lt;</span> <span class="dv">1970</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="2" type="1">
-<li>Countries where life expectancy in 2007 is below 50</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2007</span>, lifeExp <span class="sc">&lt;</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="3" type="1">
-<li>Countries where life expectancy in 2007 is below 50 and are not in Africa</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2007</span>, lifeExp <span class="sc">&lt;</span> <span class="dv">50</span>, </span>
-<span id="cb25-2"><a></a>       continent <span class="sc">!=</span> <span class="st">"Africa"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
+
 <section id="common-mistakes-1" class="slide level2">
 <h2>Common Mistakes</h2>
 <div class="fragment">
@@ -1343,46 +1271,14 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_e7733e0d" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_3c504acf" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-3-mutating-1" class="slide level2">
-<h2>Your turn #3: Mutating</h2>
-<p>Use <code>mutate()</code> to…</p>
-<div class="fragment">
-<ol type="1">
-<li>Add an <code>africa</code> column that is TRUE if the country is on the African continent</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">africa =</span> <span class="fu">ifelse</span>(continent <span class="sc">==</span> <span class="st">"Africa"</span>, </span>
-<span id="cb39-2"><a></a>                                  <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>Add a column for logged GDP per capita (hint: use <code>log()</code>)</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">mutate</span>(gapminder, <span class="at">log_gdpPercap =</span> <span class="fu">log</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li>Add an <code>africa_asia</code> column that says “Africa or Asia” if the country is in Africa or Asia, and “Not Africa or Asia” if it’s not</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">mutate</span>(gapminder, </span>
-<span id="cb41-2"><a></a>       <span class="at">africa_asia =</span> </span>
-<span id="cb41-3"><a></a>         <span class="fu">ifelse</span>(continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Africa"</span>, <span class="st">"Asia"</span>), </span>
-<span id="cb41-4"><a></a>                <span class="st">"Africa or Asia"</span>, </span>
-<span id="cb41-5"><a></a>                <span class="st">"Not Africa or Asia"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
+
 <section id="what-if-you-have-multiple-verbs" class="slide level2">
 <h2>What if you have multiple verbs?</h2>
 <div class="fragment">
@@ -1565,30 +1461,14 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_137f41e9" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_68985abb" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-4-summarizing-1" class="slide level2">
-<h2>Your turn #4: Summarizing</h2>
-<p>One Solution for all:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb51-2"><a></a>  <span class="fu">summarize</span>(<span class="at">first =</span> <span class="fu">min</span>(year),</span>
-<span id="cb51-3"><a></a>            <span class="at">last =</span> <span class="fu">max</span>(year),</span>
-<span id="cb51-4"><a></a>            <span class="at">num_rows =</span> <span class="fu">n</span>(),</span>
-<span id="cb51-5"><a></a>            <span class="at">num_unique =</span> <span class="fu">n_distinct</span>(country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  first  last num_rows num_unique
-  &lt;int&gt; &lt;int&gt;    &lt;int&gt;      &lt;int&gt;
-1  1952  2007     1704        142</code></pre>
-</div>
-</div>
-</section>
+
 <section id="your-turn-5-summarizing" class="slide level2">
 <h2>Your turn #5: Summarizing</h2>
 <p>Use <code>filter()</code> and <code>summarize()</code> to calculate…</p>
@@ -1599,34 +1479,14 @@ not
 <p>on the African continent in 2007.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_39693ebd" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
+<div class="countdown" id="timer_03aea5ff" data-update-every="1" data-start-immediately="true" tabindex="0" style="top:0;right:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-5-summarizing-1" class="slide level2">
-<h2>Your turn #5: Summarizing</h2>
-<p>Use <code>filter()</code> and <code>summarize()</code> to calculate…</p>
-<ol type="1">
-<li>the number of unique countries and</li>
-<li>the median life expectancy</li>
-</ol>
-<p>on the African continent in 2007.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>gapminder <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"Africa"</span>, year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
-<span id="cb53-3"><a></a>  <span class="fu">summarise</span>(<span class="at">n_countries =</span> <span class="fu">n_distinct</span>(country), </span>
-<span id="cb53-4"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  n_countries med_le
-        &lt;int&gt;  &lt;dbl&gt;
-1          52   52.9</code></pre>
-</div>
-</div>
-</section>
+
 <section id="group_by" class="slide level2">
 <h2><code>group_by()</code></h2>
 <p>Put rows into groups based on values in a column</p>
@@ -1739,91 +1599,337 @@ not
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_2c46e0e9" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown" id="timer_85818405" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;font-size:1em;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-6-grouping-and-summarizing-1" class="slide level2">
-<h2>Your turn #6: Grouping and summarizing</h2>
-<ol type="1">
-<li>Find the minimum, maximum, and median life expectancy for each continent</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb60-2"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
-<span id="cb60-3"><a></a>  <span class="fu">summarize</span>(<span class="at">min_le =</span> <span class="fu">min</span>(lifeExp),</span>
-<span id="cb60-4"><a></a>            <span class="at">max_le =</span> <span class="fu">max</span>(lifeExp),</span>
-<span id="cb60-5"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="2" type="1">
-<li>Find the minimum, maximum, and median life expectancy for each continent in 2007 only</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb61-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb61-3"><a></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
-<span id="cb61-4"><a></a>  <span class="fu">summarize</span>(<span class="at">min_le =</span> <span class="fu">min</span>(lifeExp),</span>
-<span id="cb61-5"><a></a>            <span class="at">max_le =</span> <span class="fu">max</span>(lifeExp),</span>
-<span id="cb61-6"><a></a>            <span class="at">med_le =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
+
 <section id="dplyr-verbs-for-manipulating-data-1" class="slide level2">
 <h2><code>dplyr</code>: verbs for manipulating data</h2>
 <div style="font-size: 3">
-<table>
-<tbody><tr>
-<td>
-Extract rows with <code>filter()</code>
-</td>
-<td>
-<img src="images/filter.png" alt="filter" title="filter" height="70px">
-</td>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Extract rows with <code>filter()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/filter.png" title="filter"></p>
+<figcaption>filter</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Extract columns with <code>select()</code>
-</td>
-<td>
-<img src="images/select.png" alt="select" title="select" height="70px">
-</td>
+<tr class="even">
+<td>Extract columns with <code>select()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/select.png" title="select"></p>
+<figcaption>select</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Arrange/sort rows with <code>arrange()</code>
-</td>
-<td>
-<img src="images/arrange.png" alt="arrange" title="arrange" height="70px">
-</td>
+<tr class="odd">
+<td>Arrange/sort rows with <code>arrange()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/arrange.png" title="arrange"></p>
+<figcaption>arrange</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Make new columns with <code>mutate()</code>
-</td>
-<td>
-<img src="images/mutate.png" alt="mutate" title="mutate" height="70px">
-</td>
+<tr class="even">
+<td>Make new columns with <code>mutate()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/mutate.png" title="mutate"></p>
+<figcaption>mutate</figcaption>
+</figure>
+</div></td>
 </tr>
-<tr>
-<td>
-Make group summaries with<br><code>group_by() |&gt; summarize()</code>
-</td>
-<td>
-<img src="images/summarize.png" alt="summarize" title="summarize" height="70px">
-</td>
+<tr class="odd">
+<td>Make group summaries with<br>
+<code>group_by() |&gt; summarize()</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/summarize.png" title="summarize"></p>
+<figcaption>summarize</figcaption>
+</figure>
+</div></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 </section></section>
 <section>
-<section id="merge-and-re-shape" class="title-slide slide level1 center">
-<h1>Merge and re-shape</h1>
+<section id="tidy-data" class="title-slide slide level1 center">
+<h1>Tidy data</h1>
 
 </section>
-<section class="slide level2">
+<section id="tidy-data-1" class="slide level2">
+<h2>Tidy data</h2>
+<p>You can represent the same underlying data in multiple ways.</p>
+<div class="columns">
+<div class="column fragment" style="width:30%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:30%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+   country      year type            count
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+ 8 Brazil       2000 population  174504898
+ 9 China        1999 cases          212258
+10 China        1999 population 1272915272
+11 China        2000 cases          213766
+12 China        2000 population 1280428583</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:40%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country      year rate             
+  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            
+1 Afghanistan  1999 745/19987071     
+2 Afghanistan  2000 2666/20595360    
+3 Brazil       1999 37737/172006362  
+4 Brazil       2000 80488/174504898  
+5 China        1999 212258/1272915272
+6 China        2000 213766/1280428583</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="tidy-data-2" class="slide level2">
+<h2>Tidy data</h2>
+<p><code>Tidy</code> data has the following properties:</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:70%;">
+<p><img data-src="images/tidy-1.png" width="800"></p>
+<ol type="1">
+<li>Variables are columns</li>
+<li>Observations are rows</li>
+<li>Values are cells</li>
+</ol>
+</div></div>
+</section>
+<section id="why-ensure-that-your-data-is-tidy" class="slide level2">
+<h2>Why ensure that your data is tidy?</h2>
+<p>There are two main advantages:</p>
+<div class="fragment">
+<ol type="1">
+<li>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. As you learned in <strong>?@sec-mutate</strong> and <strong>?@sec-summarize</strong>, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.</li>
+</ol>
+</div>
+<div class="fragment">
+<p><code>dplyr</code>, <code>ggplot2</code>, and all the other packages in the tidyverse are designed to work with tidy data.</p>
+</div>
+</section>
+<section id="will-i-ever-encounter-a-dataset-that-isnt-tidy" class="slide level2">
+<h2>Will I ever encounter a dataset that isn’t tidy?</h2>
+<div>
+<p>Yes, unfortunately, most real data is untidy.</p>
+<p>There are two main reasons:</p>
+<ol type="1">
+<li class="fragment"><p>Data is often organized to facilitate some goal other than analysis. For example, it’s common for data to be structured to make data entry, not analysis, easy.</p></li>
+<li class="fragment"><p>Most people aren’t familiar with the principles of tidy data, and it’s hard to derive them yourself unless you spend a lot of time working with data.</p></li>
+</ol>
+</div>
+</section>
+<section id="pivoting-data" class="slide level2">
+<h2>Pivoting data</h2>
+<p><code>tidyr</code> provides two main functions to “pivot” data in a tidy format: <code>pivot_longer()</code> and <code>pivot_wider()</code></p>
+<p><br></p>
+<p>Here, we’ll only discuss <code>pivot_longer()</code> because it’s the most common case.</p>
+</section>
+<section id="pivot_longer" class="slide level2">
+<h2><code>pivot_longer()</code></h2>
+<ul>
+<li>Suppose we have three patients with <code>id</code>s A, B, and C, and we take two blood pressure measurements on each patient.</li>
+<li>We’ll create the data with <code>tribble()</code>, a handy function for constructing small tibbles by hand:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb66-2"><a></a>  <span class="sc">~</span>id,  <span class="sc">~</span>bp1, <span class="sc">~</span>bp2,</span>
+<span id="cb66-3"><a></a>   <span class="st">"A"</span>,  <span class="dv">100</span>,  <span class="dv">120</span>,</span>
+<span id="cb66-4"><a></a>   <span class="st">"B"</span>,  <span class="dv">140</span>,  <span class="dv">115</span>,</span>
+<span id="cb66-5"><a></a>   <span class="st">"C"</span>,  <span class="dv">120</span>,  <span class="dv">125</span></span>
+<span id="cb66-6"><a></a>)</span>
+<span id="cb66-7"><a></a></span>
+<span id="cb66-8"><a></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  id      bp1   bp2
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 A       100   120
+2 B       140   115
+3 C       120   125</code></pre>
+</div>
+</div>
+</section>
+<section id="pivot_longer-1" class="slide level2">
+<h2><code>pivot_longer()</code></h2>
+<ul>
+<li>We want our new dataset to have three variables: <code>id</code> (already exists), <code>measurement</code> (the column names), and <code>value</code> (the cell values)</li>
+<li>To achieve this, we need to pivot <code>df</code> longer</li>
+</ul>
 
+<img data-src="images/variables.png" width="800" class="r-stretch"></section>
+<section id="pivot_longer-2" class="slide level2">
+<h2><code>pivot_longer()</code></h2>
+<ul>
+<li>The values in a column that was already a variable in the original dataset (<code>id</code>) need to be repeated, once for each column that is pivoted.</li>
+</ul>
+
+<img data-src="images/variables.png" width="800" class="r-stretch"></section>
+<section id="pivot_longer-3" class="slide level2">
+<h2><code>pivot_longer()</code></h2>
+<ul>
+<li>The column names become values of the new variable <code>measurement</code></li>
+</ul>
+
+<img data-src="images/column-names.png" width="800" class="r-stretch"></section>
+<section id="pivot_longer-4" class="slide level2">
+<h2><code>pivot_longer()</code></h2>
+<ul>
+<li>The cell values become values of the new variable <code>value</code></li>
+</ul>
+
+<img data-src="images/cell-values.png" width="800" class="r-stretch"></section>
+<section id="pivot_longer-5" class="slide level2">
+<h2><code>pivot_longer()</code></h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  id      bp1   bp2
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 A       100   120
+2 B       140   115
+3 C       120   125</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb69-3"><a></a>    <span class="at">cols =</span> bp1<span class="sc">:</span>bp2,</span>
+<span id="cb69-4"><a></a>    <span class="at">names_to =</span> <span class="st">"measurement"</span>,</span>
+<span id="cb69-5"><a></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
+<span id="cb69-6"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  id    measurement value
+  &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;
+1 A     bp1           100
+2 A     bp2           120
+3 B     bp1           140
+4 B     bp2           115
+5 C     bp1           120
+6 C     bp2           125</code></pre>
+</div>
+</div>
+</div><div class="column">
+<p>After the data, there are three key arguments:</p>
+<ul>
+<li><code>cols</code> specifies which columns need to be pivoted, i.e.&nbsp;which columns aren’t variables. This argument uses the same syntax as <code>select()</code></li>
+<li><code>names_to</code> names the variable in which column names should be stored</li>
+<li><code>values_to</code> names the variable in which cell values should be stored</li>
+</ul>
+</div></div>
+</section>
+<section id="your-turn-7-pivoting" class="slide level2">
+<h2>Your turn #7: Pivoting</h2>
+<p>The <code>billboard</code> dataset which comes with the <code>tidyverse</code> package records the billboard rank of songs in the year 2000.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a><span class="fu">head</span>(billboard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 79
+  artist      track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+  &lt;chr&gt;       &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 2 Pac       Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+2 2Ge+her     The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+3 3 Doors Do… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+4 3 Doors Do… Loser 2000-10-21      76    76    72    69    67    65    55    59
+5 504 Boyz    Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+6 98^0        Give… 2000-08-19      51    39    34    26    26    19     2     2
+# ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+#   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+#   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+#   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+#   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+#   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;,
+#   wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<ul>
+<li>In this dataset, each observation is a song.</li>
+<li>The first three columns (<code>artist</code>, <code>track</code> and <code>date.entered</code>) are variables that describe the song.</li>
+<li>Then we have 76 columns (<code>wk1</code>-<code>wk76</code>) that describe the rank of the song in each week.</li>
+</ul>
+</section>
+<section id="your-turn-7-pivoting-1" class="slide level2">
+<h2>Your turn #7: Pivoting</h2>
+<ol type="1">
+<li><p>Use <code>pivot_longer()</code> to tidy the data (Tip: Create the new variables <code>week</code> and <code>rank</code>). Assign the resulting data frame to a new data frame called <code>tidy_billboard</code>.</p></li>
+<li><p>Use the new <code>tidy_billboard</code> data frame to calculate which song has been the longest on rank 1 (Tip: use <code>filter()</code>, <code>group_by()</code> and <code>summarize()</code>)</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_2fef21db" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+</section>
+
+<section id="thats-it-for-today" class="slide level2">
+<h2>That’s it for today :)</h2>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

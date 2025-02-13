@@ -80,10 +80,10 @@ schedule$e[10] <- '<span style="background-color: yellow;">Salle 5</span>'
 kable(schedule, col.names = NULL, align = "lll", escape = FALSE, format = "html") %>%
   kable_styling(bootstrap_options = c("condensed", "hover"), full_width = FALSE) %>%
   row_spec(1, font_size = 17) %>%
-  pack_rows("I Data Analysis", 2, 5) %>%
-  pack_rows("II Statistics", 6, 8) %>%
-  pack_rows("III Causal Inference", 9, 10) %>%
-  pack_rows("IV Science", 11, 16) %>%
+  pack_rows("I Data Analysis", 2, 6) %>%
+  pack_rows("II Statistics", 7, 9) %>%
+  pack_rows("III Causal Inference", 10, 11) %>%
+  pack_rows("IV Science", 12, 16) %>%
   footnote(symbol = "48 blvd Jourdan, Paris 14ème",
            symbol_title = "Note:")
   #row_spec(10, extra_css = "background-color: yellow;")
