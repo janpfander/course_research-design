@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -71,6 +125,8 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -264,6 +320,15 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#slides" id="toc-slides" class="nav-link active" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a>
+  <ul class="collapse">
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#read-the-data" id="toc-read-the-data" class="nav-link" data-scroll-target="#read-the-data">Read the data</a></li>
+  <li><a href="#clean-the-data" id="toc-clean-the-data" class="nav-link" data-scroll-target="#clean-the-data">Clean the data</a></li>
+  <li><a href="#manipulate-the-data-using-dplyr" id="toc-manipulate-the-data-using-dplyr" class="nav-link" data-scroll-target="#manipulate-the-data-using-dplyr">Manipulate the data using <code>dplyr</code></a></li>
+  <li><a href="#tidying-the-data" id="toc-tidying-the-data" class="nav-link" data-scroll-target="#tidying-the-data">Tidying the data</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -295,24 +360,562 @@ ul.task-list li input[type="checkbox"] {
 <p class="buttons">
 <a class="btn btn-danger" target="_blank" href="slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a> <a class="btn btn-danger" target="_blank" href="slides.pdf" role="button"><i class="fa-solid fa-file-pdf"></i> Download PDF of all slides</a>
 </p>
-<div class="callout callout-style-default callout-caution callout-titled">
+</section>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<ul>
+<li>Chapters 3 and 5 in <span class="citation" data-cites="wickhamDataScienceImport2023">Wickham, Çetinkaya-Rundel, and Grolemund (<a href="#ref-wickhamDataScienceImport2023" role="doc-biblioref">2023</a>)</span></li>
+</ul>
+</section>
+<section id="assignment" class="level2">
+<h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-More to come…
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section will contain additional slides and homework next week (13/02).</p>
+<p><strong>IMPORTANT</strong>: This looks super long and like a lot of work, but it’s mostly repeating and applying things we’ve seen in the lecture. Much of it is just reading along.</p>
+<p>Remember, if you’re struggling, <em>please</em> talk to me. Otherwise I can’t know. Work with classmates too. Don’t suffer in silence!</p>
 </div>
 </div>
+<section id="getting-started" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started">Getting started</h3>
+<p>You’ll be doing all your R work in Quarto this time (and from now on). You should use an RStudio Project to keep your files well organized (either on your computer or on Posit.cloud). Either create a new project for this exercise only, or make a project for all your work in this class (revisit the <a href="../guides/r_projects.html">guide on <code>Rprojects</code></a> for a refresher).</p>
+<p>You’ll need to download these two CSV files and put preferably put them in a folder named <code>data</code> in your project folder:</p>
+<ul>
+<li><a href="../data/breed_rank.csv"><i class="fa-solid fa-file-csv" aria-label="file-csv"></i> <code>breed_rank.csv</code></a></li>
+<li><a href="../data/breed_traits.csv"><i class="fa-solid fa-file-csv" aria-label="file-csv"></i> <code>breed_traits.csv</code></a></li>
+</ul>
+<p>Create a quarto file for your assignment. Use separate code chunks for each task and explain before each code chunk what the task was.</p>
+<p>In the end, the structure of your project directory should look something like this:</p>
+<pre class="text"><code>your-project-name
+├── data
+│   ├── breed_rank.csv
+│   └── breed_traits.csv
+├── your-project-name.Rproj
+└── your-name_problem-set-2.qmd</code></pre>
+<p>The data we’re using for today’s workshop comes from <a href="https://github.com/rfordatascience/tidytuesday">#TidyTuesday</a>, a weekly social data project based on the tidyverse ecosystem. The GitHub repo hosts many interesting data sets to practice with, and <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-02-01/readme.md">this particular data set</a> comes from the American Kennel Club.</p>
+<p>The first data set, <code>breed_rank</code>, lists the popularity rankings over time for 195 different dog breeds (many of the snippets shown throughout are truncated for the purposes of display).</p>
+<div style="text-align: center">
+<p><code>breed_rank</code></p>
+</div>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2013 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2014 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2015 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2016 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2017 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2018 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2019 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2020 Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Retrievers (Labrador)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">French Bulldogs</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">German Shepherd Dogs</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Retrievers (Golden)</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>The second data set, <code>breed_traits</code>, has information on 16 different traits, classified from 1 to 5, for those 195 dog breeds.</p>
+<div style="text-align: center">
+<p><code>breed_traits</code></p>
+</div>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Affectionate With Family</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Good With Young Children</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Good With Other Dogs</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Shedding Level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Retrievers (Labrador)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">French Bulldogs</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">German Shepherd Dogs</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Retrievers (Golden)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="read-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-data">Read the data</h3>
+<p>It is good coding practice to load all required packages at the top of your quarto file (but below the yaml header), in a separate codechunk. For this problem set, you’ll need to load only the tidyverse package. Make a code-chunk in which you read the data, using the <code>read_csv()</code> function from the <code>readr</code> package (loaded as part of the tidyverse!).</p>
+<p>Remember that you can run an entire chunk by clicking on the green play arrow in the top right corner of the chunk. You can also run lines of code line-by-line if you place your cursor on some R code and press <kbd>⌘</kbd> + <kbd>enter</kbd> (for macOS users) or <kbd>ctrl</kbd> + <kbd>enter</kbd> (for Windows users).</p>
+<p>Make sure you run each chunk sequentially. If you run a chunk in the middle of the document without running previous ones, it might not work, since previous chunks might do things that later chunks depend on.</p>
+</section>
+<section id="clean-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="clean-the-data">Clean the data</h3>
+<p>Check the names of the data sets, using the <code>names()</code> function</p>
+<p>Per the <a href="https://style.tidyverse.org/syntax.html">tidyverse style guide</a>, variable names should use snake case—lower case with underscores between words. This helps with consistency and readability, but it’s also technically easier, as any variable names that start with numbers and/or have spaces need to be referred to within <code>`back ticks`</code>. It’s easier to refer to a variable with <code>shedding_level</code> instead of <code>`Shedding Level`</code>, and thankfully we have a function to easily rename all of those variables instead of doing it by hand.</p>
+<p>Unfortunately…that function does not live within the tidyverse! It’s the only such function we’ll be highlighting during this workshop, but it is so helpful that it has to be included. The function comes from the <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">janitor</a> package. Use the console to install the package (remember, this needs to be done only once per computer!). Alternatively, you can also use the “Packages” panel in RStudio to install it. Load the package in the same way you loaded the tidyverse package before.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Copy-paste the code below into your quarto file. In the code, the first line uses the assignment operator <code>&lt;-</code> to “save as” our <code>breed_traits</code> data set. We could give it another name and save it as something else, but for this purpose we’re going to overwrite it. The second line applies the <code>clean_names()</code> function.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A helpful tip on notation: once a package has been loaded with <code>library</code>, you can use the function by itself, like you see here with <code>clean_names()</code>. If you don’t want to load the package, you can eliminate that line and instead refer to the function along with its package name, such as <code>janitor::clean_names()</code>. (The package still has to be installed, however.)</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>breed_traits <span class="ot">&lt;-</span> breed_traits <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>clean_names()</code> function neatly converts all variable names to snake case, as shown below.</p>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">affectionate_with_family</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">good_with_young_children</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Retrievers (Labrador)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">French Bulldogs</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="manipulate-the-data-using-dplyr" class="level3">
+<h3 class="anchored" data-anchor-id="manipulate-the-data-using-dplyr">Manipulate the data using <code>dplyr</code></h3>
+<p>Use <code>group_by()</code>, <code>summarize()</code> and <code>n()</code> on the cleaned (!) <code>breed_traits</code> data frame to find out how many observations there are per different value of <code>shedding_level</code>.</p>
+<p>Your output should look like this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  shedding_level     n
+           &lt;dbl&gt; &lt;int&gt;
+1              0     1
+2              1    27
+3              2    41
+4              3   109
+5              4    16
+6              5     1</code></pre>
+</div>
+</div>
+<p>For this kind of easy summary, there is even a built-in dplyr function that achieves the same result: <code>count()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>breed_traits <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(shedding_level)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that this piece of code does not have an assignment operator! We are applying the <code>count()</code> function to the <code>breed_traits</code> data set, but the results would appear in your console and would not be saved anywhere. This is useful whenever you don’t need to save the output.</p>
+<p>The output suggests that 109 breeds have a value of 3, 41 breeds have a value of 2, etc. Unfortunately, we have a value of zero, and we know that these variables should have a value of 1, 2, 3, 4, or 5. This is likely an error in the data that should be removed.</p>
+<p>Use the <code>filter()</code> function, which keeps or discards observations (rows), to remove all records with a <code>shedding_level</code> value of zero (and we know from our <code>count()</code> output above that there should be only one such observation). As above, overwrite the <code>breed_traits</code> data frame with the new, filtered version.</p>
+<p>You can check if your operation was successful by running <code>breed_traits |&gt; count(shedding_level)</code> again: You should now see that zero is no longer a value of that variable.</p>
+<p>Let’s make a combined score of how <strong>un</strong>tidy each of the dog breeds is and use three variables for that score: <code>shedding_level</code>, <code>coat_grooming_frequency</code> and <code>drooling_level</code>. Since those traits are classified from 1 to 5 for each breed, with a higher score denoting a higher level of untidiness, we can add up the scores for all three traits to create a new variable. Use the <code>mutate()</code> function to create a new variable, <code>untidy_score</code>, which is the sum of our three traits of interest. Store the results in a <em>new</em> data frame called <code>untidy_scores</code> (using the assignment operator <code>&lt;-</code> ). Use the <code>select()</code> function, another <code>dplyr</code> verb, to only select two variables into this new data frame: <code>untidy_scores</code> and <code>breed</code></p>
+<p>The new data set now consists of the <code>untidy_score</code> for 194 breeds (we had 195 until we dropped the Plott Hounds) and looks like this:</p>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">untidy_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Retrievers (Labrador)</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">French Bulldogs</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">German Shepherd Dogs</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Retrievers (Golden)</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bulldogs</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>The <code>arrange()</code> function can be useful to quickly sort your data set based on the value of any selected variable(s). <code>arrange()</code> defaults to ascending order, but you can specify descending order by wrapping the variable name within <code>desc()</code>, as seen in the code on the right. Try to order the data frame such that the untidiest breed is on the top, and the tidiest on the bottom.</p>
+<p>The result should look like this:</p>
+<div style="font-size: 0.75em; text-align: center">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">untidy_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Leonbergers</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Newfoundlands</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bloodhounds</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">St. Bernards</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Old English Sheepdogs</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="tidying-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="tidying-the-data">Tidying the data</h3>
+<p>We now know that Bernese Mountain Dogs are among the untidiest of all: they have the highest score of 11. So far, we’ve been working with the <code>breed_traits</code> data, but we have a whole other data set, <code>breed_ranks</code>, showing the popularity of different breeds across several years.</p>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2013 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2014 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2015 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2016 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2017 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2018 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2019 Rank</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2020 Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">22</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>Remember from the class that the tidyverse is opinionated on the topic of <strong>tidy data</strong>. How does this this data set fail to meet the criteria for tidy data? Explain.</p>
+<div class="hidden">
+<pre class="text"><code>There are three interrelated rules which make a dataset tidy:
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+We have a year and a rank variable, but neither of these variables have their own column. Shown above is one observation, by dog breed. But that "one" observation is actually eight separate observations: the rank in 2013, the rank in 2014, etc. Each observation needs to have its own row.</code></pre>
+</div>
+<p>The current structure of <code>breed_ranks</code> is in a <em>wide</em> format, and we need it to be in a <em>long</em> format. Create a new data frame called <code>ranks_pivoted</code> based on <code>breed_rank</code>. Use <code>pivot_longer()</code> to create two new variables, <code>year</code> and <code>rank</code>. Remember that the function has three arguments: the columns we want to pivot (remember we need to use back ticks because these variable names have spaces in them), the name for the new column consisting of the previous column headers, and the name for the new column consisting of the previous column <em>values</em>.</p>
+<p>The output should look like below. This data is now tidy, with each observation (e.g., the rank in 2013) in its own row and separate columns for each variable.</p>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Breed</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2013 Rank</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2014 Rank</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2015 Rank</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2016 Rank</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2017 Rank</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2018 Rank</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2019 Rank</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: left;">2020 Rank</td>
+<td style="text-align: right;">22</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>Let’s do some more cleaning. The <code>rename()</code> function makes it easy to change the names of variables (the new name comes first, followed by the original)—we can change <code>Breed</code> to <code>breed</code> to match our other data set. And the <code>parse_number()</code> function from <code>readr</code> allows us to pull out the integer from our <code>year</code> column. This is an example of how you can use <code>mutate()</code> to rewrite existing variables in addition to creating new ones. Just copy-paste this code into your project.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ranks_pivoted <span class="ot">&lt;-</span> ranks_pivoted <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">breed =</span> Breed) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="font-size: 0.75em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">breed</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bernese Mountain Dogs</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">22</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p><strong>Okay but..what was that all that tidying good for?</strong></p>
+<p>Imagine you have this research question: How has the popularity ranking of Bernese Mountain Dogs has shifted over time? Our mew, appropriately tidy data allows us to plot an answer to that question. You haven’t learned how to make plots with R yet, but there are some explanations to accompany the example below.</p>
+<p>First, we want to <code>filter()</code> our data, because we’re only interested in Bernese Mountain Dogs, and our new <code>ranks_pivoted</code> data frame contains all the breeds, the code below starts with a <code>filter()</code> statement. You could use <code>filter(breed == "Bernese Mountain Dogs")</code>, but perhaps you don’t want to type all that out. The <code>stringr</code> <a href="https://stringr.tidyverse.org/">package</a> (part of the core tidyverse) has many functions for dealing with string (text) data, and <code>str_detect()</code> is among the most useful. It returns <code>TRUE</code> or <code>FALSE</code> as to whether the variable you select (the first argument of the function) contains the string you provide (the second argument of the function). This function within a function will <code>filter</code> to only the observations for which our <code>str_detect</code> expression is <code>TRUE</code>. Use a combination of <code>filter()</code> and <code>str_detect()</code> to reduce the data set to only Bernese Mountain Dogs.</p>
+<p>The <code>ggplot</code> function assigns <code>year</code> to the x-axis and <code>rank</code> to the <code>y-axis</code>. The <code>label = rank</code> argument indicates that we want the <code>rank</code> variable to appear as a label. Then, to define the plot, we add a <code>geom_point</code> layer for dots as well as a <code>geom_text</code> layer to add the labels. The <code>vjust</code> argument within that function specifies the desired vertical justification for the labels to place them below the dots. Copy-paste the code below into your project.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ranks_pivoted <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> rank, <span class="at">label =</span> rank)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/dot-basic-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>More on plots next week. That’s it, time to render your assignment, either as a <code>.pdf</code> or a <code>.html</code> file. Use the “Render” menu:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images//render-button.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Upload the rendered document in the Homework section on Moodle, under “Assignment 2”.</p>
+<p>🎉 Party! 🎉</p>
+
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-wickhamDataScienceImport2023" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for data science: import, tidy, transform, visualize, and model data</em>. 2nd edition. Beijing Boston Farnham Sebastopol Tokyo: O’Reilly. <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

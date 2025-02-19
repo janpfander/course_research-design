@@ -75,7 +75,8 @@ schedule <- data.frame(
 )
 
 # highlight the other room
-schedule$e[10] <- '<span style="background-color: yellow;">Salle 5</span>'
+schedule$e[10] <- '<span style="background-color: #0C4B6A; color: white;">Salle 5</span>'
+schedule$c[10] <- '<span style="background-color: #F4C542;">02/04/25</span>'
 
 kable(schedule, col.names = NULL, align = "lll", escape = FALSE, format = "html") %>%
   kable_styling(bootstrap_options = c("condensed", "hover"), full_width = FALSE) %>%
@@ -85,8 +86,8 @@ kable(schedule, col.names = NULL, align = "lll", escape = FALSE, format = "html"
   pack_rows("III Causal Inference", 10, 11) %>%
   pack_rows("IV Science", 12, 16) %>%
   footnote(symbol = "48 blvd Jourdan, Paris 14ème",
-           symbol_title = "Note:")
-  #row_spec(10, extra_css = "background-color: yellow;")
+           symbol_title = "Note:") 
+  #row_spec(10, extra_css = "background-color: #F4C542;")
 
 
 ```

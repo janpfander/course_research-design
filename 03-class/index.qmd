@@ -1,5 +1,5 @@
 ---
-title: "Class 3: Variables, Distributions, Summary Statistics"
+title: "Class 3: Variables, Distributions and Summary Statistics" 
 bibliography: ../references.bib
 ---
 
@@ -7,9 +7,4 @@ bibliography: ../references.bib
 source(here::here("R", "slide-things.R"))
 ```
 
-::: {.callout-caution}
-## Ups, there is no content here yet. 
-
-All materials, slides and assignments will be uploaded on the day of the class `r emoji::emoji("clock")` 
-:::
 

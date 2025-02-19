@@ -42,8 +42,6 @@ honda_data <- cars %>%
   select(model, year)
 ```
 
-
-
 # My first plots
 
 > You haven't learned about plots yet. But to give you a taste for what's coming, execute the code chunk below and let the magic happen. Make sure your data frame is named "cars" for this to work

@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.57">
 
-  <title>Epistémologie et Esprit Critique (Introduction to Research Design) – Variables, Distributions and Graphs</title>
+  <title>Epistémologie et Esprit Critique (Introduction to Research Design) – Variables, Distributions and Summary Statistics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,6 +28,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -329,64 +394,42 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Variables, Distributions and Graphs</h1>
+  <h1 class="title">Variables, Distributions and Summary Statistics</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="overview" class="slide level2">
-<h2>Overview</h2>
+<section id="today-we-learn-how-to-describe-data" class="slide level2">
+<h2>Today we learn how to describe data</h2>
 <div class="columns">
 <div class="column" style="font-size: smaller;">
 <ol type="1">
-<li><strong>Data Basics</strong>
-<ul>
-<li>Variables</li>
-<li>Data frames</li>
-</ul></li>
-<li><strong>Data Wrangling in the Tidyverse</strong>
-<ul>
-<li>Data structure</li>
-<li>Classes</li>
-<li>Vectors</li>
-<li>Subsetting</li>
-</ul></li>
+<li><strong>Variables</strong></li>
 <li><strong>Distributions</strong>
 <ul>
-<li>Summary and key takeaways</li>
+<li>Definition</li>
+<li>Graphical representation</li>
+<li>Common distributions</li>
+</ul></li>
+<li><strong>Central tendency</strong>
+<ul>
+<li>Mean</li>
+<li>Median</li>
 </ul></li>
 </ol>
 </div><div class="column" style="font-size: smaller;">
 <ol start="4" type="1">
-<li><strong>Markdown and universal writing</strong>
+<li><strong>Spread</strong>
 <ul>
-<li>Office Model vs.&nbsp;Engineering Model</li>
-<li>Excel failures</li>
-<li>Markdown</li>
-</ul></li>
-<li><strong>Writing reports in Quarto</strong>
-<ul>
-<li>What is Quarto?</li>
-<li>YAML header</li>
-<li>Code chunks</li>
-<li>Text formatting</li>
-<li>Run and render your code</li>
-<li>Inline code</li>
-<li>Tables</li>
-<li>Preset themes</li>
-<li>Report parameters</li>
+<li>Range, quantiles, and the IQR</li>
+<li>Variance and standard deviation</li>
 </ul></li>
 </ol>
 </div></div>
 </section>
-<section>
-<section id="data-basics" class="title-slide slide level1 center">
-<h1>Data basics</h1>
+<section class="slide level2">
 
-</section>
-<section id="variables" class="slide level2">
-<h2>Variables</h2>
 <p>A variable is …</p>
 <div class="fragment">
 <p>Some measure that can vary.</p>
@@ -395,11 +438,11 @@
 </div>
 </div>
 </section>
-<section id="variables-1" class="slide level2">
+<section id="variables" class="slide level2">
 <h2>Variables</h2>
 <p>Imagine you fill out a survey about your way to school.</p>
 </section>
-<section id="variables-2" class="slide level2">
+<section id="variables-1" class="slide level2">
 <h2>Variables</h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -462,7 +505,7 @@
 </div>
 </div>
 </section>
-<section id="variables-3" class="slide level2">
+<section id="variables-2" class="slide level2">
 <h2>Variables</h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -525,7 +568,7 @@
 </div>
 </div>
 </section>
-<section id="variables-4" class="slide level2">
+<section id="variables-3" class="slide level2">
 <h2>Variables</h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -588,7 +631,7 @@
 </div>
 </div>
 </section>
-<section id="variables-5" class="slide level2">
+<section id="variables-4" class="slide level2">
 <h2>Variables</h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -651,7 +694,7 @@
 </div>
 </div>
 </section>
-<section id="variables-6" class="slide level2">
+<section id="variables-5" class="slide level2">
 <h2>Variables</h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -682,6 +725,69 @@
 <td style="text-align: left;">less than 15 mins, between 15 and 60 mins, more than 60 mins</td>
 <td style="text-align: left;">Travel time</td>
 <td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">What arrondissement/suburb do you live in?</td>
+<td style="text-align: left;">Open-ended</td>
+<td style="text-align: left;">Place of residence</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compared to your classmates, how close do you think you live to University?</td>
+<td style="text-align: left;">Closer, About the same, Further away</td>
+<td style="text-align: left;">Relative perceived distance</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">What’s the most annoying part of your itinerary to/from university?</td>
+<td style="text-align: left;">Describe briefly</td>
+<td style="text-align: left;">Object of annoyance</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'</td>
+<td style="text-align: left;">1: Fully disagree – 5: Fully agree</td>
+<td style="text-align: left;">Degree of annoyance</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="variables-6" class="slide level2">
+<h2>Variables</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top" data-quarto-postprocess="true" style="font-size: 20px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Survey Question</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Answer Options</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable Name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">How far do you live from the Jourdan University building?</td>
+<td style="text-align: left;">Use the exact distance in km</td>
+<td style="text-align: left;">Distance to school</td>
+<td style="text-align: left;">Numeric</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">How do you get there, usually?</td>
+<td style="text-align: left;">Bike, Metro, Walking, or Other</td>
+<td style="text-align: left;">Mode of transportation</td>
+<td style="text-align: left;">Nominal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">How much time approximately does it take you to get there?</td>
+<td style="text-align: left;">less than 15 mins, between 15 and 60 mins, more than 60 mins</td>
+<td style="text-align: left;">Travel time</td>
+<td style="text-align: left;"><span style="     border: 3px solid red;">Ordinal</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">What arrondissement/suburb do you live in?</td>
@@ -744,13 +850,13 @@
 <td style="text-align: left;">How much time approximately does it take you to get there?</td>
 <td style="text-align: left;">less than 15 mins, between 15 and 60 mins, more than 60 mins</td>
 <td style="text-align: left;">Travel time</td>
-<td style="text-align: left;"><span style="     border: 3px solid red;">Ordinal</span></td>
+<td style="text-align: left;">Ordinal</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">What arrondissement/suburb do you live in?</td>
 <td style="text-align: left;">Open-ended</td>
 <td style="text-align: left;">Place of residence</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><span style="     border: 3px solid red;">Nominal</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Compared to your classmates, how close do you think you live to University?</td>
@@ -813,13 +919,13 @@
 <td style="text-align: left;">What arrondissement/suburb do you live in?</td>
 <td style="text-align: left;">Open-ended</td>
 <td style="text-align: left;">Place of residence</td>
-<td style="text-align: left;"><span style="     border: 3px solid red;">Nominal</span></td>
+<td style="text-align: left;">Nominal</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Compared to your classmates, how close do you think you live to University?</td>
 <td style="text-align: left;">Closer, About the same, Further away</td>
 <td style="text-align: left;">Relative perceived distance</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><span style="     border: 3px solid red;">Ordinal</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">What’s the most annoying part of your itinerary to/from university?</td>
@@ -882,69 +988,6 @@
 <td style="text-align: left;">Compared to your classmates, how close do you think you live to University?</td>
 <td style="text-align: left;">Closer, About the same, Further away</td>
 <td style="text-align: left;">Relative perceived distance</td>
-<td style="text-align: left;"><span style="     border: 3px solid red;">Ordinal</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">What’s the most annoying part of your itinerary to/from university?</td>
-<td style="text-align: left;">Describe briefly</td>
-<td style="text-align: left;">Object of annoyance</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'</td>
-<td style="text-align: left;">1: Fully disagree – 5: Fully agree</td>
-<td style="text-align: left;">Degree of annoyance</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="variables-10" class="slide level2">
-<h2>Variables</h2>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="font-size: 20px; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Survey Question</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Answer Options</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Variable Name</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Variable Type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">How far do you live from the Jourdan University building?</td>
-<td style="text-align: left;">Use the exact distance in km</td>
-<td style="text-align: left;">Distance to school</td>
-<td style="text-align: left;">Numeric</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">How do you get there, usually?</td>
-<td style="text-align: left;">Bike, Metro, Walking, or Other</td>
-<td style="text-align: left;">Mode of transportation</td>
-<td style="text-align: left;">Nominal</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">How much time approximately does it take you to get there?</td>
-<td style="text-align: left;">less than 15 mins, between 15 and 60 mins, more than 60 mins</td>
-<td style="text-align: left;">Travel time</td>
-<td style="text-align: left;">Ordinal</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">What arrondissement/suburb do you live in?</td>
-<td style="text-align: left;">Open-ended</td>
-<td style="text-align: left;">Place of residence</td>
-<td style="text-align: left;">Nominal</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Compared to your classmates, how close do you think you live to University?</td>
-<td style="text-align: left;">Closer, About the same, Further away</td>
-<td style="text-align: left;">Relative perceived distance</td>
 <td style="text-align: left;">Ordinal</td>
 </tr>
 <tr class="even">
@@ -966,7 +1009,7 @@
 </div>
 </div>
 </section>
-<section id="variables-11" class="slide level2">
+<section id="variables-10" class="slide level2">
 <h2>Variables</h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -1073,6 +1116,648 @@
 
 </div>
 </div>
+</section>
+<section>
+<section id="distributions" class="title-slide slide level1 center">
+<h1>Distributions</h1>
+
+</section>
+<section id="distributions-1" class="slide level2">
+<h2>Distributions</h2>
+<ul>
+<li><p>The point of descriptive statistics is to <strong>summarize a big table</strong> of values with a small set of <strong>tractable statistics</strong></p></li>
+<li><p>The most comprehensive way to characterize a variable/vector is to compute its <strong>distribution</strong>:</p>
+<ul>
+<li><strong>What</strong> are the <strong>values</strong> the variable takes?</li>
+<li><strong>How frequently</strong> does each of these values appear?</li>
+</ul></li>
+</ul>
+</section>
+<section id="distributions-2" class="slide level2">
+<h2>Distributions</h2>
+<p>Consider this variable</p>
+<div class="columns">
+<div class="column" style="font-size: smaller;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   V1
+1   3
+2   5
+3   4
+4   6
+5   5
+6   4
+7   5
+8   7
+9   7
+10  6
+11  1
+12  7
+13  6
+14  7
+15  6
+16  4
+17  7
+18  7
+19  6
+20  6
+21  5
+22  6
+23  6
+24  3
+25  4
+26  5
+27  2
+28  6
+29  8
+30  8</code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<p>We can count how many times each value appears</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 2
+     V1     n
+  &lt;int&gt; &lt;int&gt;
+1     1     1
+2     2     1
+3     3     2
+4     4     4
+5     5     5
+6     6     9
+7     7     6
+8     8     2</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Voilà the distribution of our variable.</p>
+</div>
+</div></div>
+</section>
+<section id="distributions-3" class="slide level2">
+<h2>Distributions</h2>
+<p>We can represent this distribution graphically with a bar plot.</p>
+<ul>
+<li>Each possible value on the x-axis</li>
+<li>Their number of occurrences on the y-axis</li>
+</ul>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:83.0%" class="r-stretch"></section>
+<section id="distributions-4" class="slide level2">
+<h2>Distributions</h2>
+<p>Would that also work for this variable?</p>
+<div class="columns">
+<div class="column" style="font-size: smaller;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   V1
+1   3
+2   5
+3   4
+4   6
+5   5
+6   4
+7   5
+8   7
+9   7
+10  6
+11  1
+12  7
+13  6
+14  7
+15  6
+16  4
+17  7
+18  7
+19  6
+20  6
+21  5
+22  6
+23  6
+24  3
+25  4
+26  5
+27  2
+28  6
+29  8
+30  8</code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<p>No! In this case, each value appears only once.</p>
+</div></div>
+</section>
+<section id="distributions-5" class="slide level2">
+<h2>Distributions</h2>
+<p>This is what the corresponding bar plot would look like</p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:83.0%" class="r-stretch"></section>
+<section id="distributions-6" class="slide level2">
+<h2>Distributions</h2>
+<p>For continuous variables, one solution to get a sense of the distribution is to do a <strong>histogram</strong>.</p>
+<div class="fragment">
+<p>Consider for instance the following variable. For clarity each point is shifted vertically by a random amount.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-18-1.png" style="width:78.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="distributions-7" class="slide level2">
+<h2>Distributions</h2>
+<p>We can divide the domain of this variable into 5 bins</p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:78.0%" class="r-stretch"></section>
+<section id="distributions-8" class="slide level2">
+<h2>Distributions</h2>
+<p>We can divide the domain of this variable into 5 bins</p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-20-1.png" style="width:78.0%" class="r-stretch"></section>
+<section id="distributions-9" class="slide level2">
+<h2>Distributions</h2>
+<p>And count the number of observations within each bin</p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-21-1.png" style="width:78.0%" class="r-stretch"></section>
+<section id="distributions-10" class="slide level2">
+<h2>Distributions</h2>
+<p>If we plot the count per bin, we get a <strong>histogram</strong></p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-22-1.png" style="width:78.0%" class="r-stretch"></section>
+<section id="distributions-11" class="slide level2">
+<h2>Distributions</h2>
+<p>There’s no definitive rule to choose the number of bins.</p>
+<p>Too few can be misleading, too many can be impractical for visualizing.</p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:83.0%" class="r-stretch"></section>
+<section id="distributions-12" class="slide level2">
+<h2>Distributions</h2>
+<ul>
+<li>Oftentimes, instead of histograms, density plots are used.
+<ul>
+<li>Both are based on the same principle: grouping data points.</li>
+<li>But densities are continuous</li>
+</ul></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="distributions-13" class="slide level2">
+<h2>Distributions</h2>
+<ul>
+<li><p>You won’t learn how to derive densities in this course</p></li>
+<li><p>All you need to know: The <b>higher the value</b> on the y-axis, the <b>more observations</b> there are around the corresponding x location</p></li>
+<li><p>Like the histogram can have a varying number of bins, the density plot can vary in its <strong>bandwidth</strong></p></li>
+</ul>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-26-1.png" style="width:83.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>How to summarize distributions with just a couple of numbers?</p>
+<p><br> <br></p>
+<p>(you are probably impatient to hear the answer)</p>
+
+<img data-src="images/sheldon-cooper.jpg" width="500" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>How to summarize distributions with just a couple of numbers?</p>
+<p><br> <br></p>
+<ul>
+<li>By describing their <strong>central tendency</strong> (e.g., mean, median)</li>
+<li>And their <strong>spread</strong> (e.g., standard deviation, inter-quartile range)</li>
+</ul>
+</section></section>
+<section>
+<section id="central-tendency" class="title-slide slide level1 center">
+<h1>Central tendency</h1>
+
+</section>
+<section id="mean" class="slide level2">
+<h2>Mean</h2>
+<p>The mean is the most common statistic to describe central tendencies.</p>
+<div class="columns">
+<div class="column" style="font-size: smaller;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   V1
+1   3
+2   5
+3   4
+4   6
+5   5
+6   4
+7   5
+8   7
+9   7
+10  6
+11  1
+12  7
+13  6
+14  7
+15  6
+16  4
+17  7
+18  7
+19  6
+20  6
+21  5
+22  6
+23  6
+24  3
+25  4
+26  5
+27  2
+28  6
+29  8
+30  8</code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<p>The mean is simply the sum of all the grades divided by the number of grades:</p>
+<p><span class="math display">\[\bar{x} = \frac{1}{N}\sum_{i = 1}^Nx_i\]</span></p>
+<p>In R, we just need to pass a vector/variable to the <code>mean()</code> function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># make a vector</span></span>
+<span id="cb5-2"><a></a>variable <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb5-3"><a></a></span>
+<span id="cb5-4"><a></a><span class="co"># calculate the mean</span></span>
+<span id="cb5-5"><a></a><span class="fu">mean</span>(variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.4</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="median" class="slide level2">
+<h2>Median</h2>
+<p>To obtain the median you first need to sort the values.</p>
+<div class="columns">
+<div class="column" style="font-size: smaller;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   V1
+1   1
+2   2
+3   3
+4   3
+5   4
+6   4
+7   4
+8   4
+9   5
+10  5
+11  5
+12  5
+13  5
+14  6
+15  6
+16  6
+17  6
+18  6
+19  6
+20  6
+21  6
+22  6
+23  7
+24  7
+25  7
+26  7
+27  7
+28  7
+29  8
+30  8</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="font-size: smaller;">
+<p>The median is the value that <strong>divides</strong> the distribution into <strong>two halves</strong></p>
+<p>When there is an even number of observations, the median is the average of the last value of the first half and the first value of the second half</p>
+<p><span class="math display">\[\text{Med}(x) = \begin{cases} x[\frac{N+1}{2}] &amp; \text{if } N \text{ is odd}\\
+\frac{x[\frac{N}{2}]+x[\frac{N}{2}+1]}{2} &amp; \text{if } N \text{ is even}
+\end{cases}\]</span></p>
+<p>Here, since we have 30 observations, we take the average of the 15th and 16th value:</p>
+<p><span class="math display">\[[\frac{6+6}{2}] = 6\]</span></p>
+</div></div>
+</section>
+<section id="median-1" class="slide level2">
+<h2>Median</h2>
+<p>To obtain the median you first need to sort the values.</p>
+<div class="columns">
+<div class="column" style="font-size: smaller;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   V1
+1   1
+2   2
+3   3
+4   3
+5   4
+6   4
+7   4
+8   4
+9   5
+10  5
+11  5
+12  5
+13  5
+14  6
+15  6
+16  6
+17  6
+18  6
+19  6
+20  6
+21  6
+22  6
+23  7
+24  7
+25  7
+26  7
+27  7
+28  7
+29  8
+30  8</code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<p>In R, we just need to pass a vector/variable to the <code>median()</code> function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="co"># make a vector</span></span>
+<span id="cb9-2"><a></a>variable <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb9-3"><a></a></span>
+<span id="cb9-4"><a></a><span class="co"># calculate the mean</span></span>
+<span id="cb9-5"><a></a><span class="fu">median</span>(variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="mean-vs.-median" class="slide level2">
+<h2>Mean vs.&nbsp;Median</h2>
+<ul>
+<li><p>Which of these two measures of central tendency you use will vary on the context.</p></li>
+<li><p>Mostly, it will be the mean.</p></li>
+</ul>
+</section>
+<section id="mean-vs.-median-1" class="slide level2">
+<h2>Mean vs.&nbsp;Median</h2>
+<ul>
+<li>Note, however, that the mean is more sensitive to so called, “outliers”.</li>
+</ul>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch"></section>
+<section id="mean-vs.-median-in-r" class="slide level2">
+<h2>Mean vs.&nbsp;Median in R</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Watch out for NAs</strong></p>
+</div>
+<div class="callout-content">
+<p>Use the <code>na.rm</code> argument and set it to <code>TRUE</code> to remove NAs</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="spread" class="title-slide slide level1 center">
+<h1>Spread</h1>
+
+</section>
+<section class="slide level2">
+
+<p>We do not only want to now the center of the distribution (mean, median), but also:</p>
+<p><br></p>
+<p>How wide is the distribution?</p>
+</section>
+<section class="slide level2">
+
+<p>All these have the same mean, but they look quite different.</p>
+
+<img data-src="slides_files/figure-revealjs/unnamed-chunk-34-1.png" width="960" class="r-stretch"></section>
+<section id="range-quantiles-and-the-iqr" class="slide level2">
+<h2>Range, quantiles, and the IQR</h2>
+<p>One simple way to quantify spread is by calculating the <em>range</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>distribution <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What would be the range ?</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">max</span>(distribution) <span class="sc">-</span> <span class="fu">min</span>(distribution)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>However, with outliers, the range is sometimes not ideal.</p>
+</div>
+</section>
+<section id="range-quantiles-and-the-iqr-1" class="slide level2">
+<h2>Range, quantiles, and the IQR</h2>
+<p>An alternative are <em>quantiles</em></p>
+<ul>
+<li>The <b>median</b> divides the population into <b>2 groups</b> of equal size</li>
+<li>Quartiles divide the population into <b>4 groups</b> of equal size</li>
+<li>There are also <b>terciles</b>, <b>quintiles</b>, <b>deciles</b>, and so on</li>
+</ul>
+<div class="fragment">
+<p>One way to <b>compute quartiles</b>: divide the ordered variable according to the median</p>
+<ul>
+<li>The lower quartile value is the median of the lower half of the data</li>
+<li>The upper quartile value is the median of the upper half of the data</li>
+<li>If there is an odd number of data points in the original ordered data set, don’t include the median in either half</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">-3</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><span class="math display">\[Q_1 = -2,\:\:Q_2 = 0,\:\:Q_3 = 2\]</span></p>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">-3</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><span class="math display">\[Q_1 = -1.5,\:\:Q_2 = 0,\:\:Q_3 = 1.5\]</span></p>
+</div></div>
+</div>
+</section>
+<section id="range-quantiles-and-the-iqr-2" class="slide level2">
+<h2>Range, quantiles, and the IQR</h2>
+<p>The <strong>interquartile range</strong> is the difference between the third and the first quartile:</p>
+<p><span class="math inline">\(\text{IQR} = Q_3 - Q_1\)</span></p>
+<p>In other words, it corresponds to the <strong>bounds</strong> of the set which contains the <strong>middle half</strong> of the distribution</p>
+</section>
+<section id="variance-and-standard-deviation" class="slide level2">
+<h2>Variance and standard deviation</h2>
+<p>The <b>variance</b> is a way to quantify how the values of a variable tend to <b>deviate</b> from their <b>mean</b></p>
+<ul>
+<li>If values tend to be <b>close to the mean</b>, then the <b>spread is low</b></li>
+<li>If values tend to be far <b>from the mean</b>, then the <b>spread is large</b></li>
+</ul>
+<div class="fragment">
+<div class="columns">
+<div class="column">
+<p>Can we just take the <strong>average deviation</strong> from the mean?</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">x</th>
+<th style="text-align: center;">mean(x)</th>
+<th style="text-align: center;">x - mean(x)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">-1.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">1.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">-3</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">-5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">5.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column fragment">
+<p>By construction it would <strong>always be 0</strong>: values above and under the mean compensate</p>
+<ul>
+<li>But we can use the <strong>absolute value</strong> of each deviation: <span class="math inline">\(|x_i-\bar{x}|\)</span></li>
+<li>Or their <strong>square</strong>: <span class="math inline">\((x_i-\bar{x})^2\)</span></li>
+</ul>
+</div></div>
+</div>
+</section>
+<section id="variance-and-standard-deviation-1" class="slide level2">
+<h2>Variance and standard deviation</h2>
+<p>This is how the <strong>variance</strong> is computed: by <strong>averaging the squared deviations from the mean</strong></p>
+<p><span class="math display">\[\text{Var}(x) = \frac{1}{N}\sum_{i = 1}^N(x_i-\bar{x})^2\]</span></p>
+<p><br></p>
+<div class="fragment">
+<ul>
+<li><p>Because the <strong>variance</strong> is a <strong>sum of squares</strong>, it can get <strong>quite big</strong> compared to the other statistics like the mean, the median or the interquartile range.</p></li>
+<li><p>To express the spread in the <strong>same unit</strong> as the data, we can take the <strong>square root</strong> of the variance, which is called the <strong>standard deviation</strong></p></li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\text{SD}(x) = \sqrt{\text{Var}(x)} = \sqrt{\frac{1}{N}\sum_{i = 1}^N(x_i-\bar{x})^2}\]</span></p>
+</div>
+</section>
+<section id="computing-spread-in-r" class="slide level2">
+<h2>Computing spread in R</h2>
+<p>Interquartile range (IQR)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>variable <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">11</span>)</span>
+<span id="cb16-2"><a></a><span class="fu">IQR</span>(variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>Standard deviation (sd)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">sd</span>(variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.844188</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>You can obtain the <strong>quantiles</strong> of a variable using the <code>quantile()</code> function (the default are quartiles)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">quantile</span>(variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  0%  25%  50%  75% 100% 
+   0    3    6    8   11 </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="thats-it-for-today" class="slide level2">
+<h2>That’s it for today :)</h2>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

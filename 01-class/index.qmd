@@ -31,11 +31,11 @@ Get familiar with the [syllabus](index.qmd) of this course.
 
 ### Task 2
 
-Read the guide ["Welcome to R, RStudio, and the tidyverse"](guides/install.qmd) on installation and install R, Rstudio, tidyverse (we'll talk more about that soon) and tinytex.
+Read the guide ["Welcome to R, RStudio, and the tidyverse"](../guides/install.qmd) on installation and install R, Rstudio, tidyverse (we'll talk more about that soon) and tinytex.
 
 ### Task 3
 
-Read the [guide on `Rprojects`](guides/r_projects.qmd), including the reference to [this short chapter](https://r4ds.hadley.nz/workflow-scripts#projects).
+Read the [guide on `Rprojects`](../guides/r_projects.qmd), including the reference to [this short chapter](https://r4ds.hadley.nz/workflow-scripts#projects).
 
 ### Task 4
 

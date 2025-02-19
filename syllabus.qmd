@@ -77,6 +77,7 @@ The content of this course is inspired by and draws on material from openly and 
 - Andrew Heiss' ["Program Evaluation for Public Service"](https://evalsp24.classes.andrewheiss.com/)
 - Louis Sirugue's ["Introduction to Econometrics & Programming"](https://louissirugue.github.io/metrics_on_R/home.html)
 - Mine Çetinkaya-Rundel's ["STA 199: Introduction to Data Science and Statistical Thinking"](https://sta199-s24.github.io/)
+- Megan Hall's workshop on ["Keeping it tidy"](https://meghan.quarto.pub/keeping-it-tidy/)
 
 ::: {#references}
 :::
