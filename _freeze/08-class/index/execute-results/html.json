@@ -2,7 +2,7 @@
   "hash": "27b54c6a2b58c2bd8bb81a6a80cdbec8",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"Class 8: Colliders and Confounders\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n::: {.callout-caution}\n## Ups, there is no content here yet. \n\nAll materials, slides and assignments will be uploaded on the day of the class 🕘 \n:::\n\n\n",
+    "markdown": "---\ntitle: \"Class 8: Colliders and Confounders\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n::: {.callout-caution}\n## Ups, there is no content here yet. \n\nAll materials, slides and assignments will be uploaded on the day of the class ⏰ \n:::\n\n\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

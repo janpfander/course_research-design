@@ -12,4 +12,6 @@ slides.qmd
 
 # Un-ignore specific slides that have taken place
 !01-class/slides.qmd
+!02-class/slides.qmd
+!03-class/slides.qmd
 
