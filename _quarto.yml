@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 execute:
-  freeze: false  # Re-render only when source changes; if true, then never re-execute computational content during project render, needed for .qmd and .rmd since quarto does not render .ipynb by default
+  freeze: auto  # Re-render only when source changes; if true, then never re-execute computational content during project render, needed for .qmd and .rmd since quarto does not render .ipynb by default
 
 website:
   page-navigation: true

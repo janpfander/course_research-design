@@ -1,0 +1,15 @@
+{
+  "hash": "b1a9df28685a5f9cbd21e9d90d87472e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 4: Data visualization\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n::: {.callout-caution}\n## Ups, there is no content here yet. \n\nAll materials, slides and assignments will be uploaded on the day of the class 🕚 \n:::\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
