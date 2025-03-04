@@ -26,11 +26,11 @@ website:
       - section: "Content"
         contents: 
           - text: "01 - Introduction to R, RStudio and Quarto"
-            href: 01-class/index.qmd
+            href: content/01-content.qmd
           - text: "02 - Data Manipulation"
-            href: 02-class/index.qmd          
+            href: content/02-content.qmd         
           - text: "03 - Variables, Distributions, Summary Statistics"
-            href: 03-class/index.qmd
+            href: content/03-content.qmd
           - text: "04 - Data visualization"
             href: 04-class/index.qmd
           - text: "05 - Statistical inference"
