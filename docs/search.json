@@ -878,28 +878,44 @@
     "href": "content/04-content.html",
     "title": "Class 4: Data visualization",
     "section": "",
-    "text": "The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides"
+    "text": "The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides",
+    "crumbs": [
+      "Content",
+      "04 - Data visualization"
+    ]
   },
   {
     "objectID": "content/04-content.html#slides",
     "href": "content/04-content.html#slides",
     "title": "Class 4: Data visualization",
     "section": "",
-    "text": "The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides"
+    "text": "The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides",
+    "crumbs": [
+      "Content",
+      "04 - Data visualization"
+    ]
   },
   {
     "objectID": "content/04-content.html#readings",
     "href": "content/04-content.html#readings",
     "title": "Class 4: Data visualization",
     "section": "Readings",
-    "text": "Readings\n\nChapter 1 in Wickham, Çetinkaya-Rundel, and Grolemund (2023)\nThis short primer by Andrew Heiss on on data visualization basics"
+    "text": "Readings\n\nChapter 1 in Wickham, Çetinkaya-Rundel, and Grolemund (2023)\nThis short primer by Andrew Heiss on on data visualization basics",
+    "crumbs": [
+      "Content",
+      "04 - Data visualization"
+    ]
   },
   {
     "objectID": "content/04-content.html#assignment",
     "href": "content/04-content.html#assignment",
     "title": "Class 4: Data visualization",
     "section": "Assignment",
-    "text": "Assignment\n\n\n\n\n\n\nDo the lesson first!\n\n\n\nBefore starting this exercise, make sure you complete the short primer mentioned in the Readings section.\n\n\nFor this exercise you’ll practice grouping, summarizing, and plotting data using the counts of words spoken in the Lord of the Rings trilogy across movie, sex, and fictional species.\n\nAs always, make a new or use an existing R Studio project for your assignment.\nYou’ll need to download these CSV files and put preferably put them in a folder named data in your project folder:\n\n\n The_Fellowship_Of_The_Ring.csv\n The_Return_Of_The_King.csv\n The_Two_Towers.csv\n\n\nRead in the separate data files. Make sure you have the tidyverse package loaded.\nUse the bind_rows function to merge the three data sets into a single data set. We haven’t seen this function yet, look it up. Call the new merged data frame lotr (for “lord of the rings”).\nWe later want to plot gender differences. Have a look at the data. Why is it not yet in a tidy format? Explain. Then use pivot_longer to reshape the data frame by adding two new variables, Gender and Words, to the data frame.\nDoes a certain gender dominate a movie? (Hint: Make a new summary data frame for which you group by Gender and then count sum the words.)\nGraph your summarized data. (Hint: use geom_col and the Words and Gender variables.)\nYou’ve just plotted the averages across films. (Hint: Make a new summary data frame for which you group by both Gender and Film and then count sum the words.)\nTry to make a new plot in which you differentiate between the different films (Hint: use faceting by Gender or Film).\nHow about species? Does the dominant species differ on average (don’t differentiate between the three movies here)? (Hint: Proceed just as for Gender in the beginning: make a new summary data frame for which you group by Species and then count sum the words.)\nCreate a plot that visualizes the number of words spoken by species, gender, and film simultaneously. Use the complete tidy lotr data frame. You don’t need to create a new summarized dataset (with group_by(Species, Gender, Film)) because the original data already has a row for each of those (you could make a summarized dataset, but it would be identical to the full version). You need to show Species, Gender, and Film at the same time, but you only have two possible aesthetics (x and fill), so you’ll also need to facet by the third. Play around with different combinations (e.g. try x = Species, then x = Film) until you find one that tells the clearest story. For fun, add a labs() layer to add a title and subtitle and caption."
+    "text": "Assignment\n\n\n\n\n\n\nDo the lesson first!\n\n\n\nBefore starting this exercise, make sure you complete the short primer mentioned in the Readings section.\n\n\nFor this exercise you’ll practice grouping, summarizing, and plotting data using the counts of words spoken in the Lord of the Rings trilogy across movie, sex, and fictional species.\n\nAs always, make a new or use an existing R Studio project for your assignment.\nYou’ll need to download these CSV files and put preferably put them in a folder named data in your project folder:\n\n\n The_Fellowship_Of_The_Ring.csv\n The_Return_Of_The_King.csv\n The_Two_Towers.csv\n\n\nRead in the separate data files. Make sure you have the tidyverse package loaded.\nUse the bind_rows function to merge the three data sets into a single data set. We haven’t seen this function yet, look it up. Call the new merged data frame lotr (for “lord of the rings”).\nWe later want to plot gender differences. Have a look at the data. Why is it not yet in a tidy format? Explain. Then use pivot_longer to reshape the data frame by adding two new variables, Gender and Words, to the data frame.\nDoes a certain gender dominate a movie? (Hint: Make a new summary data frame for which you group by Gender and then count sum the words.)\nGraph your summarized data. (Hint: use geom_col and the Words and Gender variables.)\nYou’ve just plotted the averages across films. (Hint: Make a new summary data frame for which you group by both Gender and Film and then count sum the words.)\nTry to make a new plot in which you differentiate between the different films (Hint: use faceting by Gender or Film).\nHow about species? Does the dominant species differ on average (don’t differentiate between the three movies here)? (Hint: Proceed just as for Gender in the beginning: make a new summary data frame for which you group by Species and then count sum the words.)\nCreate a plot that visualizes the number of words spoken by species, gender, and film simultaneously. Use the complete tidy lotr data frame. You don’t need to create a new summarized dataset (with group_by(Species, Gender, Film)) because the original data already has a row for each of those (you could make a summarized dataset, but it would be identical to the full version). You need to show Species, Gender, and Film at the same time, but you only have two possible aesthetics (x and fill), so you’ll also need to facet by the third. Play around with different combinations (e.g. try x = Species, then x = Film) until you find one that tells the clearest story. For fun, add a labs() layer to add a title and subtitle and caption.",
+    "crumbs": [
+      "Content",
+      "04 - Data visualization"
+    ]
   },
   {
     "objectID": "content/03-content.html",

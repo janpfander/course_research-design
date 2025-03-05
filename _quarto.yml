@@ -32,7 +32,7 @@ website:
           - text: "03 - Variables, Distributions, Summary Statistics"
             href: content/03-content.qmd
           - text: "04 - Data visualization"
-            href: 04-class/index.qmd
+            href: content/04-content.qmd
           - text: "05 - Statistical inference"
             href: 05-class/index.qmd          
           - text: "06 - Statistical power"
