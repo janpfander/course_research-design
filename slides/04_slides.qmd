@@ -1,5 +1,5 @@
 ---
-title: "Variables, Distributions and Plots"
+title: "Data visualization"
 format: 
   revealjs:
     theme: simple
@@ -20,1925 +20,1249 @@ library(kableExtra)
 
 ::::: columns
 ::: {.column style="font-size: smaller;"}
-1.  **Data Basics**
-    -   Variables
-    -   Data frames
-2.  **Data Wrangling in the Tidyverse**
-    -   Data structure
-    -   Classes
-    -   Vectors
-    -   Subsetting
-3.  **Distributions**
-    -   Summary and key takeaways
+1.  **The `ggplot` function**
+
+2.  **Mapping data to aesthetics**
+
+3.  **Different geoms**
+
+4.  **Scales**
+
 :::
 
 ::: {.column style="font-size: smaller;"}
-4. **Markdown and universal writing** 
-    - Office Model vs. Engineering Model
-    - Excel failures
-    - Markdown
-5.  **Writing reports in Quarto**
-    -   What is Quarto?
-    -   YAML header
-    -   Code chunks
-    -   Text formatting
-    -   Run and render your code
-    -   Inline code
-    -   Tables
-    -   Preset themes
-    -   Report parameters
+5.  **Facets**
+
+6.  **Coordinates**
+
+7.  **Themes**
 :::
 :::::
 
-# Data basics
+# The `ggplot` function
 
 ---
 
-## Variables
+::::::: columns
+:::: {.column width="50%"}
+::: r-stack
+`tidyverse`{.fragment .fade-out fragment-index="1"}
 
-A variable is ...
-
-. . .
-
-Some measure that can vary.
-
-::: {style="text-align: center;"}
-![](images/the_office.gif)
+`ggplot`{.fragment .fade-in fragment-index="1"}
 :::
+::::
 
----
+:::: {.column width="50%"}
+::: r-stack
+![](images/tidyverse.png){.fragment .semi-fade-out width="500" fragment-index="1"}
 
-## Variables
-
-Imagine you fill out a survey about your way to school.
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(rep(" ", times = 7)
-  ),
-  Variable_Name = c(rep(" ", times = 7)
-  ),
-  Variable_Type = c(
-    " ", " ", " ",
-    " ", " ",
-    " ", " "
-  )
-  )
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(rep(" ", times = 7)
-  ),
-  Variable_Type = c(
-    " ", " ", " ",
-    " ", " ",
-    " ", " "
-  )
-)
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    " ", " ", " ",
-    " ", " ",
-    " ", " "
-  )
-)
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", " ", " ",
-    " ", " ",
-    " ", " "
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[1] <- cell_spec(data$Variable_Type[1], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", "Nominal", " ",
-    " ", " ",
-    " ", " "
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[2] <- cell_spec(data$Variable_Type[2], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", "Nominal", "Ordinal",
-    " ", " ",
-    " ", " "
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[3] <- cell_spec(data$Variable_Type[3], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", "Nominal", "Ordinal",
-    "Nominal", " ",
-    " ", " "
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[4] <- cell_spec(data$Variable_Type[4], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", "Nominal", "Ordinal",
-    "Nominal", "Ordinal",
-    " ", " "
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[5] <- cell_spec(data$Variable_Type[5], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", "Nominal", "Ordinal",
-    "Nominal", "Ordinal",
-    "Open-ended", " "
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[6] <- cell_spec(data$Variable_Type[6], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Variables
-
-```{r}
-#| echo: false
-
-
-# Create the table
-data <- data.frame(
-  Question = c(
-    "How far do you live from the Jourdan University building?",
-    "How do you get there, usually?",
-    "How much time approximately does it take you to get there?",
-    "What arrondissement/suburb do you live in?",
-    "Compared to your classmates, how close do you think you live to University?",
-    "What’s the most annoying part of your itinerary to/from university?",
-    "Please indicate your level of (dis)agreement with the following statement: 'My itinerary to university is annoying.'"
-  ),
-  Answer_Option = c(
-    "Use the exact distance in km",
-    "Bike, Metro, Walking, or Other",
-    "less than 15 mins, between 15 and 60 mins, more than 60 mins",
-    "Open-ended",
-    "Closer, About the same, Further away",
-    "Describe briefly",
-    "1: Fully disagree – 5: Fully agree"
-  ),
-  Variable_Name = c(
-    "Distance to school", "Mode of transportation", "Travel time",
-    "Place of residence", "Relative perceived distance",
-    "Object of annoyance", "Degree of annoyance"
-  ),
-  Variable_Type = c(
-    "Numeric", "Nominal", "Ordinal",
-    "Nominal", "Ordinal",
-    "Open-ended", "Ordinal/Numeric/Discrete"
-  )
-)
-
-# Modify the value to include HTML styling
-data$Variable_Type[7] <- cell_spec(data$Variable_Type[7], extra_css = "border: 3px solid red;")
-
-# Render with kableExtra and small text size
-kbl(data, col.names = c("Survey Question", "Answer Options", "Variable Name", "Variable Type"),
-    booktabs = TRUE, align = "l", escape = FALSE) %>%
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) 
-```
-
----
-
-## Overview Variable Types
-
-```{r}
-#| echo: false
-variable_types <- data.frame(
-  Variable_Type = c("Nominal", "Ordinal", "Continuous", "Discrete", "Qualitative"),
-  Description = c(
-    "The color of a flower is another example of a nominal variable. 
-Is the flower white, orange, or red? None of those options is “more” than the others; they’re just different.",
-    "An ordinal variable, just like nominal variables, has categories. But some values are clearly “more” and others clearly “less” - you can ‘order’ observations. However, it is not clear how much more or less one value is than another, and differences might not always be the same between one value and the next.",
-    "A continuous variable can take any numeric value within a given range.",
-    "A discrete variable is numeric, but can only take specific, distinct values. For example, the score given by a judge to a gymnast (only integer values between 0 and 10).",
-"Free text. To quantify it, people typically try to cateogrize them."
-  ),
-  Example = c(
-    "Flower color (White, Orange, Red)",
-    "Satisfaction levels (Low, Medium, High)",
-    "A person's height (e.g., 170.5 cm)",
-    "A judge's score in a gymnast competition (only integer values between 0 and 10)", 
-    "Open-ended survey answers (e.g. 'Describe your day in detail') or a data frame with news paper headlines"
-  )
-)
-
-# Render the table with kable
-kbl(variable_types, 
-    col.names = c("Variable Type", "Description", "Example"), 
-    booktabs = TRUE, 
-    align = "l") |> 
-  kable_styling(full_width = FALSE, position = "center", font_size = 20) |> 
-  column_spec(1, bold = TRUE)  # Make the first column bold and slightly larger
-```
-# Data Wrangling in the Tidyverse
-
-## Packages
-
-::: {style="text-align: center;"}
-![](images/packages-base.png)
+![](images/ggplot.png){.fragment .fade-in .absolute fragment-index="1" width="200" top="40" right="250"}
 :::
+::::
+:::::::
 
 ---
 
-## Packages
+## The `ggplot()` function
 
-::: {style="text-align: center;"}
-![](images/packages-packages.png)
-:::
+::::::: columns
+:::: {.column width="70%"}
 
----
+`ggplot()` from the `ggplot2` package is what we're gonna use for all our plots
 
-## Packages 
-
-- So far we only used functions that are directly available in R
-  - But there are tons of user-created functions out there that can make your life so much easier
-  - These functions are shared in what we call packages
-
-- Packages are bundles of functions that R users put at the disposal of other R users
-  - Packages are centralized on the Comprehensive R Archive Network (CRAN)
-  - To download and install a CRAN package you can simply type `install.packages()
-  
----
-
-## Using packages
-
-:::: columns
-::: {.column width="50%"}
+It takes the following core arguments:
 
 ```{r}
-#| eval: false
 #| echo: true
-install.packages("name")
-```
-
-Downloads files to your computer
-
-Do this once per computer
-
-:::
-
-::: {.column width="50%"}
-```{r}
 #| eval: false
-#| echo: true
-library("name")
+#| error: false
+ggplot(data, aes()) + geometry + other_stuff
 ```
 
-Loads the package
+- **Data**: the values to plot
+- **Mapping** (aes, for aesthetics): the structure of the plot
+- **Geometry**: the type of plot
 
-Do this once per R session
+:::{.fragment}
+You can also use a pipe
 
+```{r}
+#| echo: true
+#| eval: false
+#| error: false
+
+data |> 
+ggplot(aes()) + geometry + other_stuff
+```
 :::
 
 ::::
 
----
+:::: {.column width="30%"}
 
-## The `tidyverse`
-
-:::: columns
-
-::: {.column width="50%"}
-
-"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."
-
-… the tidyverse makes data science faster, easier and more fun…
-:::
-
-::: {.column width="50%"}
-
-![](images/tidyverse.png)
-
-:::
-
+![](images/ggplot.png){width="300"}
 ::::
+:::::::
 
 ---
 
-## The `tidyverse`
+## The `ggplot()` function
 
-::: {style="text-align: center;"}
-![](images/tidyverse-language.png)
-:::
-
----
-
-## The `tidyverse`
-
-```{r}
-#| eval: false
-#| echo: true
-library(tidyverse)
-```
-
-The tidyverse package is a shortcut for installing and loading all the key tidyverse packages
-
----
-
-## The `tidyverse`
-
-:::: columns
-
-::: {.column width="50%"}
-
-```{r}
-#| eval: false
-#| echo: true
-install.packages("tidyverse")
-```
-
-Installs all of these: 
-
-```{r}
-#| eval: false
-#| echo: true
-install.packages("ggplot2")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("readr")
-install.packages("purrr")
-install.packages("tibble")
-install.packages("stringr")
-install.packages("forcats")
-install.packages("lubridate")
-install.packages("hms")
-install.packages("DBI")
-install.packages("haven")
-install.packages("httr")
-install.packages("jsonlite")
-install.packages("readxl")
-install.packages("rvest")
-install.packages("xml2")
-install.packages("modelr")
-install.packages("broom")
-```
-
-:::
-
-::: {.column width="50%"}
-
-```{r}
-#| eval: false
-#| echo: true
-library(tidyverse)
-```
-
-Loads all of these: 
-
-```{r}
-#| eval: false
-#| echo: true
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(readr)
-library(purrr)
-library(tibble)
-library(stringr)
-library(forcats)
-library(lubridate)
-```
-
-:::
-
-::::
-
----
-
-## Importing data
-
-
-<table style="border-collapse: collapse; width: 100%; text-align: left;">
-  <tr>
-    <td style="padding: 8px; vertical-align: middle;"><img src="images/readr.png" alt="readr" title="readr" width="150px"></td>
-    <td style="padding: 8px; vertical-align: middle; text-align: center;">Work with plain text data</td>
-    <td style="padding: 8px; vertical-align: middle; white-space: pre-wrap; word-wrap: break-word;">
-      <code>my_data <- read_csv("file.csv")</code>
-    </td>
-  </tr>
-  
-  <tr>
-    <td style="padding: 8px; vertical-align: middle;"><img src="images/readxl.png" alt="readxl" title="readxl" width="150px"></td>
-    <td style="padding: 8px; vertical-align: middle; text-align: center;">Work with Excel files</td>
-    <td style="padding: 8px; vertical-align: middle; white-space: pre-wrap; word-wrap: break-word;">
-      <code>my_data <- read_excel("file.xlsx")</code>
-    </td>
-  </tr>
-  
-  <tr>
-    <td style="padding: 8px; vertical-align: middle;"><img src="images/haven.png" alt="haven" title="haven" width="150px"></td>
-    <td style="padding: 8px; vertical-align: middle; text-align: center;">Work with Stata, SPSS, and SAS data</td>
-    <td style="padding: 8px; vertical-align: middle; white-space: pre-wrap; word-wrap: break-word;">
-      <code>my_data <- read_stata("file.dta")</code>
-    </td>
-  </tr>
-</table>
-
----
-
-::: {.callout-tip}
-## Data from R-Packages
-
-Some data sets can be downloaded as packages in R. For example, the gapminder data set.
-:::
-
-Install the package
-
-```{r}
-#| eval: false
-#| echo: true
-install.packages(gapminder)
-```
-
-Then load the data
+Take for instance the gapminder data you've previously installed.
 
 ```{r}
 #| echo: true
+#| code-overflow: wrap
 library(gapminder)
 
-# The data() function in R is used to list, load, and access built-in or package-provided datasets. 
+# The data() function in R is used to list, load, 
+# and access built-in or package-provided datasets. 
 data(gapminder) 
 ```
 
+Let's get a quick overview of the data again.
+
+```{r}
+#| echo: true
+#| eval: true
+head(gapminder)
+```
+
 ---
 
-## Manipulating data 
+## What's the relationship between life expectancy and GDP per capita?
+
+<br>
+
+<br>
+
+... we expect of course that higher GDP per capita leads to greater life expactancy.
+
+---
+
+## What's the relationship between life expectancy and GDP per capita?
+
+::::::: columns
+:::: {.column width="30%"}
+
+- We first assign the gapminder data to `ggplot()`
+
+- The result is just an empty plot
+
+::::
+
+:::: {.column width="70%"}
+
+```{r}
+#| echo: true
+#| eval: true
+#| #| code-line-numbers: "|3|5|8|10"
+ggplot(data = gapminder)
+```
+
+::::
+:::::::
+
+---
+
+## What's the relationship between life expectancy and GDP per capita?
+
+::::::: columns
+:::: {.column width="30%"}
+
+- Next, we map out the plot by adding the x and y axes
+
+::::
+
+:::: {.column width="70%"}
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "2"
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp))
+```
+
+::::
+:::::::
+
+---
+
+## What's the relationship between life expectancy and GDP per capita?
+
+::::::: columns
+:::: {.column width="30%"}
+
+- We then define how we want to plot our data
+- In this case, let's go for the raw data points
+
+::::
+
+:::: {.column width="70%"}
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "3"
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+```
+
+::::
+:::::::
+
+---
+
+## Mapping data to aesthetics
+
+So far, only two variables appear in our plot (mapped onto the x and the y axis)
+
+<br>
+
+But we can add more variables to the plot, by assigning them to certain asthetics
+
+---
+
+## Mapping data to aesthetics
+
+::::::: columns
+:::: {.column width="30%"}
+
+- For example, we can display the variable continent as colors
+
+::::
+
+:::: {.column width="70%"}
+
+```{r}
+#| echo: true
+#| eval: true
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+```
+
+::::
+:::::::
+
+---
+
+## Mapping data to aesthetics
+
+::::::: columns
+:::: {.column width="30%"}
+
+- For example, we can display the variable continent as colors
+
+- Note that a legend gets added automatically to the plot
+
+::::
+
+:::: {.column width="70%"}
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "2"
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point()
+```
+
+::::
+:::::::
+
+---
+
+## Mapping data to aesthetics
+
+::::::: columns
+:::: {.column width="30%"}
+
+- We could further display population size by mapping it to the size aesthetic 
+
+::::
+
+:::: {.column width="70%"}
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "3"
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point()
+```
+
+::::
+:::::::
+
+---
+
+## Grammatical Layers
+
+::::::: columns
+:::: {.column width="50%"}
+
+So far we know about data, aesthetics, and geometries
+
+<br>
+
+Think of these components as **layers**
+
+<br>
+
+We add them to foundational `ggplot()` with `+`
+
+::::
+
+:::: {.column width="50%"}
+
+![](images/ggplot-layers-short@4x.png)
+
+::::
+:::::::
+
+---
+
+## Possible aesthetics
+
+::::::: columns
+:::: {.column width="30%"}
+
+`color` (discrete)
+
+```{r aes-color-discrete, echo=FALSE, fig.dim=c(4, 2), out.width="100%"}
+eg <- tribble(
+  ~x, ~y, ~size, ~x1,
+  "A", 1, 5, 1,
+  "B", 1, 10, 2,
+  "C", 1, 15, 3
+)
+
+# Color, discrete
+ggplot(eg, aes(x = x, y = y, color = x)) +
+  geom_point(size = 30) +
+  guides(color = "none") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+`color` (continuous)
+
+```{r aes-color-continuous, echo=FALSE, fig.dim=c(4, 2), out.width="100%"}
+# Color, continuous
+ggplot(eg, aes(x = x1, y = y, color = x1)) +
+  geom_point(size = 30) +
+  guides(color = "none") +
+  coord_cartesian(xlim = c(0.5, 3.5)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+::::
+
+:::: {.column width="30%"}
+
+`size`
+
+```{r aes-size, echo=FALSE, fig.dim=c(4, 2), out.width="100%"}
+# Size
+ggplot(eg, aes(x = x, y = y, size = x)) +
+  geom_point() +
+  scale_size_discrete(range = c(2, 30)) +
+  guides(size = "none") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+`fill`
+
+```{r aes-fill, echo=FALSE, fig.dim=c(4, 2), out.width="100%"}
+# Fill
+ggplot(eg, aes(x = x, y = y, fill = x)) +
+  geom_point(size = 30, pch = 21, stroke = 5) +
+  guides(fill = "none") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+::::
+
+:::: {.column width="30%"}
+
+`shape`
+
+```{r aes-shape, echo=FALSE, fig.dim=c(4, 2), out.width="100%"}
+# Shape
+ggplot(eg, aes(x = x, y = y, shape = x)) +
+  geom_point(size = 30) +
+  guides(shape = "none") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+`alpha`
+
+```{r aes-alpha, echo=FALSE, fig.dim=c(4, 2), out.width="100%"}
+# Alpha
+ggplot(eg, aes(x = x, y = y, alpha = x)) +
+  geom_point(size = 30) +
+  guides(alpha = "none") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+::::
+:::::::
+
+---
+
+## Possible geoms
+
+<table>
+  <tr>
+    <th class="cell-left"></th>
+    <th class="cell-left">Example geom</th>
+    <th class="cell-left">What it makes</th>
+  </tr>
+  <tr>
+    <td class="cell-left"><img src="images/geom_bar.png"></td>
+    <td class="cell-left"><code class="remark-inline-code">geom_col()</code></td>
+    <td class="cell-left">Bar charts</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><img src="images/geom_text.png"></td>
+    <td class="cell-left"><code class="remark-inline-code">geom_text()</code></td>
+    <td class="cell-left">Text</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><img src="images/geom_point.png"></td>
+    <td class="cell-left"><code class="remark-inline-code">geom_point()</code></td>
+    <td class="cell-left">Points</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><img src="images/geom_boxplot.png"></td>
+    <td class="cell-left"><code class="remark-inline-code">geom_boxplot()</code>&emsp;</td>
+    <td class="cell-left">Boxplots</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><img src="images/geom_sf.png"></td>
+    <td class="cell-left"><code class="remark-inline-code">geom_sf()</code></td>
+    <td class="cell-left">Maps</td>
+  </tr>
+</table>
+
+---
+
+## Possible geoms
+
+There are dozens of possible geoms and<br>each class session will cover different ones.
+
+<br>
+
+See [the {ggplot2} documentation](https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms) for complete examples of all the different geom layers
+
+---
+
+## Additional Layers
+
+::::::: columns
+:::: {.column width="40%"}
+
+There are many of other grammatical layers we can use to describe graphs!
+
+We sequentially add layers onto the foundational `ggplot()` plot to create complex figures
+
+::::
+
+:::: {.column width="60%"}
+
+![](images/ggplot-layers@4x.png)
+
+::::
+:::::::
+
+---
+
+## Scales
+
+Scales change how variables are mapped
+
+<table>
+  <tr>
+    <th class="cell-left">Example layer</th>
+    <th class="cell-left">What it does</th>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">scale_x_continuous()</code></td>
+    <td class="cell-left">Make the x-axis continuous</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">scale_x_continuous(breaks = 1:5)&ensp;</code></td>
+    <td class="cell-left">Manually specify axis ticks</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">scale_x_log10()</code></td>
+    <td class="cell-left">Log the x-axis</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">scale_color_gradient()</code></td>
+    <td class="cell-left">Use a gradient</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">scale_fill_viridis_d()</code></td>
+    <td class="cell-left">Fill with discrete viridis colors</td>
+  </tr>
+</table>
+
+---
+
+## Scales
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point()
+```
+
+---
+
+## Scales
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "5"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10()
+```
+
+---
+
+## Scales
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "6"
+#| output-location: column
+#| column: screen-inset
+#| output-width: 150%
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d()
+```
+
+---
+
+## Facets
+
+Facets show subplots for different subsets of data
+
+<table>
+  <tr>
+    <th class="cell-left">Example layer</th>
+    <th class="cell-left">What it does</th>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">facet_wrap(vars(continent))</code></td>
+    <td class="cell-left">Plot for each continent</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">facet_wrap(vars(continent, year))</code>&emsp;</td>
+    <td class="cell-left">Plot for each continent/year</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">facet_wrap(..., ncol = 1)</code></td>
+    <td class="cell-left">Put all facets in one column</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">facet_wrap(..., nrow = 1)</code></td>
+    <td class="cell-left">Put all facets in one row</td>
+  </tr>
+</table>
+
+---
+
+## Facets
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() 
+```
+
+---
+
+## Facets
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "7"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  facet_wrap(vars(continent))
+```
+
+---
+
+## Facets
+
+::::::: columns
+:::: {.column width="40%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2,9"
+ggplot(data = gapminder |> 
+         filter(year %in% c(2002, 2007)), 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  facet_wrap(vars(continent, 
+                  year), nrow = 2)
+```
+
+::::
+
+:::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder |> 
+         filter(year %in% c(2002, 2007)), 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  facet_wrap(vars(continent, 
+                  year), nrow = 2)
+```
+
+::::
+:::::::
+
+---
+
+## Coordinates 
+
+Change the coordinate system
+
+<table>
+  <tr>
+    <th class="cell-left">Example layer</th>
+    <th class="cell-left">What it does</th>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">coord_cartesian()</code></td>
+    <td class="cell-left">Plot for each continent</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">coord_cartesian(ylim = c(1, 10))</code>&emsp;</td>
+    <td class="cell-left">Zoom in where y is 1–10</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">coord_flip()</code></td>
+    <td class="cell-left">Switch x and y</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">coord_polar()</code></td>
+    <td class="cell-left">Use circular polar system</td>
+  </tr>
+</table>
+
+---
+
+## Coordinates
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() 
+```
+
+---
+
+## Coordinates
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "7,8"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  coord_cartesian(ylim = c(70, 80), 
+                  xlim = c(10000, 30000))
+```
+
+---
+
+## Coordinates
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "7"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() + 
+  coord_flip()
+```
+
+---
+
+## Labels
+
+Add labels to the plot with a single `labs()` layer
+
+<table>
+  <tr>
+    <th class="cell-left">Example layer</th>
+    <th class="cell-left">What it does</th>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">labs(title = "Neat title")</code></td>
+    <td class="cell-left">Title</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">labs(caption = "Something")</td>
+    <td class="cell-left">Caption</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">labs(y = "Something")</td>
+    <td class="cell-left">y-axis</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">labs(size = "Population")</code></td>
+    <td class="cell-left">Title of size legend</td>
+  </tr>
+</table>
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() 
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "7"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "8"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "9"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "10"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "11"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "12"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "13"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population",
+       caption = "Source: The Gapminder Project")
+```
+
+---
+
+## Theme
+
+Change the appearance of anything in the plot
+
+There are many built-in themes
+
+<table>
+  <tr>
+    <th class="cell-left">Example layer</th>
+    <th class="cell-left">What it does</th>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">theme_grey()</code></td>
+    <td class="cell-left">Default grey background</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">theme_bw()</td>
+    <td class="cell-left">Black and white</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">theme_dark()</td>
+    <td class="cell-left">Dark</td>
+  </tr>
+  <tr>
+    <td class="cell-left"><code class="remark-inline-code">theme_minimal()</code></td>
+    <td class="cell-left">Minimal</td>
+  </tr>
+</table>
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population",
+       caption = "Source: The Gapminder Project")
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "14"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population",
+       caption = "Source: The Gapminder Project") +
+  theme_dark()
+```
+
+---
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "14"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population",
+       caption = "Source: The Gapminder Project") +
+  theme_minimal()
+```
+
+---
+
+## Theme
+
+There are collections of pre-built themes online,<br>like [the {ggthemes} package](https://jrnold.github.io/ggthemes/)
+
+![](images/ggthemes.png)
+
+---
+
+## Theme
+
+Organizations often make their own custom themes, [like the BBC](https://bbc.github.io/rcookbook/)
+
+![](images/bbc-cookbook.png)
+
+---
+
+## Theme options
+
+Make theme adjustments with `theme()`
+
+There are a billion options here!
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population",
+       caption = "Source: The Gapminder Project") +
+  theme_minimal()
+```
+
+---
+
+## Theme options
+
+Make theme adjustments with `theme()`
+
+There are a billion options here!
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "13-17"
+#| output-location: column
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp, color = continent, 
+                     size = pop)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Health and wealth grow together",
+       subtitle = "Data from the world",
+       x = "Wealth (GDP per capita)",
+       y = "Health (life expectancy)",
+       color = "Continent",
+       size = "Population",
+       caption = "Source: The Gapminder Project") +
+  theme_minimal() +
+  theme(legend.position = "top",
+        plot.title = element_text(face = "bold"),
+        axis.title.y = element_text(face = "italic"))
+```
+
+---
+
+## There are many, many more options
+
+::::::: columns
+:::: {.column width="40%"}
+
+See [the {ggplot2} documentation](https://ggplot2.tidyverse.org/reference/index.html) for complete examples of everything you can do
+
+::::
+
+:::: {.column width="60%"}
+
+![](images/ggplot-layers@4x.png)
+
+::::
+:::::::
+
+---
+
+## Your turn #1: untidy temperatures 
+
+Take this [tibble](https://tibble.tidyverse.org/){target="_blank"} (very similar to a `data.frame`) of temperature recordings at three stations on three dates:
+
+```{r}
+#| eval: true
+#| echo: true
+
+temp_data_untidy <- tribble(
+  ~date, ~station1, ~station2,  ~station3,
+  "2023-10-01", 30.1, 29.8,  31.2,
+  "2023-11-01", 28.6, 29.1,  33.4,
+  "2023-12-01", 29.9, 28.5,  32.3
+)
+```
+
+Imagine our goal is to track temperature across time.
+
+---
+
+## Your turn #1: untidy temperatures 
+
+1. What makes this data untidy? Describe.
+
+2. Make a new data frame called `temp_data_tidy`. Use `pivot_longer()` to tidy the data and create a new `temperature` and `station` variable. 
+
+3. Make a plot that tracks the temperature changes over time for `station1` only. Use `filter()` to select the station and use `mutate()` in combination with the `as_date()` function to convert the date variable from character to a date format. into a date. Use `geom_line` for the plot. 
+
+4. Now use the the non-filtered data frame with all stations. Add another aesthetic layer to your previous plot, so that your new plot allows to differentiate temperature changes between the different stations. Tip: Use `color`
+
+```{r}
+countdown::countdown(
+  minutes = 6,
+  top = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
+---
+
+## Your turn #1: untidy temperatures 
+
+1.&nbsp; What makes this data untidy? Describe.
 
 :::: columns
 
-::: {.column width="50%"}
+::: column
+![](images/tidy-1.png){width="800"}
 
-::: {.r-stack}
-`tidyverse`{.fragment .fade-out fragment-index="1"}
-
-`dplyr`{.fragment .fade-in fragment-index="1"}
+1.  Variables are columns
+2.  Observations are rows
+3.  Values are cells
 :::
 
-:::
-
-::: {.column width="50%"}
-
-::: {.r-stack}
-![](images/tidyverse.png){width="500"}
-
-![](images/dplyr-old.png){.fragment .fade-in fragment-index="1" width="200" .absolute top=75 right=250}
-:::
-
-:::
-
-::::
-
----
-
-## `dplyr`: verbs for manipulating data
-
-::: {style="font-size: 3"}
-<table>
-  <tr>
-    <td>Extract rows with <code>filter()</code></td>
-    <td><img src="images/filter.png" alt="filter" title="filter" height="70px"></td>
-  </tr>
-  <tr>
-    <td>Extract columns with <code>select()</code></td>
-    <td><img src="images/select.png" alt="select" title="select" height="70px"></td>
-  </tr>
-  <tr>
-    <td>Arrange/sort rows with <code>arrange()</code></td>
-    <td><img src="images/arrange.png" alt="arrange" title="arrange" height="70px"></td>
-  </tr>
-  <tr>
-    <td>Make new columns with <code>mutate()</code></td>
-    <td><img src="images/mutate.png" alt="mutate" title="mutate" height="70px"></td>
-  </tr>
-  <tr>
-    <td>Make group summaries with<br><code>group_by() |> summarize()</code></td>
-    <td><img src="images/summarize.png" alt="summarize" title="summarize" height="70px"></td>
-  </tr>
-</table>
-
-:::
-
----
-
-## `filter()`
-
-Extract rows that meet some sort of test
-
-:::: columns
-
-::: {.column}
-
-The general idea:
+::: column
 
 ```{r}
-#| eval: false
-#| echo: true
-#| code-line-numbers: "|2|3"
-filter(
-  some_data, 
-  ... # one or more tests 
-  )
-```
-:::
-
-::: {.column}
-
-Let's try this on the gapminder data set that you've installed earlier.
-
-```{r}
-#| echo: true
-#| eval: false
-filter(.data = gapminder, country == "Denmark")
-```
-
-```{r}
+#| eval: true
 #| echo: false
-filter(.data = gapminder, country == "Denmark") |> 
-  select(country, continent, year) |> 
-  head(5) |> 
-  mutate(year = as.character(year)) |> 
-  bind_rows(tibble(country = "…", continent = "…", year = "…")) |> 
-  knitr::kable(format = "html")
+
+temp_data_untidy  |> 
+  kableExtra::kable()
 ```
+
+::: fragment
+**Multiple observations (temperature recordings) per row**
+:::
 
 :::
 
 ::::
 
---- 
-
-## Logical tests
-
-::: {style="font-size: 3"}
-<table>
-  <tr>
-    <th class="cell-center">Test</th>
-    <th class="cell-left">Meaning</th>
-    <th class="cell-center">Test</th>
-    <th class="cell-left">Meaning</th>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">x < y</code></td>
-    <td class="cell-left">Less than</td>
-    <td class="cell-center"><code class="remark-inline-code">x %in% y</code></td>
-    <td class="cell-left">In (group membership)</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">x > y</code></td>
-    <td class="cell-left">Greater than</td>
-    <td class="cell-center"><code class="remark-inline-code">is.na(x)</code></td>
-    <td class="cell-left">Is missing</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">==</code></td>
-    <td class="cell-left">Equal to</td>
-    <td class="cell-center"><code class="remark-inline-code">!is.na(x)</code></td>
-    <td class="cell-left">Is not missing</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">x <= y</code></td>
-    <td class="cell-left">Less than or equal to</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">x >= y</code></td>
-    <td class="cell-left">Greater than or equal to</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">x != y</code></td>
-    <td class="cell-left">Not equal to</td>
-  </tr>
-</table>
-::: 
-
 ---
 
-## Your turn #1: Filtering
+## Your turn #1: untidy temperatures 
 
-Use `filter()` and logical tests to show…
-
-1. The data for Canada
-2. All data for countries in Oceania
-3. Rows where the life expectancy is greater than 82
+2. Make a new data frame called `temp_data_tidy`. Use `pivot_longer()` to tidy the data and create a new `temperature` and `station` variable. 
 
 ```{r}
-countdown::countdown(
-  minutes = 5,
-  top = 0, 
-  right = 0,
-  # Fanfare when it's over
-  play_sound = FALSE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "1em",
-  start_immediately = TRUE
-  )
+#| eval: true
+#| echo: true
+temp_data_tidy <- temp_data_untidy |> 
+  pivot_longer(cols = starts_with("station"),
+               names_to = "station",
+               values_to = "temperature")
+```
+
+```{r}
+temp_data_tidy |> 
+  kableExtra::kable()
 ```
 
 ---
 
-## Your turn #1: Filtering
+## Your turn #1: untidy temperatures 
 
-Use `filter()` and logical tests to show…
-
-1. The data for Canada
+3. Make a plot that tracks the temperature changes over time for `station1` only. Use `filter()` to select the station and use `mutate()` in combination with the `as_date()` function to convert the date variable from character to a date format. into a date. Use `geom_line` for the plot. 
 
 ```{r}
+#| eval: true
 #| echo: true
-#| eval: false
-filter(gapminder, country == "Canada")
-```
-
-2. All data for countries in Oceania
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, continent == "Oceania")
-```
-
-3. Rows where the life expectancy is greater than 82
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, lifeExp > 82)
-```
----
-
-## Common Mistakes
-
-::::: {.fragment}
-
-Using `=` instead of `==`
-
-:::: {.columns}
-
-::: {.column}
-
-Bad
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, country = "Canada")
-```
-
-:::
-
-::: {.column}
-
-Good
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, country == "Canada")
-```
-
-:::
-
-::::
-
-::::: 
-
-::::: {.fragment}
-
-<br>
-
-<br>
-
-Forgetting quotes
-
-:::: {.columns}
-
-::: {.column}
-
-Bad
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, country == Canada)
-```
-
-:::
-
-::: {.column}
-
-Good
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, country == "Canada")
-```
-
-:::
-
-::::
-
-::::: 
-
----
-
-## `filter()` with multiple conditions
-
-Extract rows that meet *every* test
-
-```{r}
-#| echo: true
-#| output-location: fragment
-filter(gapminder, country == "Denmark", year > 2000)
+temp_data_tidy |> 
+  filter(station == "station1") |> 
+  mutate(date = as_date(date)) |> 
+  ggplot(aes(x = date, y = temperature)) +
+  geom_line()
 ```
 
 ---
 
-## Boolean operators
+## Your turn #1: untidy temperatures 
 
-<table>
-  <tr>
-    <th class="cell-center">Operator</th>
-    <th class="cell-center">Meaning</th>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">a & b</code></td>
-    <td class="cell-center">and</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">a | b</code></td>
-    <td class="cell-center">or</td>
-  </tr>
-  <tr>
-    <td class="cell-center"><code class="remark-inline-code">!a</code></td>
-    <td class="cell-center">not</td>
-  </tr>
-</table>
+4. Now use the the non-filtered data frame with all stations. Add another aesthetic layer to your previous plot, so that your new plot allows to differentiate temperature changes between the different stations. Tip: Use `color`
 
----
-
-## Boolean operators
-
-### The default is "and"
-
-These do the same thing
-
-:::: {.columns}
-
-::: {.column}
 ```{r}
+#| eval: true
 #| echo: true
-#| eval: false
-filter(gapminder, 
-       country == "Denmark", 
-       year > 2000)
-```
-:::
-
-::: {.column}
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, 
-       country == "Denmark" & 
-         year > 2000)
-```
-:::
-::::
-
----
-
-## Your turn #2: Filtering
-
-Use `filter()` and Boolean logical tests to show…
-
-1. Canada before 1970
-2. Countries where life expectancy in 2007 is below 50
-3. Countries where life expectancy in 2007 is below 50 and are not in Africa
-
-```{r}
-countdown::countdown(
-  minutes = 4,
-  top = 0, 
-  right = 0,
-  # Fanfare when it's over
-  play_sound = FALSE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "1em",
-  start_immediately = TRUE
-  )
+temp_data_tidy |> 
+  mutate(date = as_date(date)) |> 
+  ggplot(aes(x = date, y = temperature, color = station)) +
+  geom_line()
 ```
 
 ---
 
-## Your turn #2: Filtering
-
-Use `filter()` and Boolean logical tests to show…
-
-1. Canada before 1970
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, country == "Canada", year < 1970)
-```
-
-2. Countries where life expectancy in 2007 is below 50
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, year == 2007, lifeExp < 50)
-```
-
-3. Countries where life expectancy in 2007 is below 50 and are not in Africa
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, year == 2007, lifeExp < 50, 
-       continent != "Africa")
-```
-
----
-
-## Common Mistakes
-
-::::: {.fragment}
-
-Collapsing multiple tests into one
-
-:::: {.columns}
-
-::: {.column}
-
-Bad
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder, 
-       1960 < year < 1980)
-```
-
-:::
-
-::: {.column}
-
-Good
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder,
-       year > 1960, 
-       year < 1980)
-```
-
-:::
-
-::::
-
-::::: 
-
-::::: {.fragment}
-
-<br>
-
-<br>
-
-Using multiple tests instead of `%in%`
-
-:::: {.columns}
-
-::: {.column}
-
-Bad
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder,
-       country == "Mexico",
-       country == "Canada",
-       country == "United States")
-```
-
-:::
-
-::: {.column}
-
-Good
-
-```{r}
-#| echo: true
-#| eval: false
-filter(gapminder,
-       country %in% c("Mexico", "Canada",
-                      "United States"))
-```
-
-:::
-
-::::
-
-::::: 
-
----
-
-## Common Syntax
-
-Every dplyr verb function follows the same pattern
-
-<br> 
-
-:::: {.columns}
-
-::: {.column}
-
-```{r}
-#| echo: true
-#| eval: false
-verb(data, ...)
-```
-
-::: 
-
-::: {.column}
-
-`verb` = dplyr function/verb
-
-`data` = data frame to transfom
-
-`...` = what you the verb to do exatly
-
-::: 
-
-::::
-
----
-
-## `mutate()`
-
-Create new columns
-
-::::: columns
-
-::: {.column}
-
-The general idea:
-
-```{r}
-#| eval: false
-#| echo: true
-#| code-line-numbers: "|2|3"
-mutate(
-  some_data, 
-  ... # new columns to make
-  )
-```
-:::
-
-:::: {.column}
-
-::: {.fragment}
-
-Let's try this on the gapminder data
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, gdp = gdpPercap * pop)
-```
-
-```{r}
-#| echo: false
-gapminder |> 
-  mutate(gdp = gdpPercap * pop) |> 
-  mutate(`…` = "…") |> 
-  select(country, year, `…`, gdp) |> 
-  head(6) |> 
-  knitr::kable(format = "html")
-```
-
-:::
-
-::::
-
-:::::
-
----
-
-## `mutate()`
-
-Create new columns
-
-::::: columns
-
-::: {.column}
-
-The general idea:
-
-```{r}
-#| eval: false
-#| echo: true
-mutate(
-  some_data, 
-  ... # new columns to make
-  )
-```
-:::
-
-::: {.column}
-
-Let's try this on the gapminder data
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, gdp = gdpPercap * pop,
-                  pop_mil = round(pop / 1000000))
-```
-
-```{r}
-#| echo: false
-gapminder |> 
-  mutate(gdp = gdpPercap * pop,
-         pop_mil = round(pop / 1000000)) |> 
-  mutate(`…` = "…") |> 
-  select(country, year, `…`, gdp, pop_mil) |> 
-  head(6) |> 
-  knitr::kable(format = "html")
-```
-
-:::
-
-:::::
-
----
-
-## `ifelse()`
-
-Do conditional tests within `mutate()`
-
-<br> 
-
-:::: {.columns}
-
-::: {.column}
-
-```{r}
-#| echo: true
-#| eval: false
-ifelse(test,
-       value_if_true, 
-       value_if_false)
-```
-
-::: 
-
-::: {.column}
-
-`test` = a logical test
-
-`value_if_true` = what happens if test is true
-
-`value_if_false` = what happens if test is false
-
-::: 
-
-::::
-
----
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, 
-       after_1960 = ifelse(year > 1960, TRUE, FALSE)
-       )
-```
-
-<br>
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, 
-       after_1960 = ifelse(year > 1960, 
-                           "After 1960", 
-                           "Before 1960")
-       )
-```
-
----
-
-## Your turn #3: Mutating
-
-Use `mutate()` to…
-
-1. Add an `africa` column that is TRUE if the country is on the African continent
-2. Add a column for logged GDP per capita (hint: use `log()`)
-3. Add an `africa_asia` column that says “Africa or Asia” if the country is in Africa or Asia, and “Not Africa or Asia” if it’s not
-
-
-```{r}
-countdown::countdown(
-  minutes = 5,
-  top = 0, 
-  right = 0,
-  # Fanfare when it's over
-  play_sound = FALSE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "1em",
-  start_immediately = TRUE
-  )
-```
-
----
-
-## Your turn #3: Mutating
-
-Use `mutate()` to…
-
-1. Add an `africa` column that is TRUE if the country is on the African continent
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, africa = ifelse(continent == "Africa", 
-                                  TRUE, FALSE))
-```
-
-2. Add a column for logged GDP per capita (hint: use `log()`)
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, log_gdpPercap = log(gdpPercap))
-```
-
-3. Add an `africa_asia` column that says “Africa or Asia” if the country is in Africa or Asia, and “Not Africa or Asia” if it’s not
-
-```{r}
-#| echo: true
-#| eval: false
-mutate(gapminder, 
-       africa_asia = 
-         ifelse(continent %in% c("Africa", "Asia"), 
-                "Africa or Asia", 
-                "Not Africa or Asia"))
-```
-
----
-
-## What if you have multiple verbs?
-
-::: {.fragment}
-
-Solution 1: Intermediate variables
-
-```{r}
-#| eval: false
-#| echo: true
-gapminder_2002 <- filter(gapminder, year == 2002)
-
-gapminder_2002_log <- mutate(gapminder_2002,
-                             log_gdpPercap = log(gdpPercap))
-```
-:::
-
-::: {.fragment}
-
-Solution 2: Nested functions
-
-```{r}
-#| echo: true
-#| eval: false
-filter(mutate(gapminder_2002, 
-              log_gdpPercap = log(gdpPercap)), 
-       year == 2002)
-```
-
-:::
-
-
-::: {.fragment}
-
-Solution 3: Pipes!
-
-- The `|>` operator (pipe) takes an object on the left and passes it as the first argument of the function on the right
-
-```{r}
-#| echo: true
-#| eval: false
-gapminder |> 
-  filter(year == 2002) |> 
-  mutate(log_gdpPercap = log(gdpPercap))
-```
-
-:::
-
----
-
-## `|>`
-
-::: {.fragment}
-
-```{r}
-#| echo: true
-#| eval: false
-#| tidy: true
-leave_house(get_dressed(get_out_of_bed(wake_up(me, time = "8:00"), side = "correct"), pants = TRUE, shirt = TRUE), car = TRUE, bike = FALSE)
-```
-
-:::
-
-<br>
-
-::: {.fragment}
-
-
-```{r}
-#| echo: true
-#| eval: false
-me |> 
-  wake_up(time = "8:00") |> 
-  get_out_of_bed(side = "correct") |> 
-  get_dressed(pants = TRUE, shirt = TRUE) |> 
-  leave_house(car = TRUE, bike = FALSE)
-```
-
-:::
-
---- 
-
-## `|>` vs `%>%`
-
-- There are actually multiple pipes!
-
-- `%>%` was invented first, but requires a package to use
-
-- `|>` is part of base R
-
-- They're interchangeable 99% of the time (Just be consistent)
-
----
-
-## `summarize()`
-
-Compute a table of summaries
-
-::::: columns
-
-::: {.column}
-
-::: {.fragment}
-
-1. Take a data frame
-
-```{r}
-#| echo: false
-#| tidy: true
-gapminder |> 
-  select(country, continent, year, lifeExp) |> 
-  head(4) |> 
-  mutate_at(vars(year, lifeExp), ~as.character(.)) |> 
-  bind_rows(tibble(country = "…", continent = "…", year = "…", lifeExp = "…")) |> 
-  knitr::kable(format = "html")
-```
-:::
-
-:::
-
-:::: {.column}
-
-::: {.fragment}
-
-2. Make a summary
-
-```{r}
-#| echo: true
-#| tidy: true
-#| output-location: fragment
-gapminder |> summarize(mean_life = mean(lifeExp))
-```
-
-:::
-
-::: {.fragment}
-
-Or several summaries
-
-```{r}
-#| echo: true
-#| tidy: styler
-#| output-location: fragment
-gapminder |> 
-  summarize(mean_life = mean(lifeExp),
-            min_life = min(lifeExp))
-```
-
-:::
-
-::::
-
-:::::
-
----
-
-## Your turn #4: Summarizing
-
-Use `summarize()` to calculate…
-
-1. The first (minimum) year in the dataset
-2. The last (maximum) year in the dataset
-3. The number of rows in the dataset (use the cheatsheet)
-4. The number of distinct countries in the dataset (use the cheatsheet)
-
-```{r}
-countdown::countdown(
-  minutes = 5,
-  top = 0, 
-  right = 0,
-  # Fanfare when it's over
-  play_sound = FALSE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "1em",
-  start_immediately = TRUE
-  )
-```
-
---- 
-
-## Your turn #4: Summarizing
-
-Use `summarize()` to calculate…
-
-1. The first (minimum) year in the dataset
-
-2. The last (maximum) year in the dataset
-
-3. The number of rows in the dataset (use the cheatsheet)
-
-4. The number of distinct countries in the dataset (use the cheatsheet)
-
-```{r}
-#| echo: true
-#| eval: false
-#| tidy: styler
-gapminder |> 
-  summarize(first = min(year),
-            last = max(year),
-            num_rows = n(),
-            num_unique = n_distinct(country))
-```
-
----
-
-## Your turn #5: Summarizing
-
-Use `filter()` and `summarize()` to calculate...
-
-1. the number of unique countries and 
-2. the median life expectancy 
-
-on the African continent in 2007.
-
-```{r}
-countdown::countdown(
-  minutes = 5,
-  top = 0, 
-  right = 0,
-  # Fanfare when it's over
-  play_sound = FALSE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "1em",
-  start_immediately = TRUE
-  )
-```
-
----
-
-## Your turn #5: Summarizing
-
-Use `filter()` and `summarize()` to calculate...
-
-1. the number of unique countries and 
-2. the median life expectancy 
-
-on the African continent in 2007.
-
-```{r}
-#| echo: true
-#| eval: false
-#| tidy: styler
-gapminder |>
-  filter(continent == "Africa", year == 2007) |>
-  summarise(n_countries = n_distinct(country), 
-            med_le = median(lifeExp))
-```
-
---- 
-
-## `group_by()`
-
-Put rows into groups based on values in a column
-
-```{r}
-#| echo: true
-#| eval: false
-#| tidy: styler
-gapminder |> group_by(continent)
-```
-
-- Nothing happens by itself!
-
-- Powerful when combined with `summarize()`
-
----
-
-## `group_by()`
-
-::::: columns
-
-::: {.column}
-
-
-```{r}
-#| echo: false
-#| tidy: true
-gapminder |> 
-  select(country, continent, year, lifeExp) |> 
-  head(4) |> 
-  mutate_at(vars(year, lifeExp), ~as.character(.)) |> 
-  bind_rows(tibble(country = "…", continent = "…", year = "…", lifeExp = "…")) |> 
-  knitr::kable(format = "html")
-```
-
-:::
-
-:::: {.column}
-
-::: {.fragment}
-
-A simple summary
-
-```{r}
-#| echo: true
-#| tidy: true
-#| output-location: fragment
-gapminder |> 
-  summarize(n_countries = n_distinct(country))
-```
-
-:::
-
-::: {.fragment}
-
-A grouped summary
-
-```{r}
-#| echo: true
-#| tidy: styler
-#| output-location: fragment
-gapminder |> 
-  group_by(continent) |> 
-  summarize(n_countries = n_distinct(country)) 
-```
-
-:::
-
-::::
-
-:::::
-
----
-
-## Your turn #6: Grouping and summarizing
-
-1. Find the minimum, maximum, and median life expectancy for each continent
-
-<br>
-
-2. Find the minimum, maximum, and median life expectancy for each continent in 2007 only
-
-```{r}
-countdown::countdown(
-  minutes = 5,
-  bottom = 0, 
-  right = 0,
-  # Fanfare when it's over
-  play_sound = FALSE,
-  color_border              = "#FFFFFF",
-  color_text                = "#7aa81e",
-  color_running_background  = "#7aa81e",
-  color_running_text        = "#FFFFFF",
-  color_finished_background = "#ffa07a",
-  color_finished_text       = "#FFFFFF",
-  font_size = "1em",
-  start_immediately = TRUE
-  )
-```
-
----
-
-## Your turn #6: Grouping and summarizing
-
-1. Find the minimum, maximum, and median life expectancy for each continent
-
-```{r}
-#| echo: true
-#| eval: false
-#| tidy: styler
-gapminder |> 
-  group_by(continent) |> 
-  summarize(min_le = min(lifeExp),
-            max_le = max(lifeExp),
-            med_le = median(lifeExp))
-```
-
-2. Find the minimum, maximum, and median life expectancy for each continent in 2007 only
-
-```{r}
-#| echo: true
-#| eval: false
-#| tidy: styler
-gapminder |> 
-  filter(year == 2007) |> 
-  group_by(continent) |> 
-  summarize(min_le = min(lifeExp),
-            max_le = max(lifeExp),
-            med_le = median(lifeExp))
-```
-
----
+## That's it for today :)
 
 
 

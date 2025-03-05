@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -81,8 +101,16 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#slides" id="toc-slides" class="nav-link active" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -106,23 +134,66 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p>The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
+<p class="buttons">
+<a class="btn btn-danger" target="_blank" href="../slides/04-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a> <a class="btn btn-danger" target="_blank" href="../slides/04-slides.pdf" role="button"><i class="fa-solid fa-file-pdf"></i> Download PDF of all slides</a>
+</p>
+</section>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<ul>
+<li><a href="https://r4ds.hadley.nz/data-visualize.html">Chapter 1</a> in <span class="citation" data-cites="wickhamDataScienceImport2023">Wickham, Çetinkaya-Rundel, and Grolemund (<a href="#ref-wickhamDataScienceImport2023" role="doc-biblioref">2023</a>)</span></li>
+<li><a href="https://r-primers.andrewheiss.com/basics/01-visualization-basics/">This short primer by Andrew Heiss on on data visualization basics</a></li>
+</ul>
+</section>
+<section id="assignment" class="level2">
+<h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ups, there is no content here yet.
+Do the lesson first!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>All materials, slides and assignments will be uploaded on the day of the class 🕔</p>
+<p>Before starting this exercise, make sure you complete the short primer mentioned in the Readings section.</p>
 </div>
 </div>
+<p>For this exercise you’ll practice grouping, summarizing, and plotting data using the counts of words spoken in the Lord of the Rings trilogy across movie, sex, and fictional species.</p>
+<ol type="1">
+<li><p>As always, make a new or use an existing R Studio project for your assignment.</p></li>
+<li><p>You’ll need to download these CSV files and put preferably put them in a folder named <code>data</code> in your project folder:</p></li>
+</ol>
+<ul>
+<li><a href="../data/The_Fellowship_Of_The_Ring.csv"><i class="fa-solid fa-file-csv" aria-label="file-csv"></i> <code>The_Fellowship_Of_The_Ring.csv</code></a></li>
+<li><a href="../data/The_Return_Of_The_King.csv"><i class="fa-solid fa-file-csv" aria-label="file-csv"></i> <code>The_Return_Of_The_King.csv</code></a></li>
+<li><a href="../data/The_Two_Towers.csv"><i class="fa-solid fa-file-csv" aria-label="file-csv"></i> <code>The_Two_Towers.csv</code></a></li>
+</ul>
+<ol start="3" type="1">
+<li><p>Read in the separate data files. Make sure you have the <code>tidyverse</code> package loaded.</p></li>
+<li><p>Use the <code>bind_rows</code> function to merge the three data sets into a single data set. We haven’t seen this function yet, look it up. Call the new merged data frame <code>lotr</code> (for “lord of the rings”).</p></li>
+<li><p>We later want to plot gender differences. Have a look at the data. Why is it not yet in a tidy format? Explain. Then use <code>pivot_longer</code> to reshape the data frame by adding two new variables, <code>Gender</code> and <code>Words</code>, to the data frame.</p></li>
+<li><p>Does a certain gender dominate a movie? (Hint: Make a new summary data frame for which you group by <code>Gender</code> and then count sum the words.)</p></li>
+<li><p>Graph your summarized data. (Hint: use <code>geom_col</code> and the <code>Words</code> and <code>Gender</code> variables.)</p></li>
+<li><p>You’ve just plotted the averages across films. (Hint: Make a new summary data frame for which you group by both <code>Gender</code> and <code>Film</code> and then count sum the words.)</p></li>
+<li><p>Try to make a new plot in which you differentiate between the different films (Hint: use faceting by <code>Gender</code> or <code>Film</code>).</p></li>
+<li><p>How about species? Does the dominant species differ on average (don’t differentiate between the three movies here)? (Hint: Proceed just as for <code>Gender</code> in the beginning: make a new summary data frame for which you group by <code>Species</code> and then count sum the words.)</p></li>
+<li><p>Create a plot that visualizes the number of words spoken by species, gender, and film simultaneously. Use the complete tidy <code>lotr</code> data frame. You don’t need to create a new summarized dataset (with <code>group_by(Species, Gender, Film)</code>) because the original data already has a row for each of those (you could make a summarized dataset, but it would be identical to the full version). You need to show <code>Species</code>, <code>Gender</code>, and <code>Film</code> at the same time, but you only have two possible aesthetics (<code>x</code> and <code>fill</code>), so you’ll also need to facet by the third. Play around with different combinations (e.g.&nbsp;try <code>x = Species</code>, then <code>x = Film</code>) until you find one that tells the clearest story. For fun, add a <code>labs()</code> layer to add a title and subtitle and caption.</p></li>
+</ol>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-wickhamDataScienceImport2023" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for data science: import, tidy, transform, visualize, and model data</em>. 2nd edition. Beijing Boston Farnham Sebastopol Tokyo: O’Reilly. <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
