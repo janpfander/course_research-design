@@ -396,6 +396,34 @@
     "text": "Your turn #1: untidy temperatures\n\nWhat makes this data untidy? Describe.\nMake a new data frame called temp_data_tidy. Use pivot_longer() to tidy the data and create a new temperature and station variable.\nMake a plot that tracks the temperature changes over time for station1 only. Use filter() to select the station and use mutate() in combination with the as_date() function to convert the date variable from character to a date format. into a date. Use geom_line for the plot.\nNow use the the non-filtered data frame with all stations. Add another aesthetic layer to your previous plot, so that your new plot allows to differentiate temperature changes between the different stations. Tip: Use color\n\n\n\n\n−+\n06:00"
   },
   {
+    "objectID": "slides/04-slides.html#your-turn-1-untidy-temperatures-2",
+    "href": "slides/04-slides.html#your-turn-1-untidy-temperatures-2",
+    "title": "Data visualization",
+    "section": "Your turn #1: untidy temperatures",
+    "text": "Your turn #1: untidy temperatures\n1.  What makes this data untidy? Describe.\n\n\n\n\nVariables are columns\nObservations are rows\nValues are cells\n\n\n\n\n\n\n\ndate\nstation1\nstation2\nstation3\n\n\n\n\n2023-10-01\n30.1\n29.8\n31.2\n\n\n2023-11-01\n28.6\n29.1\n33.4\n\n\n2023-12-01\n29.9\n28.5\n32.3\n\n\n\n\n\n\nMultiple observations (temperature recordings) per row"
+  },
+  {
+    "objectID": "slides/04-slides.html#your-turn-1-untidy-temperatures-3",
+    "href": "slides/04-slides.html#your-turn-1-untidy-temperatures-3",
+    "title": "Data visualization",
+    "section": "Your turn #1: untidy temperatures",
+    "text": "Your turn #1: untidy temperatures\n\nMake a new data frame called temp_data_tidy. Use pivot_longer() to tidy the data and create a new temperature and station variable.\n\n\ntemp_data_tidy &lt;- temp_data_untidy |&gt; \n  pivot_longer(cols = starts_with(\"station\"),\n               names_to = \"station\",\n               values_to = \"temperature\")\n\n\n\n\n\n\ndate\nstation\ntemperature\n\n\n\n\n2023-10-01\nstation1\n30.1\n\n\n2023-10-01\nstation2\n29.8\n\n\n2023-10-01\nstation3\n31.2\n\n\n2023-11-01\nstation1\n28.6\n\n\n2023-11-01\nstation2\n29.1\n\n\n2023-11-01\nstation3\n33.4\n\n\n2023-12-01\nstation1\n29.9\n\n\n2023-12-01\nstation2\n28.5\n\n\n2023-12-01\nstation3\n32.3"
+  },
+  {
+    "objectID": "slides/04-slides.html#your-turn-1-untidy-temperatures-4",
+    "href": "slides/04-slides.html#your-turn-1-untidy-temperatures-4",
+    "title": "Data visualization",
+    "section": "Your turn #1: untidy temperatures",
+    "text": "Your turn #1: untidy temperatures\n\nMake a plot that tracks the temperature changes over time for station1 only. Use filter() to select the station and use mutate() in combination with the as_date() function to convert the date variable from character to a date format. into a date. Use geom_line for the plot.\n\n\ntemp_data_tidy |&gt; \n  filter(station == \"station1\") |&gt; \n  mutate(date = as_date(date)) |&gt; \n  ggplot(aes(x = date, y = temperature)) +\n  geom_line()"
+  },
+  {
+    "objectID": "slides/04-slides.html#your-turn-1-untidy-temperatures-5",
+    "href": "slides/04-slides.html#your-turn-1-untidy-temperatures-5",
+    "title": "Data visualization",
+    "section": "Your turn #1: untidy temperatures",
+    "text": "Your turn #1: untidy temperatures\n\nNow use the the non-filtered data frame with all stations. Add another aesthetic layer to your previous plot, so that your new plot allows to differentiate temperature changes between the different stations. Tip: Use color\n\n\ntemp_data_tidy |&gt; \n  mutate(date = as_date(date)) |&gt; \n  ggplot(aes(x = date, y = temperature, color = station)) +\n  geom_line()"
+  },
+  {
     "objectID": "slides/04-slides.html#thats-it-for-today",
     "href": "slides/04-slides.html#thats-it-for-today",
     "title": "Data visualization",
