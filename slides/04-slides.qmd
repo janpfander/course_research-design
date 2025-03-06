@@ -1177,7 +1177,7 @@ countdown::countdown(
 
 ---
 
-## Your turn #1: untidy temperatures 
+## Your turn #1: untidy temperatures {visibility="hidden"}
 
 1.&nbsp; What makes this data untidy? Describe.
 
@@ -1211,7 +1211,7 @@ temp_data_untidy  |>
 
 ---
 
-## Your turn #1: untidy temperatures 
+## Your turn #1: untidy temperatures {visibility="hidden"}
 
 2. Make a new data frame called `temp_data_tidy`. Use `pivot_longer()` to tidy the data and create a new `temperature` and `station` variable. 
 
@@ -1231,7 +1231,7 @@ temp_data_tidy |>
 
 ---
 
-## Your turn #1: untidy temperatures 
+## Your turn #1: untidy temperatures {visibility="hidden"}
 
 3. Make a plot that tracks the temperature changes over time for `station1` only. Use `filter()` to select the station and use `mutate()` in combination with the `as_date()` function to convert the date variable from character to a date format. into a date. Use `geom_line` for the plot. 
 
@@ -1247,7 +1247,7 @@ temp_data_tidy |>
 
 ---
 
-## Your turn #1: untidy temperatures 
+## Your turn #1: untidy temperatures {visibility="hidden"}
 
 4. Now use the the non-filtered data frame with all stations. Add another aesthetic layer to your previous plot, so that your new plot allows to differentiate temperature changes between the different stations. Tip: Use `color`
 
