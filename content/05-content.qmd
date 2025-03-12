@@ -17,8 +17,7 @@ slide_buttons("/slides/05-slides")
 
 ## Readings
 
--   [Chapter 1](https://r4ds.hadley.nz/data-visualize.html) in @wickhamDataScienceImport2023
--   [This short primer by Andrew Heiss on on data visualization basics](https://r-primers.andrewheiss.com/basics/01-visualization-basics/)
+-   [This short guide on simulating data](../guides/random_numbers.qmd)
 
 ## Assignment
 
@@ -26,7 +25,7 @@ slide_buttons("/slides/05-slides")
 Before starting this exercise, make sure you read the guide on simulations.
 :::
 
-1. Fill out this spreadsheet with your name, distance to school, and whether you prefer cats or dogs 
+1. [Fill out this spreadsheet](https://docs.google.com/spreadsheets/d/18DtSUFU5JT9IUnzGxG2nNjlzkcI_Tslzo4N8NUMnSGo/edit?usp=sharing) with your name, distance to school, and whether you prefer cats or dogs 
 
 ::: {.callout-warning}
 Be very careful in how you fill out the sheet as in the first example row (otherwise it will be a point to analyze later for everyone).

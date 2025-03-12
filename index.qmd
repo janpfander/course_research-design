@@ -33,7 +33,7 @@ schedule <- data.frame(
     text_spec("Data Manipulation", link = "content/02-content.qmd"),
     text_spec("Variables, Distributions and Summary Statistics", link = "content/03-content.qmd"),
     text_spec("Data Visualization", link = "content/04-content.qmd"),
-    text_spec("Statistical Inference", link = "05-class/index.qmd"),
+    text_spec("Statistical Inference", link = "content/05-content.qmd"),
     text_spec("Statistical Power", link = "06-class/index.qmd"),
     text_spec("Linear Regression", link = "07-class/index.qmd"),
     text_spec("Colliders and Confounders", link = "08-class/index.qmd"),
