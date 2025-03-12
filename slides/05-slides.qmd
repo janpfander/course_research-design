@@ -123,7 +123,7 @@ Collect IMDB ratings for a bunch of films via the `ggplot2movies` package.
 5. Calculate the average ratings for the two genres
 ---
 
-## Your turn #1: Calculating an estimate
+## Your turn #1: Calculating an estimate {visibility="hidden"}
 
 1. Install the package (use either console or the Rstudio interface. Do not use a Script)
 
@@ -137,7 +137,7 @@ Use `library(ggplot2movies)` in your script.
 
 ---
 
-## Your turn #1: Calculating an estimate
+## Your turn #1: Calculating an estimate {visibility="hidden"}
 
 4. Make a new cleaned data (`movie_data`) frame by
   - selecting only the `title`, `year`, `rating`, `Action` and `Comedy` columns
@@ -167,7 +167,7 @@ movie_data <- movies |>
 
 ---
 
-## Your turn #1: Calculating an estimate
+## Your turn #1: Calculating an estimate {visibility="hidden"}
 
 5. Calculate the average ratings for the two genres
   

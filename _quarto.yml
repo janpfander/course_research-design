@@ -34,7 +34,7 @@ website:
           - text: "04 - Data visualization"
             href: content/04-content.qmd
           - text: "05 - Statistical inference"
-            href: 05-class/index.qmd          
+            href: content/05-content.qmd         
           - text: "06 - Statistical power"
             href: 06-class/index.qmd            
           - text: "07 - Linear Regression"
@@ -60,6 +60,7 @@ website:
         contents: 
           - href: guides/install.qmd
           - href: guides/r_projects.qmd
+          - href: guides/random_numbers.qmd
       - text: "Syllabus"
         href: syllabus.qmd          
           
