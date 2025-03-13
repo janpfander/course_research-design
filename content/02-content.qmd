@@ -313,4 +313,8 @@ Upload the rendered document in the Homework section on Moodle, under "Assignmen
 
 `r emoji::emoji("tada")` Party! `r emoji::emoji("tada")`
 
+### Solution
 
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/02-solution.qmd){target=_blank}
+:::

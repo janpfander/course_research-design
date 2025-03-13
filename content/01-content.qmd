@@ -150,4 +150,10 @@ knitr::include_graphics("images/rproj-multiple-folders.png", error = FALSE)
 ```
 :::
 
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/01-solution.qmd){target=_blank}
+:::
+
 ## References

@@ -47,7 +47,7 @@ To make inferences about a population based on observing only a sample
 
 ---
 
-## Are action movies better higher than comedies?
+## Are action movies better than comedies?
 
 . . . 
 
@@ -144,7 +144,7 @@ countdown::countdown(
 
 ---
 
-## Your turn #1: Calculating an estimate {visibility="hidden"}
+## Your turn #1: Calculating an estimate 
 
 1. Install the package (use either console or the Rstudio interface. Do not use a Script)
 
@@ -158,7 +158,7 @@ Use `library(ggplot2movies)` in your script.
 
 ---
 
-## Your turn #1: Calculating an estimate {visibility="hidden"}
+## Your turn #1: Calculating an estimate 
 
 4. Make a new cleaned data (`movie_data`) frame by
   - selecting only the `title`, `year`, `rating`, `Action` and `Comedy` columns
@@ -188,7 +188,7 @@ movie_data <- movies |>
 
 ---
 
-## Your turn #1: Calculating an estimate {visibility="hidden"}
+## Your turn #1: Calculating an estimate 
 
 5. Calculate the average ratings for the two genres
   
@@ -463,7 +463,7 @@ This distribution of estimates is also called the **sampling distribution**.
 :::
 
 :::{.fragment fragment-index="2"}
-The central limit theorem states that, with many observations, the sampling distribution approximates a theoretical distribution - the normal distribution.
+The central limit theorem states that, with many observations, the sampling distribution approximates a normal distribution.
 :::
 
 :::
