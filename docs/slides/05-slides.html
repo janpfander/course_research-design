@@ -386,6 +386,8 @@
       margin-right: 0; 
     }
   </style>
+  <link href="../site_libs/countdown-0.4.0/countdown.css" rel="stylesheet">
+  <script src="../site_libs/countdown-0.4.0/countdown.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -413,8 +415,8 @@
 </div></div>
 </section>
 <section>
-<section id="population-vs.-samples" class="title-slide slide level1 center">
-<h1>Population vs.&nbsp;Samples</h1>
+<section id="population-vs.-sample" class="title-slide slide level1 center">
+<h1>Population vs.&nbsp;Sample</h1>
 
 </section>
 <section id="why-do-we-do-statistics" class="slide level2">
@@ -424,6 +426,7 @@
 </section>
 <section id="are-action-movies-better-higher-than-comedies" class="slide level2">
 <h2>Are action movies better higher than comedies?</h2>
+<div class="fragment">
 <h3 class="center" id="data-calculation-estimate-truth">Data → Calculation → Estimate → Truth</h3>
 <div class="fragment">
 <div class="cell">
@@ -467,6 +470,7 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="greek-latin-and-extra-markings" class="slide level2">
 <h2>Greek, Latin, and extra markings</h2>
@@ -506,6 +510,14 @@
 <ol start="5" type="1">
 <li>Calculate the average ratings for the two genres</li>
 </ol>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_ab88b14f" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;font-size:1em;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
 </section>
 
 
@@ -527,7 +539,10 @@
 \hat{\delta} = \bar{D} = 5.24 - 5.97 = -0.73
 \]</span></p>
 <div class="fragment">
-<p>We don’t if the estimate we found in this sample is actually true for the population of <strong>all films</strong></p>
+<p>Action movies seem to be slightly worse. But…</p>
+</div>
+<div class="fragment">
+<p>We don’t know if the estimate we found in this sample is actually true for the population of <strong>all films</strong></p>
 </div>
 </section></section>
 <section>
@@ -538,8 +553,11 @@
 <section id="simulated-null-world" class="slide level2">
 <h2>Simulated Null World</h2>
 <ul>
-<li><p>Let’s try to imagine a world with no differences between action and comedy movies</p></li>
-<li><p>We simulate data with ratings for 1’000’000 movies where there is no difference (the true <span class="math inline">\(\delta\)</span> is 0). Imagine that’s the population, i.e.&nbsp;all movies ever made.</p></li>
+<li>Let’s try to imagine a world with no differences between action and comedy movies</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We simulate data with ratings for 1’000’000 movies where there is no difference (the true <span class="math inline">\(\delta\)</span> is 0). Imagine that’s the population, i.e.&nbsp;all movies ever made.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1234</span>) <span class="co"># For reproducibility</span></span>
@@ -549,6 +567,7 @@
 <span id="cb5-5"><a></a>  <span class="at">rating =</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>), <span class="at">size =</span> <span class="dv">1000000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb5-6"><a></a>  <span class="at">genre =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Comedy"</span>, <span class="st">"Action"</span>), <span class="at">size =</span> <span class="dv">1000000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-7"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="simulated-null-world-1" class="slide level2">
@@ -577,7 +596,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -595,6 +614,8 @@
 <span id="cb9-2"><a></a>imaginary_sample <span class="ot">&lt;-</span> imaginary_movies <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a></a>  <span class="fu">sample_n</span>(<span class="dv">20000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <p>In this sample, we actually find a small difference</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># compute rating difference in the sample</span></span>
@@ -632,42 +653,113 @@
 <span id="cb12-15"><a></a>  differences[i] <span class="ot">&lt;-</span> estimate</span>
 <span id="cb12-16"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section class="slide level2">
 
-<img data-src="05-slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<p>We can plot the results for an overview</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb13-2"><a></a>differences <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># make an empty vector</span></span>
+<span id="cb13-3"><a></a></span>
+<span id="cb13-4"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simulations) {</span>
+<span id="cb13-5"><a></a>  <span class="co"># draw a sample of 20'000 films</span></span>
+<span id="cb13-6"><a></a>  imaginary_sample <span class="ot">&lt;-</span> imaginary_movies <span class="sc">|&gt;</span> </span>
+<span id="cb13-7"><a></a>    <span class="fu">sample_n</span>(<span class="dv">20000</span>)</span>
+<span id="cb13-8"><a></a>  <span class="co"># compute rating difference in the sample</span></span>
+<span id="cb13-9"><a></a>  estimate <span class="ot">&lt;-</span> imaginary_sample <span class="sc">|&gt;</span> </span>
+<span id="cb13-10"><a></a>    <span class="fu">group_by</span>(genre) <span class="sc">|&gt;</span> </span>
+<span id="cb13-11"><a></a>    <span class="fu">summarize</span>(<span class="at">avg_rating =</span> <span class="fu">mean</span>(rating)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-12"><a></a>    <span class="fu">summarise</span>(<span class="at">diff =</span> avg_rating[genre <span class="sc">==</span> <span class="st">"Action"</span>] <span class="sc">-</span> avg_rating[genre <span class="sc">==</span> <span class="st">"Comedy"</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb13-13"><a></a>    <span class="fu">pull</span>(diff)</span>
+<span id="cb13-14"><a></a>  </span>
+<span id="cb13-15"><a></a>  differences[i] <span class="ot">&lt;-</span> estimate</span>
+<span id="cb13-16"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(differences), <span class="fu">aes</span>(<span class="at">x =</span> differences)) <span class="sc">+</span></span>
+<span id="cb14-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Rating Differences"</span>,</span>
+<span id="cb14-4"><a></a>       <span class="at">x =</span> <span class="st">"Mean Rating Difference (Action - Comedy)"</span>,</span>
+<span id="cb14-5"><a></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</div></div>
+</section>
 <section id="check-hatdelta-in-the-null-world" class="slide level2">
 <h2>Check <span class="math inline">\(\hat{\delta}\)</span> in the null world</h2>
 <p>Does the estimate we found in the IMDB data (<span class="math inline">\(\hat{\delta}\)</span> = -0.73) fit well into the world where the true difference <span class="math inline">\(\delta\)</span> is 0?</p>
 <div class="fragment">
-<div class="cell">
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(differences), <span class="fu">aes</span>(<span class="at">x =</span> differences)) <span class="sc">+</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Rating Differences"</span>,</span>
+<span id="cb15-4"><a></a>       <span class="at">x =</span> <span class="st">"Mean Rating Difference (Action - Comedy)"</span>,</span>
+<span id="cb15-5"><a></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </figure>
 </div>
 </div>
-</div>
+</div></div>
 </div>
 </section>
 <section id="check-hatdelta-in-the-null-world-1" class="slide level2">
 <h2>Check <span class="math inline">\(\hat{\delta}\)</span> in the null world</h2>
 <p>Does the estimate we found in the IMDB data (<span class="math inline">\(\hat{\delta}\)</span> = -0.73) fit well into the world where the true difference <span class="math inline">\(\delta\)</span> is 0?</p>
-
-<img data-src="05-slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"><p>That seems fairly rare for a null world!</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(differences), <span class="fu">aes</span>(<span class="at">x =</span> differences)) <span class="sc">+</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fl">0.73</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Rating Differences"</span>,</span>
+<span id="cb16-5"><a></a>       <span class="at">x =</span> <span class="st">"Mean Rating Difference (Action - Comedy)"</span>,</span>
+<span id="cb16-6"><a></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+<p>That seems fairly rare for a null world!</p>
 </section>
 <section id="so-again-are-action-movies-better-than-comedies" class="slide level2">
 <h2>So, again, are action movies better than comedies?</h2>
+<div>
 <ul>
-<li><p>We can now pretty confidently say that in a world where there is no difference, observing what we observed is super unlikely.</p></li>
-<li><p>Therefore, we’re pretty confident that in fact there is a difference.</p></li>
-<li><p>(We still don’t know what the true difference is, but at least we can say it’s unlikely to be 0)</p></li>
+<li class="fragment"><p>We can now pretty confidently say that in a world where there is no difference, observing what we observed is super unlikely.</p></li>
+<li class="fragment"><p>Therefore, we’re pretty confident that in fact there is a difference.</p></li>
+<li class="fragment"><p>(We still don’t know what the true difference is, but at least we can say it’s unlikely to be 0)</p></li>
+<li class="fragment"><p>🎉 Congratulations, if you got that, you got the whole intuition behind hypothesis testing.</p></li>
 </ul>
-<p>🎉 Congratulations, if you got that, you got the whole intuition behind hypothesis testing.</p>
+</div>
 </section>
 <section class="slide level2">
 
 <p>All this is good, but how (un)likely <strong>exactly</strong> is it to observe our <span class="math inline">\(\hat{\delta}\)</span> in the null world?</p>
+<div class="fragment">
 <p>That is where the central limit theorem and theoretical distributions come into play…</p>
+</div>
 </section></section>
 <section>
 <section id="the-central-limit-theorem" class="title-slide slide level1 center">
@@ -678,7 +770,7 @@
 
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>You have seen before the estimated mean differences of our imaginary samples (the <span class="math inline">\(\hat{\delta}s\)</span>), somehow magically, forms a curve that is…</p>
+<p>You have seen before the estimated mean differences of our imaginary samples (the <span class="math inline">\(\hat{\delta}s\)</span>), somehow magically, form a curve that is…</p>
 <ul>
 <li>bell-shaped</li>
 <li>centered around the true value (<span class="math inline">\(\delta\)</span>), which in our case was 0.</li>
@@ -687,7 +779,7 @@
 <p>This distribution of estimates is also called the <strong>sampling distribution</strong>.</p>
 </div>
 <div class="fragment" data-fragment-index="2">
-<p>The central limit theorem states that, with many observations, the sampling distribution approximates a theoretical distribution.</p>
+<p>The central limit theorem states that, with many observations, the sampling distribution approximates a theoretical distribution - the normal distribution.</p>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="r-stack">
@@ -696,7 +788,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -707,7 +799,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -721,12 +813,15 @@
 <h1>Theoretical distributions</h1>
 
 </section>
-<section class="slide level2">
-
-<p>Remember our problem: We were not sure how (un)likely exactly our observation was in the Null world</p>
-<p>Thanks to the central limit theorem, we know that sampling distributions approximate theoretical distributions.</p>
-<p>And for theoretical distributions, thanks to math, we know exactly how likely a certain value is.</p>
-<p>🎉</p>
+<section id="quick-recap" class="slide level2">
+<h2>Quick recap</h2>
+<div>
+<ul>
+<li class="fragment"><p>Remember our problem: We were not sure how (un)likely exactly our observation was in the Null world</p></li>
+<li class="fragment"><p>Thanks to the central limit theorem, we know that sampling distributions approximate theoretical distributions.</p></li>
+<li class="fragment"><p>And for theoretical distributions, thanks to math, we know exactly how likely a certain value is 🎉</p></li>
+</ul>
+</div>
 </section>
 <section class="slide level2">
 
@@ -734,40 +829,6 @@
 <div class="column" style="width:40%;">
 <p>The most famous bell-shaped distribution is the (standard) normal distribution.</p>
 <p>The standard normal distribution is centered around 0 and has a standard deviation of 1.</p>
-</div><div class="column" style="width:60%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section class="slide level2">
-
-<div class="columns">
-<div class="column" style="width:40%;">
-<p>We know, e.g., that 99% of the distribution lie between <span class="math inline">\(\pm\)</span> 2.58</p>
-</div><div class="column" style="width:60%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section class="slide level2">
-
-<div class="columns">
-<div class="column" style="width:40%;">
-<p>Or that 95% of the distribution lie between <span class="math inline">\(\pm\)</span> 1.96</p>
 </div><div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -784,7 +845,7 @@
 
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Now, all we need to do is bring our sampling distribution on the scale of a normal distribution.</p>
+<p>We know, e.g., that 99% of the distribution lie between <span class="math inline">\(\pm\)</span> 2.58</p>
 </div><div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -801,19 +862,53 @@
 
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Now, all we need to do is bring our sampling distribution on the scale of a normal distribution.</p>
+<p>Or that 95% of the distribution lie between <span class="math inline">\(\pm\)</span> 1.96</p>
+</div><div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution.</p>
+</div><div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution.</p>
 <p>We achieve this by</p>
 <ol type="1">
 <li>Subtracting the mean from all values (in our case, that is 0, so nothing happens)</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r code-overflow-wrap number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>differences_mean_centered <span class="ot">&lt;-</span> differences <span class="sc">-</span> <span class="fu">mean</span>(differences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r code-overflow-wrap number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>differences_mean_centered <span class="ot">&lt;-</span> differences <span class="sc">-</span> <span class="fu">mean</span>(differences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In our case, that is (almost) 0, so not much happens</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">mean</span>(differences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">mean</span>(differences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.006425313</code></pre>
+<pre><code>[1] 0.006633846</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:60%;">
@@ -823,7 +918,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -834,7 +929,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -847,14 +942,21 @@
 
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Now, all we need to do is bring our sampling distribution on the scale of a normal distribution.</p>
+<p>Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution.</p>
 <p>We achieve this by</p>
 <ol type="1">
 <li><p>Subtracting the mean from all values</p></li>
 <li><p>Dividing by the standard deviation</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>differences_scaled <span class="ot">&lt;-</span> differences_mean_centered <span class="sc">/</span> <span class="fu">sd</span>(differences_mean_centered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>differences_scaled <span class="ot">&lt;-</span> differences_mean_centered <span class="sc">/</span> <span class="fu">sd</span>(differences_mean_centered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Since the sd is small than 1, our values become bigger</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">sd</span>(differences_mean_centered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03814568</code></pre>
+</div>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="r-stack">
@@ -863,7 +965,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -874,7 +976,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -895,7 +997,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -906,7 +1008,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -927,7 +1029,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -938,7 +1040,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -951,13 +1053,13 @@
 
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Now we can say for sure that in our Null world, chances that we get an estimate like the one in our IMBD data is <strong>less than 5%</strong></p>
+<p>Now we can say for sure that in our Null world, chances that we get an estimate as extreme as the one in our IMBD data is <strong>less than 5%</strong></p>
 </div><div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
+<p><img data-src="05-slides_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -972,14 +1074,14 @@
 <li>Bring your estimate on a scale of the standard normal distribution (that is also called a z-value)</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>estimate <span class="ot">&lt;-</span> <span class="fl">0.73</span></span>
-<span id="cb17-2"><a></a>sd_sampling_distribution <span class="ot">&lt;-</span> <span class="fu">sd</span>(differences)</span>
-<span id="cb17-3"><a></a></span>
-<span id="cb17-4"><a></a>z_scaled_estimate <span class="ot">=</span> estimate <span class="sc">/</span> sd_sampling_distribution</span>
-<span id="cb17-5"><a></a></span>
-<span id="cb17-6"><a></a>z_scaled_estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>estimate <span class="ot">&lt;-</span> <span class="fl">0.73</span></span>
+<span id="cb23-2"><a></a>sd_sampling_distribution <span class="ot">&lt;-</span> <span class="fu">sd</span>(differences)</span>
+<span id="cb23-3"><a></a></span>
+<span id="cb23-4"><a></a>z_scaled_estimate <span class="ot">=</span> estimate <span class="sc">/</span> sd_sampling_distribution</span>
+<span id="cb23-5"><a></a></span>
+<span id="cb23-6"><a></a>z_scaled_estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.07583</code></pre>
+<pre><code>[1] 19.13716</code></pre>
 </div>
 </div>
 </div>
@@ -1006,27 +1108,27 @@
 <li>Bring your estimate on a scale of the standard normal distribution (that is also called a z-value)</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>estimate <span class="ot">&lt;-</span> <span class="fl">0.73</span></span>
-<span id="cb19-2"><a></a>sd_sampling_distribution <span class="ot">&lt;-</span> <span class="fu">sd</span>(differences)</span>
-<span id="cb19-3"><a></a></span>
-<span id="cb19-4"><a></a>z_scaled_estimate <span class="ot">=</span> estimate <span class="sc">/</span> sd_sampling_distribution</span>
-<span id="cb19-5"><a></a></span>
-<span id="cb19-6"><a></a>z_scaled_estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>estimate <span class="ot">&lt;-</span> <span class="fl">0.73</span></span>
+<span id="cb25-2"><a></a>sd_sampling_distribution <span class="ot">&lt;-</span> <span class="fu">sd</span>(differences)</span>
+<span id="cb25-3"><a></a></span>
+<span id="cb25-4"><a></a>z_scaled_estimate <span class="ot">=</span> estimate <span class="sc">/</span> sd_sampling_distribution</span>
+<span id="cb25-5"><a></a></span>
+<span id="cb25-6"><a></a>z_scaled_estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.07583</code></pre>
+<pre><code>[1] 19.13716</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
 <li>Look up the corresponding probability (luckily, in R that’s very easy)</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="co"># the pnorm() function gives the cumulative probability from the standard normal distribution </span></span>
-<span id="cb21-2"><a></a></span>
-<span id="cb21-3"><a></a><span class="co"># Two-tailed (i.e. a value "at least as extreme as", in both directions)</span></span>
-<span id="cb21-4"><a></a>probability <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_scaled_estimate)) </span>
-<span id="cb21-5"><a></a></span>
-<span id="cb21-6"><a></a><span class="co"># in our case, the probability is reeaally low (practically 0)</span></span>
-<span id="cb21-7"><a></a>probability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># the pnorm() function gives the cumulative probability from the standard normal distribution </span></span>
+<span id="cb27-2"><a></a></span>
+<span id="cb27-3"><a></a><span class="co"># Two-tailed (i.e. a value "at least as extreme as", in both directions)</span></span>
+<span id="cb27-4"><a></a>probability <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_scaled_estimate)) </span>
+<span id="cb27-5"><a></a></span>
+<span id="cb27-6"><a></a><span class="co"># in our case, the probability is reeaally low (practically 0)</span></span>
+<span id="cb27-7"><a></a>probability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -1079,8 +1181,8 @@ Choose some evidentiary standard or threshold for deciding if there’s sufficie
 <div class="fragment">
 <p>We can use a single command in R to test this hypothesis</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># Perform a t-test to compare ratings between Action and Comedy movies</span></span>
-<span id="cb23-2"><a></a><span class="fu">t.test</span>(rating <span class="sc">~</span> genre, <span class="at">data =</span> movie_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="co"># Perform a t-test to compare ratings between Action and Comedy movies</span></span>
+<span id="cb29-2"><a></a><span class="fu">t.test</span>(rating <span class="sc">~</span> genre, <span class="at">data =</span> movie_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -1099,8 +1201,8 @@ mean in group Action mean in group Comedy
 <div class="fragment">
 <p>We get a very small p-value</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># Using format() to use non-scientific notation</span></span>
-<span id="cb25-2"><a></a><span class="fu">format</span>(<span class="fl">2.2204460493e-16</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># Using format() to use non-scientific notation</span></span>
+<span id="cb31-2"><a></a><span class="fu">format</span>(<span class="fl">2.2204460493e-16</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "0.0000000000000002220446"</code></pre>
 </div>

@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -327,8 +307,7 @@ div.csl-indent {
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings">Readings</h2>
 <ul>
-<li><a href="https://r4ds.hadley.nz/data-visualize.html">Chapter 1</a> in <span class="citation" data-cites="wickhamDataScienceImport2023">Wickham, Çetinkaya-Rundel, and Grolemund (<a href="#ref-wickhamDataScienceImport2023" role="doc-biblioref">2023</a>)</span></li>
-<li><a href="https://r-primers.andrewheiss.com/basics/01-visualization-basics/">This short primer by Andrew Heiss on on data visualization basics</a></li>
+<li><a href="../guides/random_numbers.html">This short guide on simulating data</a></li>
 </ul>
 </section>
 <section id="assignment" class="level2">
@@ -381,18 +360,16 @@ Warning
 <li><p><strong>Step 4: Calculate the probability that your estimate could exist in the null world.</strong><br>
 Use the standard deviation of your <code>sampling_distribution</code> to transform your initial estimate in a z-value. Based on this, calculate the p-value.</p></li>
 <li><p><strong>Step 5: Decide if your estimate is statistically significant.</strong><br>
-Use a significance threshold (the value at which you consider your estiate sufficiently unlikely to have occured in the Null World) of 0.05</p></li>
+Use a significance threshold (the value at which you consider your estimate sufficiently unlikely to have occurred in the Null World) of 0.05</p></li>
 </ul>
-
+<ol start="4" type="1">
+<li>Is this result surprising to you or not? Explain.</li>
+</ol>
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-wickhamDataScienceImport2023" class="csl-entry" role="listitem">
-Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for data science: import, tidy, transform, visualize, and model data</em>. 2nd edition. Beijing Boston Farnham Sebastopol Tokyo: O’Reilly. <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -35,7 +35,7 @@ library(kableExtra)
 :::
 :::::
 
-# Population vs. Samples
+# Population vs. Sample
 
 ---
 
@@ -48,6 +48,8 @@ To make inferences about a population based on observing only a sample
 ---
 
 ## Are action movies better higher than comedies?
+
+. . . 
 
 ### Data → Calculation → Estimate → Truth {.center}
 
@@ -121,6 +123,25 @@ Collect IMDB ratings for a bunch of films via the `ggplot2movies` package.
   - removing the now obsolete `Action` and `Comedy` columns (use `select` and `-`)
 
 5. Calculate the average ratings for the two genres
+
+```{r}
+countdown::countdown(
+  minutes = 8,
+  bottom = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
 ---
 
 ## Your turn #1: Calculating an estimate {visibility="hidden"}
@@ -197,7 +218,11 @@ $$
 
 . . .
 
-We don't if the estimate we found in this sample is actually true for the population of **all films**
+Action movies seem to be slightly worse. But...
+
+. . .
+
+We don't know if the estimate we found in this sample is actually true for the population of **all films**
 
 # Inventing Null Worlds
 
@@ -206,6 +231,8 @@ We don't if the estimate we found in this sample is actually true for the popula
 ## Simulated Null World 
 
 - Let's try to imagine a world with no differences between action and comedy movies
+
+. . .
 
 - We simulate data with ratings for 1'000'000 movies where there is no difference (the true $\delta$ is 0). Imagine that's the population, i.e. all movies ever made.
 
@@ -270,6 +297,8 @@ imaginary_sample <- imaginary_movies |>
   sample_n(20000)
 ```
 
+. . .
+
 In this sample, we actually find a small difference
 
 ```{r}
@@ -310,7 +339,39 @@ for (i in 1:n_simulations) {
 
 ```
 
+---
+
+We can plot the results for an overview
+
+::::columns
+
+::: {.column width="40%"}
 ```{r}
+#| echo: true
+n_simulations <- 1000
+differences <- c() # make an empty vector
+
+for (i in 1:n_simulations) {
+  # draw a sample of 20'000 films
+  imaginary_sample <- imaginary_movies |> 
+    sample_n(20000)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+
+```
+:::
+
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| output-location: column
 ggplot(data.frame(differences), aes(x = differences)) +
   geom_histogram() +
   labs(title = "Distribution of Rating Differences",
@@ -318,6 +379,9 @@ ggplot(data.frame(differences), aes(x = differences)) +
        y = "Frequency") +
   theme_minimal()
 ```
+:::
+
+::::
 
 ---
 
@@ -328,6 +392,8 @@ Does the estimate we found in the  IMDB data ($\hat{\delta}$ = -0.73) fit well i
 . . .
 
 ```{r}
+#| echo: true
+#| output-location: column
 ggplot(data.frame(differences), aes(x = differences)) +
   geom_histogram() +
   labs(title = "Distribution of Rating Differences",
@@ -343,6 +409,8 @@ ggplot(data.frame(differences), aes(x = differences)) +
 Does the estimate we found in the  IMDB data ($\hat{\delta}$ = -0.73) fit well into the world where the true difference $\delta$ is 0?
 
 ```{r}
+#| echo: true
+#| output-location: column
 ggplot(data.frame(differences), aes(x = differences)) +
   geom_histogram() +
   geom_vline(xintercept = -0.73, color = "red", size = 1, linetype = "dashed") +
@@ -358,17 +426,23 @@ That seems fairly rare for a null world!
 
 ## So, again, are action movies better than comedies? 
 
+::: {.incremental}
+
 - We can now pretty confidently say that in a world where there is no difference, observing what we observed is super unlikely. 
 
 - Therefore, we're pretty confident that in fact there is a difference.
 
 - (We still don't know what the true difference is, but at least we can say it's unlikely to be 0) 
 
-`r emoji::emoji("tada")` Congratulations, if you got that, you got the whole intuition behind hypothesis testing. 
+- `r emoji::emoji("tada")` Congratulations, if you got that, you got the whole intuition behind hypothesis testing. 
+
+:::
 
 ---
 
 All this is good, but how (un)likely **exactly** is it to observe our $\hat{\delta}$ in the null world? 
+
+. . .
 
 That is where the central limit theorem and theoretical distributions come into play...
 
@@ -379,7 +453,7 @@ That is where the central limit theorem and theoretical distributions come into 
 :::: columns
 ::: {.column width="40%"}
 
-You have seen before the estimated mean differences of our imaginary samples (the $\hat{\delta}s$), somehow magically, forms a curve that is...
+You have seen before the estimated mean differences of our imaginary samples (the $\hat{\delta}s$), somehow magically, form a curve that is...
 
 - bell-shaped 
 - centered around the true value ($\delta$), which in our case was 0. 
@@ -389,7 +463,7 @@ This distribution of estimates is also called the **sampling distribution**.
 :::
 
 :::{.fragment fragment-index="2"}
-The central limit theorem states that, with many observations, the sampling distribution approximates a theoretical distribution.
+The central limit theorem states that, with many observations, the sampling distribution approximates a theoretical distribution - the normal distribution.
 :::
 
 :::
@@ -443,13 +517,17 @@ ggplot(data.frame(differences), aes(x = differences)) +
 
 ---
 
-Remember our problem: We were not sure how (un)likely exactly our observation was in the Null world 
+## Quick recap
 
-Thanks to the central limit theorem, we know that sampling distributions approximate theoretical distributions.
+::: {.incremental}
 
-And for theoretical distributions, thanks to math, we know exactly how likely a certain value is. 
+- Remember our problem: We were not sure how (un)likely exactly our observation was in the Null world 
 
-`r emoji::emoji("tada")` 
+- Thanks to the central limit theorem, we know that sampling distributions approximate theoretical distributions.
+
+- And for theoretical distributions, thanks to math, we know exactly how likely a certain value is `r emoji::emoji("tada")` 
+
+:::
 
 ---
 
@@ -551,7 +629,7 @@ ggplot(norm_dt, aes(x = x, y = y)) +
 :::: columns
 ::: {.column width="40%"}
 
-Now, all we need to do is bring our sampling distribution on the scale of a normal distribution. 
+Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution. 
 :::
 
 ::: {.column width="60%"}
@@ -559,6 +637,7 @@ Now, all we need to do is bring our sampling distribution on the scale of a norm
 ```{r}
 ggplot(data.frame(differences), aes(x = differences)) +
   geom_histogram() +
+  geom_vline(xintercept = -0.73, color = "red", size = 1, linetype = "dashed") +
   labs(title = "Distribution of Rating Differences",
        x = "Mean Rating Difference (Action - Comedy)",
        y = "Frequency") +
@@ -573,7 +652,7 @@ ggplot(data.frame(differences), aes(x = differences)) +
 :::: columns
 ::: {.column width="40%"}
 
-Now, all we need to do is bring our sampling distribution on the scale of a normal distribution. 
+Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution. 
 
 We achieve this by 
 
@@ -629,7 +708,7 @@ ggplot(data.frame(differences_mean_centered), aes(x = differences_mean_centered)
 :::: columns
 ::: {.column width="40%"}
 
-Now, all we need to do is bring our sampling distribution on the scale of a normal distribution. 
+Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution. 
 
 We achieve this by 
 
@@ -641,6 +720,14 @@ We achieve this by
 #| echo: true
 differences_scaled <- differences_mean_centered / sd(differences_mean_centered)
 ```
+
+Since the sd is small than 1, our values become bigger
+
+```{r}
+#| echo: true
+sd(differences_mean_centered)
+```
+
 :::
 
 ::: {.column width="60%"}
@@ -773,7 +860,7 @@ ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
 :::: columns
 ::: {.column width="40%"}
 
-Now we can say for sure that in our Null world, chances that we get an estimate like the one in our IMBD data is **less than 5%**
+Now we can say for sure that in our Null world, chances that we get an estimate as extreme as the one in our IMBD data is **less than 5%**
 
 :::
 

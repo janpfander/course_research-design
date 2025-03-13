@@ -52,9 +52,10 @@ Be very careful in how you fill out the sheet as in the first example row (other
   Use the standard deviation of your `sampling_distribution` to transform your initial estimate in a z-value. Based on this, calculate the p-value. 
   
 - **Step 5: Decide if your estimate is statistically significant.**  
-  Use a significance threshold (the value at which you consider your estiate sufficiently unlikely to have occured in the Null World) of 0.05
+  Use a significance threshold (the value at which you consider your estimate sufficiently unlikely to have occurred in the Null World) of 0.05
 
 
+4. Is this result surprising to you or not? Explain.
 
 
 
