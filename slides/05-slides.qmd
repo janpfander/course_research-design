@@ -42,7 +42,6 @@ library(kableExtra)
 ## Why do we do statistics ?
 
 <br>
-
 To make inferences about a population based on observing only a sample
 
 ---

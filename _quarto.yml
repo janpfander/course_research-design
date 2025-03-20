@@ -36,7 +36,7 @@ website:
           - text: "05 - Statistical inference"
             href: content/05-content.qmd         
           - text: "06 - Statistical power"
-            href: 06-class/index.qmd            
+            href: content/06-content.qmd            
           - text: "07 - Linear Regression"
             href: 07-class/index.qmd
           - text: "08 - Colliders and Confounders"
