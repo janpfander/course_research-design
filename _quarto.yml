@@ -61,6 +61,7 @@ website:
           - href: guides/install.qmd
           - href: guides/r_projects.qmd
           - href: guides/random_numbers.qmd
+          - href: guides/power_simulation.qmd
       - text: "Syllabus"
         href: syllabus.qmd          
           
