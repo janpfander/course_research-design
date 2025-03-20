@@ -158,78 +158,78 @@
   {
     "objectID": "guides/power_simulation.html",
     "href": "guides/power_simulation.html",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "",
     "text": "Warning\n\n\n\nYou don’t have much experience with writing your own functions yet. Don’t despair, try to follow along as best as you can.\nWe start, as always, by loading the libraries we’ll use.\nlibrary(tidyverse)\nlibrary(patchwork)\nlibrary(truncnorm)\nSince we’re running a simulation, we will also set a seed to make it all reproducible.\nThis guide picks up from where lecture 6 on power analysis ends.\nIn a power simulation, for a given effect size, we would like to know at which sample size we achieve our desired statistical power.\nImagine we want to know how big a sample we need, to detect a difference of -0.5 between action and comedy movies, assuming we want at least a power of 80%.",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
     "objectID": "guides/power_simulation.html#step-1-generate-a-single-sample-and-calculate-the-outcome",
     "href": "guides/power_simulation.html#step-1-generate-a-single-sample-and-calculate-the-outcome",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "Step 1: Generate a single sample and calculate the outcome",
     "text": "Step 1: Generate a single sample and calculate the outcome\n\n# set some sample size\nsample_size = 1000\n\n# generate a single random sample\nsample &lt;- tibble(\n  movie_id = 1:sample_size,\n  genre = sample(c(\"Comedy\", \"Action\"), size = sample_size, replace = TRUE),\n  rating = ifelse(\n    genre == \"Comedy\",\n    rtruncnorm(sample_size, a = 1, b = 10, mean = 6.0, sd = 2), \n    rtruncnorm(sample_size, a = 1, b = 10, mean = 5.5, sd = 2)   \n  )\n)\n\n\nhead(sample)\n\n# A tibble: 6 × 3\n  movie_id genre  rating\n     &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;\n1        1 Comedy   6.15\n2        2 Action   6.68\n3        3 Comedy   3.63\n4        4 Comedy   6.02\n5        5 Action   2.66\n6        6 Comedy   9.19\n\n\nTo be able to use this later, we turn it into a function.\n\ngenerate_sample &lt;- function(sample_size){\n  sample &lt;- tibble(\n  movie_id = 1:sample_size,\n  genre = sample(c(\"Comedy\", \"Action\"), size = sample_size, replace = TRUE),\n  rating = ifelse(\n    genre == \"Comedy\",\n    rtruncnorm(sample_size, a = 1, b = 10, mean = 6.0, sd = 2), \n    rtruncnorm(sample_size, a = 1, b = 10, mean = 5.5, sd = 2)   \n  )\n)\n  \n  return(sample)\n}\n\nNow we can call this function.\n\nsample &lt;- generate_sample(sample_size = 1000) \n\nhead(sample)\n\n# A tibble: 6 × 3\n  movie_id genre  rating\n     &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;\n1        1 Action   6.47\n2        2 Action   3.80\n3        3 Comedy   3.95\n4        4 Comedy   9.39\n5        5 Comedy   5.91\n6        6 Comedy   6.82",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
     "objectID": "guides/power_simulation.html#step-2-get-an-estimate",
     "href": "guides/power_simulation.html#step-2-get-an-estimate",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "Step 2: Get an estimate",
     "text": "Step 2: Get an estimate\n\nestimate &lt;- sample |&gt; \n  group_by(genre) |&gt; \n  summarize(avg_rating = mean(rating)) |&gt; \n  summarise(diff = avg_rating[genre == \"Action\"] - avg_rating[genre == \"Comedy\"]) %&gt;%\n  pull(diff)\n\nestimate\n\n[1] -0.5484191\n\n\nAgain, let’s put this in a function\n\ngenerate_estimate &lt;- function(sample){\n  estimate &lt;- sample |&gt; \n    group_by(genre) |&gt; \n    summarize(avg_rating = mean(rating)) |&gt; \n    summarise(diff = avg_rating[genre == \"Action\"] - avg_rating[genre == \"Comedy\"]) %&gt;%\n    pull(diff)\n  \n  return(estimate)\n}\n\nAgain, we can now call this function.\n\ngenerate_estimate(sample = sample)\n\n[1] -0.5484191",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
     "objectID": "guides/power_simulation.html#step-3-repeat",
     "href": "guides/power_simulation.html#step-3-repeat",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "Step 3: Repeat",
     "text": "Step 3: Repeat\nLet’s say we want to have 1000 samples for our sampling distribution, so we repeat the above process 1000 times.\n\nn_simulations &lt;- 1000\n\n# make an empty vector\nestimates &lt;- c()\n\nfor (i in 1:n_simulations) {\n  # draw a sample \n  sample &lt;- generate_sample(sample_size = 1000) \n  \n  # get an estimate\n  estimate &lt;- generate_estimate(sample = sample)\n  \n  estimates[i] &lt;- estimate\n}\n\nWe can plot the results to see if it worked as we expected.\n\nggplot(data.frame(estimates), aes(x = estimates)) +\n  geom_histogram() +\n  labs(title = \"Sampling Distribution of Estimates\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\nSeems good.\nAgain, let’s put this into a function\n\ngenerate_samples &lt;- function(n_simulations, sample_size) {\n  \n  # Make an empty vector\n  estimates &lt;- numeric(n_simulations)\n  \n  for (i in 1:n_simulations) {\n    # Draw a sample with the specified size\n    sample &lt;- generate_sample(sample_size) \n    \n    # Get an estimate\n    estimates[i] &lt;- generate_estimate(sample)\n  }\n  \n  return(estimates)\n}\n\n\nestimates &lt;- generate_samples(n_simulations = 500, sample_size = 500)\n\n\nggplot(data.frame(estimates), aes(x = estimates)) +\n  geom_histogram() +\n  labs(title = \"Sampling Distribution of Estimates\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\nWorks fine again.",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
     "objectID": "guides/power_simulation.html#step-4-calculate-power",
     "href": "guides/power_simulation.html#step-4-calculate-power",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "Step 4: Calculate power",
     "text": "Step 4: Calculate power\nTo calculate the power, we first test the statistical significance for each of our 1000 estimates.\nTo do so, we bring our estimate to the scale of the standard normal distribution and check if it’s smaller than -1.96.\n\ncalculate_power &lt;- function(estimates){\n  \n  # bring on standard normal distribution scale\n  estimates_standardized &lt;- estimates/sd(estimates)\n  \n  # get statistical power \n  power &lt;- data.frame(estimates_standardized) |&gt; \n    mutate(significant = ifelse(estimates_standardized &lt;= -1.96, TRUE, FALSE)) |&gt; \n    summarize(share_significant = sum(significant) / n()) |&gt; \n    pull(share_significant)\n  \n  return(power)\n}\n\n\ncalculate_power(estimates = estimates)\n\n[1] 0.736",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
     "objectID": "guides/power_simulation.html#step-5-bring-it-all-together",
     "href": "guides/power_simulation.html#step-5-bring-it-all-together",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "Step 5: Bring it all together",
     "text": "Step 5: Bring it all together\nWe now put all the above functions into a final power_simulation function.\n\npower_simulation &lt;- function(sample_size, n_simulations = 1000) {\n  \n  # Generate multiple samples and compute estimates\n  estimates &lt;- generate_samples(n_simulations, sample_size)\n  \n  # Calculate statistical power\n  power &lt;- calculate_power(estimates)\n  \n  # Return results\n  return(tibble(\n    sample_size = sample_size,\n    n_simulations = n_simulations,\n    estimated_power = power,\n    mean_effect = mean(estimates),\n    sd_effect = sd(estimates)\n  ))\n}\n\nLet’s test this function\n\n# run a power simulation for sample size 1000\npower_simulation(sample_size = 1000, n_simulations = 1000)\n\n# A tibble: 1 × 5\n  sample_size n_simulations estimated_power mean_effect sd_effect\n        &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;\n1        1000          1000           0.935      -0.422     0.121\n\n\n🎉 Seems to have worked just fine.",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
     "objectID": "guides/power_simulation.html#step-6-repeat-the-whole-process",
     "href": "guides/power_simulation.html#step-6-repeat-the-whole-process",
-    "title": "Generating Random Numbers",
+    "title": "Power Simulation",
     "section": "Step 6: Repeat the whole process",
     "text": "Step 6: Repeat the whole process\nWe write a for loop, for different sample sizes we would like to test. Remember that the output of our power_data() function is a data frame, so we initialize an empty data frame where we can store the results of all iterations.\nNote that running the code chunk below takes a couple of seconds.\n\nsample_sizes &lt;- c(50, 100, 500, 1000)\n\n# make an empty data frame\npower_data &lt;- tibble()\n\nfor (i in sample_sizes) {\n  # run power simulation\n  power &lt;- power_simulation(sample_size = i, n_simulations = 1000)\n  \n  power_data &lt;- bind_rows(power_data, power)\n}\n\npower_data\n\n# A tibble: 4 × 5\n  sample_size n_simulations estimated_power mean_effect sd_effect\n        &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;\n1          50          1000           0.127      -0.432     0.518\n2         100          1000           0.208      -0.423     0.371\n3         500          1000           0.751      -0.436     0.169\n4        1000          1000           0.971      -0.431     0.111\n\n\n🎉 Worked!\nWe can plot the results.\n\nggplot(power_data, \n       aes(x = sample_size, y = estimated_power)) +\n  geom_line(color = 'red', size = 1.5) + \n  # add a horizontal line at 80%\n  geom_hline(aes(yintercept = .8), linetype = 'dashed') + \n  # Prettify!\n  theme_minimal() + \n  scale_y_continuous(labels = scales::percent, limits = c(0,1)) + \n  labs(title = \"Power Simulation for a difference of -0.5 between action and comedy movies\",\n       x = 'Sample Size', y = 'Power')\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n\n\n\n\n\n\n\nFrom the curve, we can read that we reach our desired power level somewhere between a sample size of 500 and 1000, but a lot closer to 500.",
     "crumbs": [
       "Guides",
-      "Generating Random Numbers"
+      "Power Simulation"
     ]
   },
   {
@@ -272,28 +272,28 @@
     "href": "slides/06-slides.html#the-central-limit-theorem-part-i",
     "title": "Statistical Power",
     "section": "The Central Limit Theorem (part I)",
-    "text": "The Central Limit Theorem (part I)\nThe sampling distribution approximates the shape of a normal distribution"
+    "text": "The Central Limit Theorem (part I)\nThe sampling distribution approximates the shape of a normal distribution\n\n\n\n# Plot histograms with fading effect\nggplot(sampling_null |&gt; \n         filter(sample_size == 20000), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 color = \"black\", \n                 alpha = 0.3) +\n  scale_fill_viridis_d(option = \"inferno\") +\n  labs(title = \"Distribution of Rating Differences by Sample Size\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\",\n       color = \"Sample Size\") +\n  theme_minimal()\n\nWarning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.\nℹ Please use `after_stat(density)` instead.\n\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\n\n\n\n# Compute mean and SD for each sample size\nsummary_stats &lt;- sampling_null %&gt;%\n  group_by(sample_size) %&gt;%\n  summarise(mean_diff = mean(diff), sd_diff = sd(diff)) \n\n# Compute mean and standard deviation of the simulated differences\ndiff_mean &lt;- summary_stats |&gt; filter(sample_size == 20000) |&gt; pull(mean_diff)\ndiff_sd &lt;- summary_stats |&gt; filter(sample_size == 20000) |&gt; pull(sd_diff)\n\n# Plot histogram with normal curve\n# Plot histograms with fading effect\nggplot(sampling_null |&gt; \n         filter(sample_size == 20000), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 color = \"black\", \n                 alpha = 0.3) +\n  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), \n                color = \"red\", linetype = \"dashed\", size = 1) +  # Normal distribution curve\n  scale_fill_viridis_d(option = \"inferno\") +\n  labs(title = \"Distribution of Rating Differences by Sample Size\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\",\n       color = \"Sample Size\") +\n  theme_minimal()\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
   },
   {
     "objectID": "slides/06-slides.html#the-central-limit-theorem-part-ii",
     "href": "slides/06-slides.html#the-central-limit-theorem-part-ii",
     "title": "Statistical Power",
     "section": "The Central Limit Theorem (part II)",
-    "text": "The Central Limit Theorem (part II)\n\nThis is what the sampling distribution looks like with samples of size 10,000"
+    "text": "The Central Limit Theorem (part II)\n\nThis is what the sampling distribution looks like with samples of size 10,000\n\n# Compute mean and standard deviation of the simulated differences\ndiff_mean_10000 &lt;- summary_stats |&gt; filter(sample_size == 10000) |&gt; pull(mean_diff)\ndiff_sd_10000 &lt;- summary_stats |&gt; filter(sample_size == 10000) |&gt; pull(sd_diff)\n\n# Plot histogram with normal curve\n# Plot histograms with fading effect\nggplot(sampling_null |&gt; \n         filter(sample_size == 10000), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 color = \"black\", \n                 alpha = 0.3) +\n  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), \n                color = \"red\", linetype = \"dashed\", size = 1, alpha = 0.3) +  # Normal distribution curve\n    stat_function(fun = dnorm, args = list(mean = diff_mean_10000 , sd = diff_sd_10000), \n                color = \"red\", linetype = \"dashed\", size = 1) +  # Normal distribution curve\n  scale_fill_viridis_d(option = \"inferno\") +\n  labs(title = \"Distribution of Rating Differences by Sample Size\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\",\n       color = \"Sample Size\") +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
   },
   {
     "objectID": "slides/06-slides.html#the-central-limit-theorem-part-ii-1",
     "href": "slides/06-slides.html#the-central-limit-theorem-part-ii-1",
     "title": "Statistical Power",
     "section": "The Central Limit Theorem (part II)",
-    "text": "The Central Limit Theorem (part II)\nAnd with samples of size 1,000"
+    "text": "The Central Limit Theorem (part II)\nAnd with samples of size 1,000\n\n# Compute mean and standard deviation of the simulated differences\ndiff_mean_1000 &lt;- summary_stats |&gt; filter(sample_size == 1000) |&gt; pull(mean_diff)\ndiff_sd_1000 &lt;- summary_stats |&gt; filter(sample_size == 1000) |&gt; pull(sd_diff)\n\n# Plot histogram with normal curve\n# Plot histograms with fading effect\nggplot(sampling_null |&gt; \n         filter(sample_size == 1000), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 color = \"black\", \n                 alpha = 0.3) +\n  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), \n                color = \"red\", linetype = \"dashed\", size = 1, alpha = 0.3) +  # Normal distribution curve\n  stat_function(fun = dnorm, args = list(mean = diff_mean_10000 , sd = diff_sd_10000), \n                color = \"red\", linetype = \"dashed\", size = 1, alpha = 0.3) +  # Normal distribution curve\n  stat_function(fun = dnorm, args = list(mean = diff_mean_1000 , sd = diff_sd_1000), \n                color = \"red\", linetype = \"dashed\", size = 1) +  # Normal distribution curve\n  scale_fill_viridis_d(option = \"inferno\") +\n  labs(title = \"Distribution of Rating Differences by Sample Size\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\",\n       color = \"Sample Size\") +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
   },
   {
     "objectID": "slides/06-slides.html#the-central-limit-theorem-part-ii-2",
     "href": "slides/06-slides.html#the-central-limit-theorem-part-ii-2",
     "title": "Statistical Power",
     "section": "The Central Limit Theorem (part II)",
-    "text": "The Central Limit Theorem (part II)\nThe smaller the sample, the larger the standard deviation of the sampling distribution"
+    "text": "The Central Limit Theorem (part II)\nThe smaller the sample, the larger the standard deviation of the sampling distribution\n\n# Compute mean and standard deviation of the simulated differences\ndiff_mean_1000 &lt;- summary_stats |&gt; filter(sample_size == 1000) |&gt; pull(mean_diff)\ndiff_sd_1000 &lt;- summary_stats |&gt; filter(sample_size == 1000) |&gt; pull(sd_diff)\n\n# Plot histogram with normal curve\n# Plot histograms with fading effect\nggplot(sampling_null |&gt; \n         filter(sample_size == 1000), \n       aes(x = diff, fill = factor(sample_size))) +\n  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), \n                color = \"red\", linetype = \"dashed\", size = 1, alpha = 0.3) +  # Normal distribution curve\n  stat_function(fun = dnorm, args = list(mean = diff_mean_10000 , sd = diff_sd_10000), \n                color = \"red\", linetype = \"dashed\", size = 1, alpha = 0.3) +  # Normal distribution curve\n  stat_function(fun = dnorm, args = list(mean = diff_mean_1000 , sd = diff_sd_1000), \n                color = \"red\", linetype = \"dashed\", size = 1) +  # Normal distribution curve\n  scale_fill_viridis_d(option = \"inferno\") +\n  labs(title = \"Distribution of Rating Differences by Sample Size\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\",\n       color = \"Sample Size\") +\n  theme_minimal()"
   },
   {
     "objectID": "slides/06-slides.html#how-is-this-relevant-for-hypothesis-testing",
@@ -321,7 +321,7 @@
     "href": "slides/06-slides.html#two-errors-1",
     "title": "Statistical Power",
     "section": "Two errors",
-    "text": "Two errors\n\n\n\n\n\n\n\n\n\n\n\nHypothesis Testing\nPower Analysis\n\n\n\n\nAim\nRule out that we observe something just by chance.\nEnsure that we would find an effect.\n\n\nError question\n“What are the chances that we find an effect at least this large in our sample, given that there is no effect in the population?”\n“What are the chances that we do not find a statistically significant effect in our sample, although there is a certain effect in the population?”\n\n\nTypical threshold for acceptable error\n\\(\\alpha\\) = 5 %\n\\(\\beta\\) = 20 %"
+    "text": "Two errors\n\n# Create the table as a data frame\ntable_data &lt;- data.frame(\n  Category = c(\"Aim\", \"Error question\", \"Typical threshold for acceptable error\"),\n  `Hypothesis Testing` = c(\n    \"Rule out that we observe something just by chance.\",\n    '\"What are the chances that we find an effect at least this large in our sample, given that there is &lt;b&gt;no effect&lt;/b&gt; in the population?\"',\n    \"$\\\\alpha$ = 5 %\"\n  ),\n  `Power Analysis` = c(\n    \"Ensure that we would find an effect.\",\n    '\"What are the chances that we &lt;b&gt;do not&lt;b&gt; find a statistically significant effect in our sample, although there is &lt;b&gt;a certain effect&lt;/b&gt; in the population?\"',\n    \"$\\\\beta$ = 20 %\"\n  )\n)\n\n# Rename columns\ncolnames(table_data) &lt;- c(\"\", \"Hypothesis Testing\", \"Power Analysis\")\n\n# Manually format first column to be bold\ntable_data[,1] &lt;- paste0(\"&lt;b&gt;\", table_data[,1], \"&lt;/b&gt;\")\n\n# Create the table without kable_styling or column_spec\nkable(table_data, escape = FALSE, align = \"l\")\n\n\n\n\n\n\n\n\n\n\nHypothesis Testing\nPower Analysis\n\n\n\n\nAim\nRule out that we observe something just by chance.\nEnsure that we would find an effect.\n\n\nError question\n“What are the chances that we find an effect at least this large in our sample, given that there is no effect in the population?”\n“What are the chances that we do not find a statistically significant effect in our sample, although there is a certain effect in the population?”\n\n\nTypical threshold for acceptable error\n\\(\\alpha\\) = 5 %\n\\(\\beta\\) = 20 %"
   },
   {
     "objectID": "slides/06-slides.html#statistical-power-1",
@@ -335,14 +335,14 @@
     "href": "slides/06-slides.html#your-turn-1-calculating-power",
     "title": "Statistical Power",
     "section": "Your turn #1: Calculating power",
-    "text": "Your turn #1: Calculating power\n\nCreate your true effect world: Simulate a population with a true difference of -0.5 between action and comedy movies.\nGet your sampling distribution: Simulate 1000 random samples of size n = 1000 and store the results.\nPlot your Sampling distribution (use data.frame() to turn your vector into a data frame that can be read by ggplot)\nPrepare for hypothesis testing: bring the results on scale of the standard normal distribution (divide by the standard deviation of your distribution)\nCheck the transformation: plot the new, standardized values\nCalculate your power: Check how many (standardized) differences are below the 5% threshold, i.e. smaller than or equal to -1.96 (hint: use mutate() in combination with ifelse to create a new variable significant that takes the values of TRUE or FALSE. Then use summarize() and sum() to calculate the share). Are you above the 80% power threshold?\n\n\n\n\n−+\n15:00"
+    "text": "Your turn #1: Calculating power\n\nCreate your true effect world: Simulate a population with a true difference of -0.5 between action and comedy movies.\nGet your sampling distribution: Simulate 1000 random samples of size n = 1000 and store the results.\nPlot your Sampling distribution (use data.frame() to turn your vector into a data frame that can be read by ggplot)\nPrepare for hypothesis testing: bring the results on scale of the standard normal distribution (divide by the standard deviation of your distribution)\nCheck the transformation: plot the new, standardized values\nCalculate your power: Check how many (standardized) differences are below the 5% threshold, i.e. smaller than or equal to -1.96 (hint: use mutate() in combination with ifelse to create a new variable significant that takes the values of TRUE or FALSE. Then use summarize() and sum() to calculate the share). Are you above the 80% power threshold?\n\n\ncountdown::countdown(\n  minutes = 15,\n  bottom = 0, \n  right = 0,\n  # Fanfare when it's over\n  play_sound = FALSE,\n  color_border              = \"#FFFFFF\",\n  color_text                = \"#7aa81e\",\n  color_running_background  = \"#7aa81e\",\n  color_running_text        = \"#FFFFFF\",\n  color_finished_background = \"#ffa07a\",\n  color_finished_text       = \"#FFFFFF\",\n  font_size = \"1em\",\n  start_immediately = TRUE\n  )\n\n\n−+\n15:00"
   },
   {
     "objectID": "slides/06-slides.html#the-central-limit-theorem-again",
     "href": "slides/06-slides.html#the-central-limit-theorem-again",
     "title": "Statistical Power",
     "section": "The central limit theorem (again)",
-    "text": "The central limit theorem (again)\nThe larger the sample size, the more statistical power"
+    "text": "The central limit theorem (again)\nThe larger the sample size, the more statistical power\n\n\n\nggplot(both_worlds_scaled |&gt; \n         filter(sample_size == 1000 & world == \"true\"), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 alpha = 0.8, color = \"black\") +\n  scale_fill_viridis_d(option = \"inferno\") +  # add fill color for world\n  labs(title = \"Sampling distributions for worlds with and without true difference\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\") +\n  theme_minimal() +\n  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = \"black\",\n            size = 1, linetype = \"dashed\", alpha = 0.7)  +\n  annotate(\"text\", x = -2.5, y = .045, label = \"2.5%\") + \n  annotate(\"text\", x = 2.5, y = .045, label = \"2.5%\") + \n  annotate(\"text\", x = 0, y = .25, label = \"95%\") + \n  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +\n  geom_area(data = norm_dt %&gt;% filter(x &lt; -1.96), aes(x = x, y = y), fill = \"#6794A7\", color = \"#014D64\", alpha = .6) +\n  geom_area(data = norm_dt %&gt;% filter(x &gt; 1.96), aes(x = x, y = y), fill = \"#6794A7\", color = \"#014D64\", alpha = .6) +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(both_worlds_scaled |&gt; \n         filter(sample_size == 10000 & world == \"true\"), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 alpha = 0.8, color = \"black\") +\n  scale_fill_viridis_d(option = \"inferno\") +  # add fill color for world\n  labs(title = \"Sampling distributions for worlds with and without true difference\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\") +\n  theme_minimal() +\n  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = \"black\",\n            size = 1, linetype = \"dashed\", alpha = 0.7)  +\n  annotate(\"text\", x = -2.5, y = .045, label = \"2.5%\") + \n  annotate(\"text\", x = 2.5, y = .045, label = \"2.5%\") + \n  annotate(\"text\", x = 0, y = .25, label = \"95%\") + \n  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +\n  geom_area(data = norm_dt %&gt;% filter(x &lt; -1.96), aes(x = x, y = y), fill = \"#6794A7\", color = \"#014D64\", alpha = .6) +\n  geom_area(data = norm_dt %&gt;% filter(x &gt; 1.96), aes(x = x, y = y), fill = \"#6794A7\", color = \"#014D64\", alpha = .6) +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(both_worlds_scaled |&gt; \n         filter(sample_size == 20000 & world == \"true\"), \n       aes(x = diff, fill = factor(sample_size))) +\n  geom_histogram(aes(y = ..density..), \n                 position = \"identity\", \n                 alpha = 0.8, color = \"black\") +\n  scale_fill_viridis_d(option = \"inferno\") +  # add fill color for world\n  labs(title = \"Sampling distributions for worlds with and without true difference\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Density\",\n       fill = \"Sample Size\") +\n  theme_minimal() +\n  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = \"black\",\n            size = 1, linetype = \"dashed\", alpha = 0.7)  +\n  annotate(\"text\", x = -2.5, y = .045, label = \"2.5%\") + \n  annotate(\"text\", x = 2.5, y = .045, label = \"2.5%\") + \n  annotate(\"text\", x = 0, y = .25, label = \"95%\") + \n  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +\n  geom_area(data = norm_dt %&gt;% filter(x &lt; -1.96), aes(x = x, y = y), fill = \"#6794A7\", color = \"#014D64\", alpha = .6) +\n  geom_area(data = norm_dt %&gt;% filter(x &gt; 1.96), aes(x = x, y = y), fill = \"#6794A7\", color = \"#014D64\", alpha = .6) +\n  theme_minimal()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
   },
   {
     "objectID": "slides/04-slides.html#overview",
@@ -1353,7 +1353,7 @@
     "href": "slides/05-slides.html#your-turn-1-calculating-an-estimate",
     "title": "Statistical Inference",
     "section": "Your turn #1: Calculating an estimate",
-    "text": "Your turn #1: Calculating an estimate\nCollect IMDB ratings for a bunch of films via the ggplot2movies package.\n\nInstall the package (use either console or the Rstudio interface. Do not use a Script)\nLoad the package in your script.\nLoad the movies data (type: data(\"movies\"))\nMake a new cleaned data frame by\n\n\nselecting only the title, year, rating, Action and Comedy columns\nfiltering out films that classify as both Action and Comedy\nmaking a new variable genre (using mutate() and case_when()) which takes the values “Action” or “Comedy”\nremoving the now obsolete Action and Comedy columns (use select and -)\n\n\nCalculate the average ratings for the two genres\n\n\ncountdown::countdown(\n  minutes = 8,\n  bottom = 0, \n  right = 0,\n  # Fanfare when it's over\n  play_sound = FALSE,\n  color_border              = \"#FFFFFF\",\n  color_text                = \"#7aa81e\",\n  color_running_background  = \"#7aa81e\",\n  color_running_text        = \"#FFFFFF\",\n  color_finished_background = \"#ffa07a\",\n  color_finished_text       = \"#FFFFFF\",\n  font_size = \"1em\",\n  start_immediately = TRUE\n  )\n\n\n−+\n08:00"
+    "text": "Your turn #1: Calculating an estimate\nCollect IMDB ratings for a bunch of films via the ggplot2movies package.\n\nInstall the package (use either console or the Rstudio interface. Do not use a Script)\nLoad the package in your script.\nLoad the movies data (type: data(\"movies\"))\nMake a new cleaned data frame by\n\n\nselecting only the title, year, rating, Action and Comedy columns\nfiltering out films that classify as both Action and Comedy\nmaking a new variable genre (using mutate() and case_when()) which takes the values “Action” or “Comedy”\nremoving the now obsolete Action and Comedy columns (use select and -)\n\n\nCalculate the average ratings for the two genres\n\n\n\n\n−+\n08:00"
   },
   {
     "objectID": "slides/05-slides.html#your-turn-1-calculating-an-estimate-1",
@@ -1409,14 +1409,14 @@
     "href": "slides/05-slides.html#check-hatdelta-in-the-null-world",
     "title": "Statistical Inference",
     "section": "Check \\(\\hat{\\delta}\\) in the null world",
-    "text": "Check \\(\\hat{\\delta}\\) in the null world\nDoes the estimate we found in the IMDB data (\\(\\hat{\\delta}\\) = -0.73) fit well into the world where the true difference \\(\\delta\\) is 0?\n\n\n\nggplot(data.frame(differences), aes(x = differences)) +\n  geom_histogram() +\n  labs(title = \"Distribution of Rating Differences\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+    "text": "Check \\(\\hat{\\delta}\\) in the null world\nDoes the estimate we found in the IMDB data (\\(\\hat{\\delta}\\) = -0.73) fit well into the world where the true difference \\(\\delta\\) is 0?\n\n\n\nggplot(data.frame(differences), aes(x = differences)) +\n  geom_histogram() +\n  labs(title = \"Distribution of Rating Differences\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Frequency\") +\n  theme_minimal()"
   },
   {
     "objectID": "slides/05-slides.html#check-hatdelta-in-the-null-world-1",
     "href": "slides/05-slides.html#check-hatdelta-in-the-null-world-1",
     "title": "Statistical Inference",
     "section": "Check \\(\\hat{\\delta}\\) in the null world",
-    "text": "Check \\(\\hat{\\delta}\\) in the null world\nDoes the estimate we found in the IMDB data (\\(\\hat{\\delta}\\) = -0.73) fit well into the world where the true difference \\(\\delta\\) is 0?\n\n\nggplot(data.frame(differences), aes(x = differences)) +\n  geom_histogram() +\n  geom_vline(xintercept = -0.73, color = \"red\", size = 1, linetype = \"dashed\") +\n  labs(title = \"Distribution of Rating Differences\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\nThat seems fairly rare for a null world!"
+    "text": "Check \\(\\hat{\\delta}\\) in the null world\nDoes the estimate we found in the IMDB data (\\(\\hat{\\delta}\\) = -0.73) fit well into the world where the true difference \\(\\delta\\) is 0? Not really.\n\n\nggplot(data.frame(differences), aes(x = differences)) +\n  geom_histogram() +\n  geom_vline(xintercept = -0.73, color = \"red\", size = 1, linetype = \"dashed\") +\n  labs(title = \"Distribution of Rating Differences\",\n       x = \"Mean Rating Difference (Action - Comedy)\",\n       y = \"Frequency\") +\n  theme_minimal()"
   },
   {
     "objectID": "slides/05-slides.html#so-again-are-action-movies-better-than-comedies",

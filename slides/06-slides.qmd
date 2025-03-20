@@ -825,8 +825,6 @@ countdown::countdown(
 
 ---
 
-## {visibility="hidden"}
-
 1. Create your true effect world: Simulate a population with a true difference of -0.5 between action and comedy movies.
 
 ```{r}
@@ -846,7 +844,7 @@ imaginary_movies_true <- tibble(
 
 ---
 
-## {visibility="hidden"}
+
 
 2. Get your sampling distribution: Simulate 1000 random samples of size n = 1000 and store the results.
 
@@ -876,7 +874,7 @@ for (i in 1:n_simulations) {
 
 ---
 
-## {visibility="hidden"}
+
 
 3. Plot your Sampling distribution (use `data.frame()` to turn your vector into a data frame that can be read by `ggplot`)
 
@@ -893,7 +891,7 @@ ggplot(data.frame(differences), aes(x = differences)) +
 
 ---
 
-## {visibility="hidden"}
+
 
 4. Prepare for hypothesis testing: bring the results on scale of the standard normal distribution (divide by the standard deviation of your distribution)
 
@@ -905,7 +903,7 @@ differences_standardized <- differences/sd(differences)
 
 ---
 
-## {visibility="hidden"}
+
 
 5. Check the transformation: plot the new, standardized values
 
@@ -922,7 +920,7 @@ ggplot(data.frame(differences_standardized), aes(x = differences_standardized)) 
 
 ---
 
-## {visibility="hidden"}
+
 
 6. Calculate your power: Check how many (standardized) differences are below the 5% threshold, i.e. smaller than or equal to -1.96 (hint: use `mutate()` in combination with `ifelse` to create a new variable `significant` that takes the values of `TRUE` or `FALSE`. Then use `summarize()` and `sum()` to calculate the share). Are you above the 80% power threshold? 
 
@@ -1031,7 +1029,7 @@ ggplot(both_worlds_scaled |>
 
 # An example of a power analysis
 
-For an example, head over to the guide on power analysis on the course website.
+For an example, head over to the [guide on power analysis](../guides/power_simulation.qmd) on the course website.
 
 ---
 

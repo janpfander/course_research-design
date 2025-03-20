@@ -1,5 +1,5 @@
 ---
-title: "Generating Random Numbers"
+title: "Power Simulation"
 ---
 
 ::: {.callout-warning}

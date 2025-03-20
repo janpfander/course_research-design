@@ -124,6 +124,9 @@ Collect IMDB ratings for a bunch of films via the `ggplot2movies` package.
 5. Calculate the average ratings for the two genres
 
 ```{r}
+#| echo: false
+
+
 countdown::countdown(
   minutes = 8,
   bottom = 0, 
@@ -370,7 +373,6 @@ for (i in 1:n_simulations) {
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| output-location: column
 ggplot(data.frame(differences), aes(x = differences)) +
   geom_histogram() +
   labs(title = "Distribution of Rating Differences",
@@ -405,7 +407,7 @@ ggplot(data.frame(differences), aes(x = differences)) +
 
 ## Check $\hat{\delta}$ in the null world
 
-Does the estimate we found in the  IMDB data ($\hat{\delta}$ = -0.73) fit well into the world where the true difference $\delta$ is 0?
+Does the estimate we found in the  IMDB data ($\hat{\delta}$ = -0.73) fit well into the world where the true difference $\delta$ is 0? Not really.
 
 ```{r}
 #| echo: true
@@ -419,7 +421,6 @@ ggplot(data.frame(differences), aes(x = differences)) +
   theme_minimal()
 ```
 
-That seems fairly rare for a null world!
 
 ---
 
