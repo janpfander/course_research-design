@@ -1,5 +1,5 @@
 ---
-title: "Class 5: Statistical Inference"
+title: "Class 6: Statistical Power"
 bibliography: ../references.bib
 ---
 

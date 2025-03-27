@@ -38,7 +38,7 @@ website:
           - text: "06 - Statistical power"
             href: content/06-content.qmd            
           - text: "07 - Linear Regression"
-            href: 07-class/index.qmd
+            href: content/07-content.qmd 
           - text: "08 - Colliders and Confounders"
             href: 08-class/index.qmd          
           - text: "09 - RCTs and Validity"

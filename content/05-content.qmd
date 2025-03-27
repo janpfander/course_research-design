@@ -58,7 +58,11 @@ Be very careful in how you fill out the sheet as in the first example row (other
 4. Is this result surprising to you or not? Explain.
 
 
+### Solution
 
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/04-solution.qmd){target=_blank}
+:::
 
 
 
