@@ -854,10 +854,83 @@ F-statistic: 4.662 on 1 and 8 DF,  p-value: 0.06287</code></pre>
 <span id="cb11-17"><a></a><span class="co"># generate_samples(n_simulations = 100, sample_size = 10)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="solution" class="slide level2">
+<h2>Solution</h2>
+<p>First, we need a function to calculate power</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>calculate_power <span class="ot">&lt;-</span> <span class="cf">function</span>(p.values){</span>
+<span id="cb12-2"><a></a>  </span>
+<span id="cb12-3"><a></a>  <span class="co"># get statistical power </span></span>
+<span id="cb12-4"><a></a>  power <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(p.values) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a></a>    <span class="fu">mutate</span>(<span class="at">significant =</span> <span class="fu">ifelse</span>(p.values <span class="sc">&lt;=</span> <span class="fl">0.5</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-6"><a></a>    <span class="fu">summarize</span>(<span class="at">share_significant =</span> <span class="fu">sum</span>(significant) <span class="sc">/</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb12-7"><a></a>    <span class="fu">pull</span>(share_significant)</span>
+<span id="cb12-8"><a></a>  </span>
+<span id="cb12-9"><a></a>  <span class="fu">return</span>(power)</span>
+<span id="cb12-10"><a></a>}</span>
+<span id="cb12-11"><a></a><span class="co"># test</span></span>
+<span id="cb12-12"><a></a><span class="co"># some_p.values &lt;- generate_samples(n_simulations = 100, sample_size = 10)</span></span>
+<span id="cb12-13"><a></a><span class="co"># calculate_power(p.values = some_p.values)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solution-1" class="slide level2">
+<h2>Solution</h2>
+<p>We can then put it all together in a power simulation function. This function generates 1000 samples, calculates the p-value for the analysis on each sample, and calculates the power.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>power_simulation <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_size, <span class="at">n_simulations =</span> <span class="dv">1000</span>) {</span>
+<span id="cb13-2"><a></a>  </span>
+<span id="cb13-3"><a></a>  <span class="co"># Generate multiple samples and compute estimates</span></span>
+<span id="cb13-4"><a></a>  sampled_p.values <span class="ot">&lt;-</span> <span class="fu">generate_samples</span>(n_simulations, sample_size)</span>
+<span id="cb13-5"><a></a>  </span>
+<span id="cb13-6"><a></a>  <span class="co"># Calculate statistical power</span></span>
+<span id="cb13-7"><a></a>  power <span class="ot">&lt;-</span> <span class="fu">calculate_power</span>(sampled_p.values)</span>
+<span id="cb13-8"><a></a>  </span>
+<span id="cb13-9"><a></a>  <span class="co"># Return results</span></span>
+<span id="cb13-10"><a></a>  <span class="fu">return</span>(<span class="fu">tibble</span>(</span>
+<span id="cb13-11"><a></a>    <span class="at">sample_size =</span> sample_size,</span>
+<span id="cb13-12"><a></a>    <span class="at">n_simulations =</span> n_simulations,</span>
+<span id="cb13-13"><a></a>    <span class="at">estimated_power =</span> power</span>
+<span id="cb13-14"><a></a>  ))</span>
+<span id="cb13-15"><a></a>}</span>
+<span id="cb13-16"><a></a><span class="co"># test</span></span>
+<span id="cb13-17"><a></a><span class="co"># power_simulation(sample_size = 30, n_simulations = 100)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solution-2" class="slide level2">
+<h2>Solution</h2>
+<p>Finally we can use the function to run a power analysis for different sample sizes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">200</span>)</span>
+<span id="cb14-2"><a></a></span>
+<span id="cb14-3"><a></a><span class="co"># make an empty data frame</span></span>
+<span id="cb14-4"><a></a>power_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb14-5"><a></a></span>
+<span id="cb14-6"><a></a><span class="cf">for</span> (i <span class="cf">in</span> sample_sizes) {</span>
+<span id="cb14-7"><a></a>  <span class="co"># run power simulation</span></span>
+<span id="cb14-8"><a></a>  power <span class="ot">&lt;-</span> <span class="fu">power_simulation</span>(<span class="at">sample_size =</span> i, <span class="at">n_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb14-9"><a></a>  </span>
+<span id="cb14-10"><a></a>  power_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(power_data, power)</span>
+<span id="cb14-11"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solution-3" class="slide level2">
+<h2>Solution</h2>
+<p>We can then plot the power curve</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(power_data, </span>
+<span id="cb15-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> sample_size, <span class="at">y =</span> estimated_power)) <span class="sc">+</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">'red'</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">'red'</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb15-5"><a></a>  <span class="co"># add a horizontal line at 80%</span></span>
+<span id="cb15-6"><a></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> .<span class="dv">8</span>), <span class="at">linetype =</span> <span class="st">'dashed'</span>) <span class="sc">+</span> </span>
+<span id="cb15-7"><a></a>  <span class="co"># Prettify!</span></span>
+<span id="cb15-8"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb15-9"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb15-10"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Power Simulation for the effect of Cookies on Happiness"</span>,</span>
+<span id="cb15-11"><a></a>       <span class="at">x =</span> <span class="st">'Sample Size'</span>, <span class="at">y =</span> <span class="st">'Power'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-
-
-
+</div>
+<img data-src="07-slides_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>That’s it for today :)</p>

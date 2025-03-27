@@ -1059,6 +1059,34 @@
     "text": "Your turn: A power simulation for a regression analysis\n\ngenerate_samples &lt;- function(n_simulations, sample_size) {\n  \n  # Make an empty vector\n  p.values &lt;- numeric(n_simulations)\n  \n  for (i in 1:n_simulations) {\n    # Draw a sample with the specified size\n    sample &lt;- generate_sample(sample_size) \n    \n    # Get an estimate\n    p.values[i] &lt;-  calculate_regression(sample)\n  }\n  \n  return(p.values)\n}\n# test\n# generate_samples(n_simulations = 100, sample_size = 10)"
   },
   {
+    "objectID": "slides/07-slides.html#solution",
+    "href": "slides/07-slides.html#solution",
+    "title": "Linear Regression",
+    "section": "Solution",
+    "text": "Solution\nFirst, we need a function to calculate power\n\ncalculate_power &lt;- function(p.values){\n  \n  # get statistical power \n  power &lt;- data.frame(p.values) |&gt; \n    mutate(significant = ifelse(p.values &lt;= 0.5, TRUE, FALSE)) |&gt; \n    summarize(share_significant = sum(significant) / n()) |&gt; \n    pull(share_significant)\n  \n  return(power)\n}\n# test\n# some_p.values &lt;- generate_samples(n_simulations = 100, sample_size = 10)\n# calculate_power(p.values = some_p.values)"
+  },
+  {
+    "objectID": "slides/07-slides.html#solution-1",
+    "href": "slides/07-slides.html#solution-1",
+    "title": "Linear Regression",
+    "section": "Solution",
+    "text": "Solution\nWe can then put it all together in a power simulation function. This function generates 1000 samples, calculates the p-value for the analysis on each sample, and calculates the power.\n\npower_simulation &lt;- function(sample_size, n_simulations = 1000) {\n  \n  # Generate multiple samples and compute estimates\n  sampled_p.values &lt;- generate_samples(n_simulations, sample_size)\n  \n  # Calculate statistical power\n  power &lt;- calculate_power(sampled_p.values)\n  \n  # Return results\n  return(tibble(\n    sample_size = sample_size,\n    n_simulations = n_simulations,\n    estimated_power = power\n  ))\n}\n# test\n# power_simulation(sample_size = 30, n_simulations = 100)"
+  },
+  {
+    "objectID": "slides/07-slides.html#solution-2",
+    "href": "slides/07-slides.html#solution-2",
+    "title": "Linear Regression",
+    "section": "Solution",
+    "text": "Solution\nFinally we can use the function to run a power analysis for different sample sizes\n\nsample_sizes &lt;- c(10, 30, 50, 200)\n\n# make an empty data frame\npower_data &lt;- tibble()\n\nfor (i in sample_sizes) {\n  # run power simulation\n  power &lt;- power_simulation(sample_size = i, n_simulations = 1000)\n  \n  power_data &lt;- bind_rows(power_data, power)\n}"
+  },
+  {
+    "objectID": "slides/07-slides.html#solution-3",
+    "href": "slides/07-slides.html#solution-3",
+    "title": "Linear Regression",
+    "section": "Solution",
+    "text": "Solution\nWe can then plot the power curve\n\nggplot(power_data, \n       aes(x = sample_size, y = estimated_power)) +\n  geom_point(color = 'red', size = 1.5) +\n  geom_line(color = 'red', size = 1) + \n  # add a horizontal line at 80%\n  geom_hline(aes(yintercept = .8), linetype = 'dashed') + \n  # Prettify!\n  theme_minimal() + \n  scale_y_continuous(labels = scales::percent, limits = c(0,1)) + \n  labs(title = \"Power Simulation for the effect of Cookies on Happiness\",\n       x = 'Sample Size', y = 'Power')"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Epistémologie et Esprit Critique ",

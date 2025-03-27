@@ -795,7 +795,7 @@ generate_samples <- function(n_simulations, sample_size) {
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 First, we need a function to calculate power
 
@@ -818,7 +818,7 @@ calculate_power <- function(p.values){
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 We can then put it all together in a power simulation function. This function generates 1000 samples, calculates the p-value for the analysis on each sample, and calculates the power.
 
@@ -845,7 +845,7 @@ power_simulation <- function(sample_size, n_simulations = 1000) {
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 Finally we can use the function to run a power analysis for different sample sizes
 
@@ -866,7 +866,7 @@ for (i in sample_sizes) {
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 We can then plot the power curve
 
