@@ -5,10 +5,10 @@ format:
     theme: simple
     smaller: true
     slide-number: true
-    # incremental: true
-    # code-link: true
     chalkboard: true
     history: false
+execute:
+  echo: false  # Hide code by default
 ---
 
 ```{r}
@@ -135,6 +135,7 @@ The sampling distribution approximates the shape of a normal distribution
 :::{.fragment .fade-out fragment-index="3"}
 
 ```{r}
+#| echo: false
 # Plot histograms with fading effect
 ggplot(sampling_null |> 
          filter(sample_size == 20000), 
@@ -155,6 +156,7 @@ ggplot(sampling_null |>
 
 :::{.fragment .fade-in fragment-index="3"}
 ```{r}
+#| echo: false
 # Compute mean and SD for each sample size
 summary_stats <- sampling_null %>%
   group_by(sample_size) %>%
@@ -196,6 +198,7 @@ ggplot(sampling_null |>
 This is what the sampling distribution looks like with samples of size 10,000
 
 ```{r}
+#| echo: false
 # Compute mean and standard deviation of the simulated differences
 diff_mean_10000 <- summary_stats |> filter(sample_size == 10000) |> pull(mean_diff)
 diff_sd_10000 <- summary_stats |> filter(sample_size == 10000) |> pull(sd_diff)
@@ -229,6 +232,7 @@ ggplot(sampling_null |>
 And with samples of size 1,000
 
 ```{r}
+#| echo: false
 # Compute mean and standard deviation of the simulated differences
 diff_mean_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(mean_diff)
 diff_sd_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(sd_diff)
@@ -264,6 +268,7 @@ ggplot(sampling_null |>
 The smaller the sample, the larger the standard deviation of the sampling distribution
 
 ```{r}
+#| echo: false
 # Compute mean and standard deviation of the simulated differences
 diff_mean_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(mean_diff)
 diff_sd_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(sd_diff)
