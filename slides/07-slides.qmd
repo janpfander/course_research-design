@@ -720,6 +720,24 @@ The final output should be a graph with the power for different sample sizes.
 This task is definitely a challenge. It's ok to get stuck. Make sure to use the guide on power simulation on the course website, and build on the functions on the next slides.
 :::
 
+```{r}
+countdown::countdown(
+  minutes = 15,
+  bottom = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
 ---
 
 ## Your turn: A power simulation for a regression analysis

@@ -40,9 +40,9 @@ website:
           - text: "07 - Linear Regression"
             href: content/07-content.qmd 
           - text: "08 - Colliders and Confounders"
-            href: 08-class/index.qmd          
+            href: content/08-content.qmd          
           - text: "09 - RCTs and Validity"
-            href: 09-class/index.qmd
+            href: content/09-content.qmd 
           - text: "10 - Scientific Publishing and the Replication Crisis"
             href: 10-class/index.qmd
           - text: "11 - Writing a Preregistration"
@@ -86,3 +86,8 @@ format:
     code-copy: true
     css: styles.css
     toc: true
+  # revealjs:
+  #   execute:
+  #     echo: false  # Hide code by default in all slides
+  #     warning: false # Suppress warnings
+  #     message: false # Suppress messages
