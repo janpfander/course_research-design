@@ -1,0 +1,17 @@
+{
+  "hash": "5ed4aea784916f4c8c8228a36f71cd82",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Problem set 6\"\nauthor: \"Put your name here\"\nformat: \n  html:\n    toc: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\n# load packages\nlibrary(tidyverse)  # For dplyr, ggplot, and friends\nlibrary(ggdag)      # For plotting DAGs\nlibrary(dagitty)    # For working with DAG logic\n```\n:::\n\n\n\n\nThe news article implies the causal claim that that it's the size of the beverage container that *causes* students to drink more. However, this conclusion is problematic for reasons of internal and external validity.\n\nFirst, there are issues with internal validity: This claim is based on observational evidence only, and there are other potential causal explanations that can explain the observed data. For example, it might be that students who intend to drink more a priori both (i) order a pitcher (e.g. because it's cheaper, or because it avoids having to get up often and order again) and (ii) consume more alcohol. In this case, drinking intentions would be a confounder variable (see Figure below). \n\nSecond, there are probably issues with external validity: We don't know exactly how many bars/students these researchers observed in their study. But the claim “People drink more because beer is consumed in pitchers” is definitely an overgeneralization, since the researchers looked only at college students, not people in general.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Some code to illustrate the point (you don't need to understand whats happening)\ndag_with_coords_and_labels <- dagify(\n  y ~ z,\n  x ~ z,\n  exposure = \"x\",\n  outcome = \"y\",\n  labels = c(y = \"Alcohol consumption\", x = \"Beverage container (pitcher/bottle)\",\n             z = \"Drinking intentions\"),\n  coords = list(x = c(x = 1, z = 2, y = 3),\n                y = c(x = 1, z = 2, y = 1))\n)\n\nggdag_status(dag_with_coords_and_labels,\n             use_labels = \"label\", text = FALSE) +\n  guides(fill = \"none\", color = \"none\") +  # Disable the legend\n  theme_dag()\n```\n\n::: {.cell-output-display}\n![](06-solution_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "06-solution_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

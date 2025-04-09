@@ -204,7 +204,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 1. Download and read the data set
 
@@ -224,7 +224,7 @@ village_randomized <- read_csv("../data/village_randomized.csv")
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 2. Before calculating the effect of the program, first check how well balanced the random assignment was.
 
@@ -245,7 +245,7 @@ village_randomized |>
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 3. Estimate the treatment effect. This is simply the average outcome for people in the program minus the average outcome for people not in the program. 
 
@@ -268,7 +268,7 @@ tidy(model_rct)
 
 ---
 
-# There are many different threats to validity
+## There are many different threats to validity
 
 The overarching question is always the same: 
 
@@ -290,7 +290,7 @@ Can we draw valid conclusions about our research question from the data we have?
 
 <br>
 
-Randomization allows us to establish (valid) causality, but it is not immune to everything...
+RCTs allows us to establish (valid) causality, but it is not immune to everything...
 
   - (Self-)selection
   - Attrition
@@ -317,6 +317,8 @@ How to fix it?
 
 If the people who leave a program or study are different than those who stay, the effects will be biased
 
+<br>
+
 How to fix it? 
 
 - Check characteristics of those who stay and those who leave
@@ -327,6 +329,8 @@ How to fix it?
 
 Observing people makes them behave differently
 
+<br>
+
 How to fix it? 
 
 - Hide? A tough fix...
@@ -336,6 +340,8 @@ How to fix it?
 ## John Henry effect
 
 Control group works hard to prove they're as good as the treatment group
+
+<br>
 
 How to fix it? 
 
@@ -348,6 +354,8 @@ How to fix it?
 Control groups are sometimes naturally affected by what the treatment group is getting
 
 e.g. vaccine distribution in global south 
+
+<br>
 
 How to fix it? 
 
@@ -392,6 +400,9 @@ How to fix it?
 
 - RCTs **definitely don't** magically fix external validity
 
+---
+
+That's it for today :)
 
 
 

@@ -21,6 +21,10 @@ slide_buttons("/slides/08-slides")
 
 ## Assignment
 
+1. Do the assigned reading from the article above. 
+
+2. Follow instructions below. 
+
 For this weeks assignment, no coding needs to be done. You can upload your answers as a pdf on Moodle.
 
 ::: {.callout-note}

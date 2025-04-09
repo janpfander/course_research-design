@@ -44,17 +44,17 @@ website:
           - text: "09 - RCTs and Validity"
             href: content/09-content.qmd 
           - text: "10 - Scientific Publishing and the Replication Crisis"
-            href: 10-class/index.qmd
+            href: content/10-content.qmd 
           - text: "11 - Writing a Preregistration"
-            href: 11-class/index.qmd          
+            href: content/11-content.qmd          
           - text: "12 - Read and Present a Scientific Paper"
-            href: 12-class/index.qmd              
-          - text: "13 - Presentations Group Project"
-            href: 13-class/index.qmd
-          - text: "14 - Meta-Analyses"
-            href: 14-class/index.qmd          
-          - text: "15 - Buffer Lecture"
-            href: 15-class/index.qmd      
+            href: content/12-content.qmd             
+          - text: "13 - Meta-Analyses"
+            href: content/13-content.qmd 
+          - text: "14 - How to Read and Present a Scientific Paper"
+            href: content/14-content.qmd          
+          - text: "15 - Presentations Group Project"
+            href: content/15-content.qmd      
             
       - section: "Guides"
         contents: 

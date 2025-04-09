@@ -1,0 +1,40 @@
+---
+title: "Class 10: Scientific Publishing and the Replication Crisis"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/10-slides")
+```
+
+## Readings
+
+I don't expect you to read all these, but in case you're curious, here are some papers mentioned in class:
+
+-   @opensciencecollaborationEstimatingReproducibilityPsychological2015
+
+-   @simmonsFalsePositivePsychologyUndisclosed2011
+
+-   @gouldSameDataDifferent2025
+
+-   @turnerSelectivePublicationAntidepressant2008
+
+For a refresher on hypothesis testing and statistical power, you could can have a look at the begging of [chapter 2](https://lakens.github.io/statistical_inferences/02-errorcontrol.html) in @lakensImprovingYourStatistical2022d
+
+Since the lecture did not really cover this, if you want to know what's wrong with scientific publishing, [this old (but gold!) article of the Guardian](https://www.theguardian.com/science/2017/jun/27/profitable-business-scientific-publishing-bad-for-science) is a good read. It's also available as a podcast.
+
+## Data
+
+-   [{{< fa table >}} `imaginary_beatle_experiment.csv`](../data/imaginary_beatle_experiment.csv)
+
+## Assignment
+
+No assignment for this session `r emoji::emoji("tada")`

@@ -17,17 +17,12 @@ slide_buttons("/slides/09-slides")
 
 ## Readings
 
--   [Watch this video on the main ideas of Linear Regression and Least Squares](https://www.youtube.com/watch?v=PaFPbb66DxQ)
+-   @dattaniWhyRandomizedControlled2022
 
-## Data 
+## Data
 
-- [{{< fa table >}} `village_randomized.csv`](../data/village_randomized.csv)
+-   [{{< fa table >}} `village_randomized.csv`](../data/village_randomized.csv)
 
 ## Assignment
 
-No assignment for this session `r emoji::emoji("tada")` 
-
-
-
-
-
+No assignment for this session `r emoji::emoji("tada")`

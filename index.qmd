@@ -38,11 +38,11 @@ schedule <- data.frame(
     text_spec("Linear Regression", link = "content/07-content.qmd"),
     text_spec("Colliders and Confounders", link = "content/08-content.qmd"),
     text_spec("RCTs and Validity", link = "content/09-content.qmd"),
-    text_spec("Scientific Publishing and the Replication Crisis", link = "10-class/index.qmd"),
-    text_spec("Writing a Preregistration", link = "11-class/index.qmd"),
+    text_spec("Scientific Publishing and the Replication Crisis", link = "content/10-content.qmd"),
+    text_spec("Writing a Preregistration", link = "content/11-content.qmd"),
+    text_spec("Meta-Analyses", link = "14-class/index.qmd"),
     text_spec("How to Read and Present a Scientific Paper", link = "12-class/index.qmd"),
-    text_spec("Presentations Group Project", link = "13-class/index.qmd"),
-    text_spec("Meta-Analyses", link = "14-class/index.qmd")
+    text_spec("Presentations Group Project", link = "13-class/index.qmd")
   ),
   c = c(
     "Date",

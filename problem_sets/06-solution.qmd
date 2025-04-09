@@ -1,0 +1,45 @@
+---
+title: "Problem set 6"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+---
+
+```{r}
+#| message: false
+#| warning: false
+# load packages
+library(tidyverse)  # For dplyr, ggplot, and friends
+library(ggdag)      # For plotting DAGs
+library(dagitty)    # For working with DAG logic
+```
+
+
+The news article implies the causal claim that that it's the size of the beverage container that *causes* students to drink more. However, this conclusion is problematic for reasons of internal and external validity.
+
+First, there are issues with internal validity: This claim is based on observational evidence only, and there are other potential causal explanations that can explain the observed data. For example, it might be that students who intend to drink more a priori both (i) order a pitcher (e.g. because it's cheaper, or because it avoids having to get up often and order again) and (ii) consume more alcohol. In this case, drinking intentions would be a confounder variable (see Figure below). 
+
+Second, there are probably issues with external validity: We don't know exactly how many bars/students these researchers observed in their study. But the claim “People drink more because beer is consumed in pitchers” is definitely an overgeneralization, since the researchers looked only at college students, not people in general.
+
+
+```{r}
+# Some code to illustrate the point (you don't need to understand whats happening)
+dag_with_coords_and_labels <- dagify(
+  y ~ z,
+  x ~ z,
+  exposure = "x",
+  outcome = "y",
+  labels = c(y = "Alcohol consumption", x = "Beverage container (pitcher/bottle)",
+             z = "Drinking intentions"),
+  coords = list(x = c(x = 1, z = 2, y = 3),
+                y = c(x = 1, z = 2, y = 1))
+)
+
+ggdag_status(dag_with_coords_and_labels,
+             use_labels = "label", text = FALSE) +
+  guides(fill = "none", color = "none") +  # Disable the legend
+  theme_dag()
+```
+
+
