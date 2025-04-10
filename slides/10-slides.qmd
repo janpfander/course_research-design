@@ -267,7 +267,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 ```{r}
 #| echo: true
@@ -281,7 +281,7 @@ A significant difference! But completely implausible.
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 This is how the data was generated:
 
@@ -318,7 +318,7 @@ simulate_phacking_data <- function(n = 150) {
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution 
 
 And this is how the sample was picked:
 
@@ -776,6 +776,10 @@ Anything that might be considered a researcher degree of freedom
 - statistical models (ideally analysis scripts, including data-dependent decision rules)
 
 - sample size and power analysis
+
+---
+
+![From [Dattani, S. (2022). Why randomized controlled trials matter and the procedures that strengthen them. Our World in Data. ](https://ourworldindata.org/randomized-controlled-trials)](images/fda_registration.jpg){fig-align="center" width="100%"}
 
 ---
 

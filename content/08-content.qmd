@@ -46,5 +46,11 @@ The researchers observed the number of beers that each student consumed and reco
 
 Explain why those claims are not warranted, based on the evidence of this study. Make sure to propose an alternative explanation. (If you want to make me really happy, frame things in terms of the vocabulary that we learned in class `r emoji::emoji("smile")`)
 
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/06-solution.qmd){target=_blank}
+:::
+
 
 
