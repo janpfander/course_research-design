@@ -28,9 +28,8 @@ The aim of your study is to test whether this effect of reducing uptake replicat
 
 ### Your task: Write a preregistration for an RCT
 
-As for all homework assignments, make an R Studio project. Copy-paste [this quarto template for your preregistration](../problem_sets/07-template.qmd){download=true}. The template already includes the relevant sections that you will have to fill out. You'll find more detailed instructions within each section.
+As for all homework assignments, make an R Studio project. Copy-paste [this quarto template for your preregistration](../problem_sets/07-template.qmd). The template already includes the relevant sections that you will have to fill out. You'll find more detailed instructions within each section.
 
 ::: {.callout-tip}
 One general tip for your assignments: Note how the `yaml` header of the template contains the line `self-contained: true`. Without this line, figures and tables only display when the file is opened from inside your project. With this option enabled, you can just share the file by itself and everything will display.
 :::
-
