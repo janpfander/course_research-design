@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -257,6 +277,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Power Simulation</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guides/zotero.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Citing stuff</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -275,7 +301,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#slides" id="toc-slides" class="nav-link active" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#your-task-write-a-preregistration-for-an-rct" id="toc-your-task-write-a-preregistration-for-an-rct" class="nav-link" data-scroll-target="#your-task-write-a-preregistration-for-an-rct">Your task: Write a preregistration for an RCT</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -301,17 +332,60 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="slides" class="level2">
-<h2 class="anchored" data-anchor-id="slides">Slides</h2>
-<p>The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
-<p class="buttons">
-<a class="btn btn-danger" target="_blank" href="../slides/11-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a> <a class="btn btn-danger" target="_blank" href="../slides/11-slides.pdf" role="button"><i class="fa-solid fa-file-pdf"></i> Download PDF of all slides</a>
-</p>
+<p>There are no slides for this class. You’ll have the in-class hours to work on this week’s assignment. To be able to write your preregistration as a reproducible report, the guides listed below will help you with citations and cross-references for figures.</p>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<ul>
+<li><a href="../guides/power_simulation.html">Guide on using Zotero</a></li>
+<li><a href="https://quarto.org/docs/authoring/cross-references.html">A Guide by Posit on how to cross-reference in Quarto</a></li>
+</ul>
+<p>Note that there are many different templates for preregistrations, see for example <a href="https://help.osf.io/article/229-select-a-registration-template">templates on the Open Science Framework (OSF)</a>. You won’t need these for the assignment below, but might want to come back to them when one day you conduct research and want to write a preregistration.</p>
+</section>
+<section id="assignment" class="level2">
+<h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
+<p>This week’s assignment is about Malaria and draws on materials from <a href="https://www.povertyactionlab.org/">J-PAL (Abdul Latif Jameel Poverty Action Lab)</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, a famous research institution that seeks to reduce poverty around the globe.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Malaria is one of the world’s foremost public health concerns. In 2023, there were almost 263 million estimated malaria cases, of which 569,000 resulted in death. While there are 83 malaria endemic countries, the majority of cases occure in sub-Saharan Africa (see the <a href="https://www.who.int/publications/i/item/9789240104440">2024 WHO Malaria report</a>). Malaria is associated with poverty: the poor are most affected, potentially because they have reduced access to medical services and information, and can’t avoid working in malaria epidemic areas. Even if it does no lead to death, malaria can have serious consequences, both in terms of health and economic situation. Fighting Malaria is therefor an important public policy goal. One “core intervention” to prevent Malaria infections are insecticide-treated nets (ITNs).</p>
+<p>Economists have debated whether ITNs should be distributed for free, or at a small price. Charging a small price, according to some theories, might be expected to encourage the use of malaria bed nets–a bit as if paying a gym membership makes you go to the gym, simply because you paid for it <span class="citation" data-cites="thalerPositiveTheoryConsumer1980">(see e.g. <a href="#ref-thalerPositiveTheoryConsumer1980" role="doc-biblioref">Thaler 1980</a>)</span>. However, past research has shown that it is more effective to distribute the nets for free: In an RCT, <span class="citation" data-cites="cohenFreeDistributionCostSharing2010">Cohen and Dupas (<a href="#ref-cohenFreeDistributionCostSharing2010" role="doc-biblioref">2010</a>)</span> let prenatal clinics distribute ITNs to pregnant women. In some of clinics–randomly selected–the bed nets were for free. In others, they were charged a small price. Contrary to what proponents of pricing would have predicted, the study found that those who paid a little did not use bed nets more than those who got it for free, nor were there any differences in health. There was, however, a crucial difference: Making the bed nets available even at a small price drastically reduced the number of women who got one (by almost 60 percentage points, from 99% in the free group to 41 percent in the small price group).</p>
+<p>The aim of your study is to test whether this effect of reducing uptake replicates in a slightly different context (say, another country, and not only pregnant women but a larger population). Your treatment consists in handing out ITNs for free (treatment group), compared to making them available for people to purchase at a small cost (control group).</p>
+</section>
+<section id="your-task-write-a-preregistration-for-an-rct" class="level3">
+<h3 class="anchored" data-anchor-id="your-task-write-a-preregistration-for-an-rct">Your task: Write a preregistration for an RCT</h3>
+<p>As for all homework assignments, make an R Studio project. Download a quarto template for your preregistration <a href="../problem_sets/07-template.html">here</a>. The template already includes the relevant sections that you will have to fill out. You’ll find more detailed instructions within each section.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>One general tip for your assignments: Note how the <code>yaml</code> header of the template contains the line <code>self-contained: true</code>. Without this line, figures and tables only display when the file is opened from inside your project. With this option enabled, you can just share the file by itself and everything will display.</p>
+</div>
+</div>
+
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cohenFreeDistributionCostSharing2010" class="csl-entry" role="listitem">
+Cohen, Jessica, and Pascaline Dupas. 2010. <span>“Free Distribution or Cost-Sharing? Evidence from a Randomized Malaria Prevention Experiment*.”</span> <em>The Quarterly Journal of Economics</em> 125 (1): 1–45. <a href="https://doi.org/10.1162/qjec.2010.125.1.1">https://doi.org/10.1162/qjec.2010.125.1.1</a>.
+</div>
+<div id="ref-thalerPositiveTheoryConsumer1980" class="csl-entry" role="listitem">
+Thaler, Richard. 1980. <span>“Toward a Positive Theory of Consumer Choice.”</span> <em>Journal of Economic Behavior &amp; Organization</em> 1 (1): 39–60.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>see e.g.&nbsp;<a href="https://www.povertyactionlab.org/evaluation/free-distribution-or-cost-sharing-evidence-malaria-prevention-experiment-kenya">here for a summary on malaria prevention</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
