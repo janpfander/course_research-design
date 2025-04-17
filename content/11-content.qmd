@@ -7,14 +7,14 @@ There are no slides for this class. You'll have the in-class hours to work on th
 
 ## Readings
 
--   [Guide on using Zotero](../guides/power_simulation.qmd)
+-   [Guide on using Zotero](../guides/zotero.qmd)
 -   [A Guide by Posit on how to cross-reference in Quarto](https://quarto.org/docs/authoring/cross-references.html)
 
 Note that there are many different templates for preregistrations, see for example [templates on the Open Science Framework (OSF)](https://help.osf.io/article/229-select-a-registration-template). You won't need these for the assignment below, but might want to come back to them when one day you conduct research and want to write a preregistration.
 
 ## Assignment
 
-This week's assignment is about Malaria and draws on materials from [J-PAL (Abdul Latif Jameel Poverty Action Lab)](https://www.povertyactionlab.org/)[^1], a famous research institution that seeks to reduce poverty around the globe.
+This week's assignment is about Malaria and draws on materials from [J-PAL (Abdul Latif Jameel Poverty Action Lab)](https://www.povertyactionlab.org/)[^1], a well-known research institution that seeks to reduce poverty around the globe.
 
 [^1]: see e.g. [here for a summary on malaria prevention](https://www.povertyactionlab.org/evaluation/free-distribution-or-cost-sharing-evidence-malaria-prevention-experiment-kenya)
 

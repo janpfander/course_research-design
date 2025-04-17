@@ -23,7 +23,7 @@ library(broom)
 
 # Hypotheses
 
-> In this section, you try to state as clearly as possible what you want to test. What is the prediction that you have, based on what you know from the literature in the previous section?
+> In this section, you try to state as clearly as possible what you want to test. What is the prediction that you have, based on what you know from the literature in the previous section? This should be very short, a single sentence.
 
 
 # Research design
@@ -36,7 +36,7 @@ library(broom)
 
 ## Measures
 
-> Briefly describe your outcome measure. Use a binary outcome (you could, e.g., call it "uptake", with values uptake" vs. "no_update"). 
+> Briefly describe your outcome measure. Use a binary outcome (you could, e.g., call it "uptake", with values "uptake" vs. "no_update"). 
 
 ## Analystical Procedure
 
@@ -51,7 +51,7 @@ library(broom)
 
 ## Pariticipants
 
-> In this section, you describe your participants (where will they be from, how will you recruit them? Be creative, and keep in mind that you want to have a different population than pregnant women in Kenya). Importantly, determine your sample size. Assume that the minimal effect you care about is a difference in uptake of 10 percentage points (remember that in the reference study in Kenya, it was 60%, so that seems a conservative lower bound). You want to be able to detect such an effect with a power of 0.8, given a significance threshold of 0.05. Run a power simulation. Refer to the different steps in the guide on power simulation, and the lecture slides of the exercise in the class on linear regression. Take the sample generating function below as a starting point. The final result should be a figure with a power curve. Reference the figure in your text following the Quarto cross-references guidelines.
+> In this section, you describe your participants (where will they be from, how will you recruit them? Be creative, and keep in mind that you want to have a different population than pregnant women in Kenya, as in the reference paper). Importantly, determine your sample size. Assume that the minimal effect you care about is a difference in uptake of 10 percentage points (remember that in the reference study in Kenya, it was 60%, so that seems a conservative lower bound). You want to be able to detect such an effect with a power of 0.8, given a significance threshold of 0.05. Run a power simulation. Refer to the different steps in the guide on power simulation, and the lecture slides of the exercise in the class on linear regression. Take the sample generating function below as a starting point. The final result should be a figure with a power curve. Reference the figure in your text following the Quarto cross-references guidelines.
 
 ```{r}
 # set a seed for reproducibility
