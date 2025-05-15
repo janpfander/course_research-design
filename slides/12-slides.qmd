@@ -187,7 +187,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution  
 
 ```{r}
 #| echo: true
@@ -258,7 +258,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution  
 
 ```{r}
 #| echo: true
@@ -428,7 +428,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution  
 
 ```{r}
 #| echo: true
@@ -745,7 +745,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution  
 
 ```{r}
 #| echo: true
@@ -847,7 +847,7 @@ countdown::countdown(
 
 ---
 
-## Solution {visibility="hidden"}
+## Solution  
 
 ```{r}
 #| echo: true

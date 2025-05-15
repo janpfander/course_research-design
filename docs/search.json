@@ -1490,7 +1490,7 @@
     "href": "content/12-content.html#assignment",
     "title": "Class 12: Meta Analyses",
     "section": "Assignment",
-    "text": "Assignment\nNo assignment for this session 🎉",
+    "text": "Assignment\n\nPlease take the minute to listen to this short radio edit of France Culture about nudges. It’s the overarching theme of all the papers for next class.\nRead the text that you have been assigned to (see content of class 13). You’ll find your text on Moodle. Most groups will find their text in form of a pdf. For group 1 provided links where you can access the texts.\n\nYou will work on in your groups during next class and you will then have to present your text in the session after (in two weeks).\nYou won’t - and don’t need to - understand everything of course. But try to get an idea of what they intended to show and how they approached it. You should read the abstract and the method section at least (except group 1, who doesn’t have the typical paper format - you should read at least the blog post). The more you are aware of what you don’t understand, the more I’ll be able to help you in class.",
     "crumbs": [
       "Content",
       "12 - Meta-Analyses"
@@ -3402,6 +3402,13 @@
     "text": "Your turn:\n\nDownload the data from:\n\n\nLyons, B., Modirrousta-Galian, A., Altay, S., & Salovich, N. A. (2024). Reduce blind spots to improve news discernment? Performance feedback reduces overconfidence but does not improve subsequent discernment. https://doi.org/10.31219/osf.io/kgfrb\n\n Lyons_2024.csv\n\nCalculate a discernment score\n\n\n\n\n−+\n05:00"
   },
   {
+    "objectID": "slides/12-slides.html#solution",
+    "href": "slides/12-slides.html#solution",
+    "title": "Meta Analyses",
+    "section": "Solution",
+    "text": "Solution\n\nlyons |&gt; \n  group_by(veracity) |&gt; \n  summarize(mean = mean(accuracy, na.rm = TRUE)) |&gt; \n  pivot_wider(names_from = veracity, \n              values_from = mean) |&gt; \n  mutate(discernment = true - fake)\n\n# A tibble: 1 × 3\n   fake  true discernment\n  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;\n1  1.86  2.56       0.695\n\n\n\nIs this score large?\n\ntable(lyons$scale)\n\n\n    4 \n10671 \n\n\nThe study used a 4-point scale. On this scale, a value of 0.69 seems quite large."
+  },
+  {
     "objectID": "slides/12-slides.html#what-are-effect-sizes",
     "href": "slides/12-slides.html#what-are-effect-sizes",
     "title": "Meta Analyses",
@@ -3414,6 +3421,13 @@
     "title": "Meta Analyses",
     "section": "Your turn:",
     "text": "Your turn:\n\nDownload the data from\n\n\nAllen, J., Arechar, A. A., Pennycook, G., & Rand, D. G. (2021). Scaling up fact-checking using the wisdom of crowds. Science Advances, 7(36), eabf4393.\n\n Allen_2021.csv\n\nCalculate the discernment score.\nHow does this compare to the other study? What issue are you seeing when you want to compare the two?\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/12-slides.html#solution-1",
+    "href": "slides/12-slides.html#solution-1",
+    "title": "Meta Analyses",
+    "section": "Solution",
+    "text": "Solution\n\nallen |&gt; \n  group_by(veracity) |&gt; \n  summarize(mean = mean(accuracy, na.rm = TRUE)) |&gt; \n  pivot_wider(names_from = veracity, \n              values_from = mean) |&gt; \n  mutate(discernment = true - fake)\n\n# A tibble: 1 × 3\n   fake  true discernment\n  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;\n1  3.82  4.74       0.915\n\n\nCheck the scale\n\nunique(allen$scale)\n\n[1] \"7\"\n\n\nThe effect size is bigger than the one we found for Lyons 2024, but it is also measured on a broader 7-point scale.\nThis makes it impossible to immediately compare the effect sizes."
   },
   {
     "objectID": "slides/12-slides.html#non-standardized-effect-sizes",
@@ -3456,6 +3470,13 @@
     "title": "Meta Analyses",
     "section": "Your turn:",
     "text": "Your turn:\nIn which of the two studies did participants discern better? Calcuate Cohens’ d for the two studies and compare.\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/12-slides.html#solution-2",
+    "href": "slides/12-slides.html#solution-2",
+    "title": "Meta Analyses",
+    "section": "Solution",
+    "text": "Solution\n\npooled_sd &lt;- function(sd_true, sd_false) {\n  sd_pooled &lt;- sqrt((sd_true^2 + sd_false^2) / 2)\n  return(sd_pooled)\n}\n\n# Cohen's d for Allen_2021\nallen_cohen_d &lt;- allen |&gt; \n  group_by(veracity) |&gt; \n  summarize(mean = mean(accuracy, na.rm = TRUE), \n            sd = sd(accuracy, na.rm = TRUE)) |&gt; \n  pivot_wider(names_from = veracity, \n              values_from = c(mean, sd)) |&gt; \n  mutate(discernment = mean_true - mean_fake, \n         # calculate Cohen's d\n         pooled_sd = pooled_sd(sd_true, sd_fake), \n         cohen_d = discernment/pooled_sd\n         )\n\n# Cohen's d for Lyons_2024\nlyons_cohen_d &lt;- lyons |&gt; \n  group_by(veracity) |&gt; \n  summarize(mean = mean(accuracy, na.rm = TRUE), \n            sd = sd(accuracy, na.rm = TRUE)) |&gt; \n  pivot_wider(names_from = veracity, \n              values_from = c(mean, sd)) |&gt; \n  mutate(discernment = mean_true - mean_fake, \n         # calculate Cohen's d\n         pooled_sd = pooled_sd(sd_true, sd_fake), \n         cohen_d = discernment/pooled_sd\n         )\n\n# compare\nlyons_cohen_d$cohen_d - allen_cohen_d$cohen_d \n\n[1] 0.2769006"
   },
   {
     "objectID": "slides/12-slides.html#interpreting-cohens-d",
@@ -3563,6 +3584,13 @@
     "text": "Cohen’s d (part II): the standard error\n\n\\[\nSE_{\\text{Cohen's d}} = \\sqrt{ \\frac{n_\\text{true} + n_\\text{false}}{n_\\text{true} n_\\text{false}} + \\frac{d^2}{2(n_\\text{true} + n_\\text{false})} }\n\\]\n\n\\(d\\) = Cohen’s d\n\\(n_\\text{false}\\) = sample size of fake news items,\n\\(n_\\text{true}\\) = sample size of true news items,\nand \\(SD_{\\text{pooled}}\\) the pooled standard deviation of both groups (see above).\n\n\n\n\n\n\n\n\nTip\n\n\nAll you need to remember:\nWith greater sample size, smaller standard error (this should ring a bell from our class on statistical power)."
   },
   {
+    "objectID": "slides/12-slides.html#solution-3",
+    "href": "slides/12-slides.html#solution-3",
+    "title": "Meta Analyses",
+    "section": "Solution",
+    "text": "Solution\n\n# Function to calculate pooled standard deviation\npooled_sd &lt;- function(sd_true, sd_false) {\n  sd_pooled &lt;- sqrt((sd_true^2 + sd_false^2) / 2)\n  return(sd_pooled)\n}\n\n# Function to calculate standard error of Cohen's d\nse_cohen_d &lt;- function(d, n1, n2) {\n  se_d &lt;- sqrt((n1 + n2) / (n1 * n2) + (d^2) / (2 * (n1 + n2)))\n  return(se_d)\n}\n\nmeta_summary &lt;- meta_summary |&gt; \n  mutate(pooled_sd = pooled_sd(sd_true, sd_fake), \n         cohen_d = discernment/pooled_sd, \n         se_cohen_d = se_cohen_d(cohen_d, n_ratings_true, n_ratings_fake)\n         )"
+  },
+  {
     "objectID": "slides/12-slides.html#calculate-weigths",
     "href": "slides/12-slides.html#calculate-weigths",
     "title": "Meta Analyses",
@@ -3589,6 +3617,13 @@
     "title": "Meta Analyses",
     "section": "Your turn:",
     "text": "Your turn:\nCan people discern between true and false news? Use the metafor package and its rma.uni() function (check documentation by clicking on the function) to calculate the meta-analytic average.\n\n\n\n\n\n\nTip\n\n\n\nyou don’t need to specify the weights arguments\nyou only need to specify yi, sei and data\n\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/12-slides.html#solution-4",
+    "href": "slides/12-slides.html#solution-4",
+    "title": "Meta Analyses",
+    "section": "Solution",
+    "text": "Solution\n\nlibrary(metafor)\n\nmeta_model &lt;- rma.uni(yi = cohen_d, sei = se_cohen_d, data = meta_summary)\n\nsummary(meta_model)\n\n\nRandom-Effects Model (k = 8; tau^2 estimator: REML)\n\n  logLik  deviance       AIC       BIC      AICc   \n -0.8852    1.7704    5.7704    5.6622    8.7704   \n\ntau^2 (estimated amount of total heterogeneity): 0.0748 (SE = 0.0402)\ntau (square root of estimated tau^2 value):      0.2735\nI^2 (total heterogeneity / total variability):   99.79%\nH^2 (total variability / sampling variability):  475.36\n\nTest for Heterogeneity:\nQ(df = 7) = 3115.1291, p-val &lt; .0001\n\nModel Results:\n\nestimate      se    zval    pval   ci.lb   ci.ub      \n  0.8318  0.0970  8.5780  &lt;.0001  0.6418  1.0219  *** \n\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
   },
   {
     "objectID": "slides/12-slides.html#forest-plot",

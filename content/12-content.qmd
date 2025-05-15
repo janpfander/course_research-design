@@ -28,4 +28,11 @@ Other things:
 
 ## Assignment
 
-No assignment for this session `r emoji::emoji("tada")`
+1. Please take the minute to listen to [this short radio edit of France Culture about nudges](https://www.radiofrance.fr/franceculture/podcasts/hashtag/connaissez-vous-le-nudge-6076911). It's the overarching theme of all the papers for next class.
+
+2. Read the text that you have been assigned to (see content of class 13). You'll find your text on Moodle. Most groups will find their text in form of a pdf. For group 1 provided links where you can access the texts. 
+
+You will work on in your groups during next class and you will then have to present your text in the session after (in two weeks).
+
+You won't - and don't need to - understand everything of course. But try to get an idea of what they intended to show and how they approached it. You should read the abstract and the method section at least (except group 1, who doesn't have the typical paper format - you should read at least the blog post). The more you are aware of what you don't understand, the more I'll be able to help you in class.
+
