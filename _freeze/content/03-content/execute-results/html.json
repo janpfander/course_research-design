@@ -1,0 +1,15 @@
+{
+  "hash": "36b9043b0965aee15096605d4d2c0772",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 3: Variables, Distributions and Summary Statistics\" \nbibliography: ../references.bib\n---\n\n\n\n\n\n\n\n\n## Slides\n\nThe slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n\n\n\n\n\n<p class=\"buttons\"><a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/03-slides.html\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> View all slides in new window</a> <a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/03-slides.pdf\" role=\"button\"><i class=\"fa-solid fa-file-pdf\"></i> Download PDF of all slides</a></p>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

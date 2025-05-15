@@ -1,0 +1,73 @@
+---
+title: "Class 4: Data visualization"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/04-slides")
+```
+
+## Readings
+
+-   [Chapter 1](https://r4ds.hadley.nz/data-visualize.html) in @wickhamDataScienceImport2023
+-   [This short primer by Andrew Heiss on on data visualization basics](https://r-primers.andrewheiss.com/basics/01-visualization-basics/)
+
+## Assignment
+
+::: {.callout-important}
+## Do the lesson first!
+
+Before starting this exercise, make sure you complete the short primer mentioned in the Readings section.
+:::
+
+For this exercise you'll practice grouping, summarizing, and plotting data using the counts of words spoken in the Lord of the Rings trilogy across movie, sex, and fictional species.
+
+1. As always, make a new or use an existing R Studio project for your assignment. 
+
+2. You'll need to download these CSV files and put preferably put them in a folder named `data` in your project folder:
+
+- [{{< fa file-csv >}} `The_Fellowship_Of_The_Ring.csv`](../data/The_Fellowship_Of_The_Ring.csv)
+- [{{< fa file-csv >}} `The_Return_Of_The_King.csv`](../data/The_Return_Of_The_King.csv)
+- [{{< fa file-csv >}} `The_Two_Towers.csv`](../data/The_Two_Towers.csv)
+
+3. Read in the separate data files. Make sure you have the `tidyverse` package loaded. 
+
+4. Use the `bind_rows` function to merge the three data sets into a single data set. We haven't seen this function yet, look it up. Call the new merged data frame `lotr` (for "lord of the rings").
+
+5. We later want to plot gender differences. Have a look at the data. Why is it not yet in a tidy format? Explain. Then use `pivot_longer` to reshape the data frame by adding two new variables, `Gender` and `Words`, to the data frame. 
+
+6. Does a certain gender dominate a movie? (Hint: Make a new summary data frame for which you group by `Gender` and then count sum the words.)
+
+7. Graph your summarized data. (Hint: use `geom_col` and the `Words` and `Gender` variables.)
+
+8. You've just plotted the averages across films. (Hint: Make a new summary data frame for which you group by both `Gender` and `Film` and then count sum the words.)
+
+9. Try to make a new plot in which you differentiate between the different films (Hint: use faceting by `Gender` or `Film`).
+
+10. How about species? Does the dominant species differ on average (don't differentiate between the three movies here)? (Hint: Proceed just as for `Gender` in the beginning: make a new summary data frame for which you group by `Species` and then count sum the words.)
+
+11. Create a plot that visualizes the number of words spoken by species, gender, and film simultaneously. Use the complete tidy `lotr` data frame. You don't need to create a new summarized dataset (with `group_by(Species, Gender, Film)`) because the original data already has a row for each of those (you could make a summarized dataset, but it would be identical to the full version). You need to show `Species`, `Gender`, and `Film` at the same time, but you only have two possible aesthetics (`x` and `fill`), so you'll also need to facet by the third. Play around with different combinations (e.g. try `x = Species`, then `x = Film`) until you find one that tells the clearest story. For fun, add a `labs()` layer to add a title and subtitle and caption.
+
+
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/03-solution.qmd){target=_blank}
+:::
+
+
+
+
+
+
+
+
+

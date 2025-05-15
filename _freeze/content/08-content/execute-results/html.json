@@ -1,0 +1,17 @@
+{
+  "hash": "7114c0891de7514ac08389c3b2977c79",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 8: Colliders and Confounders\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n## Slides\n\nThe slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n\n\n\n<p class=\"buttons\"><a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/08-slides.html\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> View all slides in new window</a> <a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/08-slides.pdf\" role=\"button\"><i class=\"fa-solid fa-file-pdf\"></i> Download PDF of all slides</a></p>\n\n\n\n\n## Readings\n\n-   @rohrerThinkingClearlyCorrelations2018\n\n## Assignment\n\n1. Do the assigned reading from the article above. \n\n2. Follow instructions below. \n\nFor this weeks assignment, no coding needs to be done. You can upload your answers as a pdf on Moodle.\n\n::: {.callout-note}\nThe following is a (slightly modified) excerpt from @bergstromCallingBullshitArt2020:\n:::\n\n> In the 1980s, American university administrators and policy makers were concerned about the prevalence of binge drinking on university campuses. Psychologists, epidemiologists, public health experts, and others searched for ways to stem this epidemic of intemperance. And why not? There are worse places to do fieldwork.\n>\nIn an influential 1986 paper titled “Naturalistic Observations of Beer Drinking among College Students,” psychologist Scott Geller and colleagues looked at factors associated with greater consumption of beer at college pubs.\n>\nWhat are “naturalistic observations”? They are the observations you make of a subject, in this case the college students, in their natural habitat, in this case the pub. We are amused by this detail from the methods section of the paper: “The observers attempted to remain as inconspicuous as possible by sitting at tables and behaving as normal patrons” (emphasis added). Does this mean drinking beer themselves? One must take pains to blend in, after all.\n>\nThe researchers observed the number of beers that each student consumed and recorded whether each was purchased by the glass, the bottle, or the pitcher. Students who drank beer from pitchers drank roughly two to four times as much beer as those who drank their beer by the glass or by the bottle.\n>\n![](images/calling-bs-pitchers.png){width=\"100%\"}\n>\n> As reports of the study filtered through the popular press and into the broader discussion about alcohol abuse on college campuses, the results were quickly interpreted as “People drink more because beer is consumed in pitchers.” Based on this, people started making prescriptive claims: “We should ban pitchers so that students will drink less.”\n\n\nExplain why those claims are not warranted, based on the evidence of this study. Make sure to propose an alternative explanation. (If you want to make me really happy, frame things in terms of the vocabulary that we learned in class 😄)\n\n### Solution\n\n::: {.callout-tip}\n[Here is a solution for the assignment](../problem_sets/06-solution.qmd){target=_blank}\n:::\n\n\n\n",
+    "supporting": [
+      "08-content_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

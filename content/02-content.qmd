@@ -1,0 +1,320 @@
+---
+title: "Class 2: Data manipulation basics"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/02-slides")
+```
+
+## Readings
+
+-   Chapters 3 and 5 in @wickhamDataScienceImport2023
+
+## Assignment
+
+:::{.callout-note}
+**IMPORTANT**: This looks super long and like a lot of work, but it's mostly repeating and applying things we've seen in the lecture. Much of it is just reading along. 
+
+Remember, if you're struggling, *please* talk to me. Otherwise I can't know. Work with classmates too. Don't suffer in silence!
+:::
+
+### Getting started
+
+You'll be doing all your R work in Quarto this time (and from now on). You should use an RStudio Project to keep your files well organized (either on your computer or on Posit.cloud). Either create a new project for this exercise only, or make a project for all your work in this class (revisit the [guide on `Rprojects`](../guides/r_projects.qmd) for a refresher).
+
+You'll need to download these two CSV files and put preferably put them in a folder named `data` in your project folder:
+
+- [{{< fa file-csv >}} `breed_rank.csv`](../data/breed_rank.csv)
+- [{{< fa file-csv >}} `breed_traits.csv`](../data/breed_traits.csv)
+
+Create a quarto file for your assignment. Use separate code chunks for each task and explain before each code chunk what the task was. 
+
+In the end, the structure of your project directory should look something like this:
+
+```text
+your-project-name
+├── data
+│   ├── breed_rank.csv
+│   └── breed_traits.csv
+├── your-project-name.Rproj
+└── your-name_problem-set-2.qmd
+```
+
+The data we're using for today's workshop comes from [#TidyTuesday](https://github.com/rfordatascience/tidytuesday), a weekly social data project based on the tidyverse ecosystem. The GitHub repo hosts many interesting data sets to practice with, and [this particular data set](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-02-01/readme.md) comes from the American Kennel Club.
+
+The first data set, `breed_rank`, lists the popularity rankings over time for 195 different dog breeds (many of the snippets shown throughout are truncated for the purposes of display).
+
+::: {style="text-align: center"}
+`breed_rank`
+:::
+
+::: {style="font-size: 0.75em"}
+```{r breed-rank-kable}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+
+breed_rank <- read_csv("../data/breed_rank.csv")
+breed_traits <- read_csv("../data/breed_traits.csv")
+knitr::kable(breed_rank |> head(4)) |> kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+The second data set, `breed_traits`, has information on 16 different traits, classified from 1 to 5, for those 195 dog breeds.
+
+::: {style="text-align: center"}
+`breed_traits`
+:::
+
+::: {style="font-size: 0.75em"}
+```{r breed-traits-kable}
+#| echo: false
+knitr::kable(breed_traits |> head(4) |> select(1:5)) |> kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+### Read the data
+
+It is good coding practice to load all required packages at the top of your quarto file (but below the yaml header), in a separate codechunk. For this problem set, you'll need to load only the tidyverse package. Make a code-chunk in which you read the data, using the `read_csv()` function from the `readr` package (loaded as part of the tidyverse!).
+
+```{r readr}
+#| output: false
+#| echo: false
+library(tidyverse)
+breed_rank <- read_csv("../data/breed_rank.csv")
+breed_traits <- read_csv("../data/breed_traits.csv")
+```
+
+Remember that you can run an entire chunk by clicking on the green play arrow in the top right corner of the chunk. You can also run lines of code line-by-line if you place your cursor on some R code and press <kbd>⌘</kbd> + <kbd>enter</kbd> (for macOS users) or <kbd>ctrl</kbd> + <kbd>enter</kbd> (for Windows users).
+
+Make sure you run each chunk sequentially. If you run a chunk in the middle of the document without running previous ones, it might not work, since previous chunks might do things that later chunks depend on.
+
+### Clean the data
+
+Check the names of the data sets, using the `names()` function
+
+```{r}
+#| output: false
+#| echo: false
+names(breed_rank)
+names(breed_traits)
+```
+
+Per the [tidyverse style guide](https://style.tidyverse.org/syntax.html), variable names should use snake case---lower case with underscores between words. This helps with consistency and readability, but it's also technically easier, as any variable names that start with numbers and/or have spaces need to be referred to within `` `back ticks` ``. It's easier to refer to a variable with `shedding_level` instead of `` `Shedding Level` ``, and thankfully we have a function to easily rename all of those variables instead of doing it by hand.
+
+Unfortunately...that function does not live within the tidyverse! It's the only such function we'll be highlighting during this workshop, but it is so helpful that it has to be included. 
+The function comes from the [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) package. Use the console to install the package (remember, this needs to be done only once per computer!). Alternatively, you can also use the "Packages" panel in RStudio to install it. Load the package in the same way you loaded the tidyverse package before.
+
+```{r}
+#| message: false
+library(janitor)
+```
+Copy-paste the code below into your quarto file. In the code, the first line uses the assignment operator `<-` to "save as" our `breed_traits` data set. We could give it another name and save it as something else, but for this purpose we're going to overwrite it. The second line applies the `clean_names()` function.
+
+:::{.callout-tip}
+## Note! 
+A helpful tip on notation: once a package has been loaded with `library`, you can use the function by itself, like you see here with `clean_names()`. If you don't want to load the package, you can eliminate that line and instead refer to the function along with its package name, such as `janitor::clean_names()`. (The package still has to be installed, however.)
+:::
+
+```{r janitor}
+breed_traits <- breed_traits |> 
+  clean_names()
+```
+
+The `clean_names()` function neatly converts all variable names to snake case, as shown below.
+
+::: {style="font-size: 0.75em"}
+```{r janitor-kable}
+#| echo: false
+knitr::kable(breed_traits |> head(2) |> select(1:3)) |> kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+### Manipulate the data using `dplyr`
+
+Use `group_by()`, `summarize()` and `n()` on the cleaned (!) `breed_traits` data frame to find out how many observations there are per different value of `shedding_level`. 
+
+Your output should look like this: 
+
+```{r count-1}
+#| echo: false
+breed_traits |> 
+  group_by(shedding_level) |> 
+  summarise(n = n()) 
+```
+
+For this kind of easy summary, there is even a built-in dplyr function that achieves the same result: `count()`
+
+```{r count-2}
+#| eval: false
+breed_traits |> 
+  count(shedding_level)
+```
+
+Note that this piece of code does not have an assignment operator! We are applying the `count()` function to the `breed_traits` data set, but the results would appear in your console and would not be saved anywhere. This is useful whenever you don't need to save the output.
+
+The output suggests that 109 breeds have a value of 3, 41 breeds have a value of 2, etc. Unfortunately, we have a value of zero, and we know that these variables should have a value of 1, 2, 3, 4, or 5. This is likely an error in the data that should be removed.
+
+Use the `filter()` function, which keeps or discards observations (rows), to remove all records with a `shedding_level` value of zero (and we know from our `count()` output above that there should be only one such observation). As above, overwrite the `breed_traits` data frame with the new, filtered version. 
+
+```{r filter-2}
+#| output: false
+#| echo: false
+breed_traits <- breed_traits |> 
+  filter(shedding_level != 0)
+```
+
+You can check if your operation was successful by running `breed_traits |> count(shedding_level)` again: You should now see that zero is no longer a value of that variable.
+
+Let's make a combined score of how **un**tidy each of the dog breeds is and use three variables for that score: `shedding_level`, `coat_grooming_frequency` and `drooling_level`. Since those traits are classified from 1 to 5 for each breed, with a higher score denoting a higher level of untidiness, we can add up the scores for all three traits to create a new variable. Use the `mutate()` function to create a new variable, `untidy_score`, which is the sum of our three traits of interest. Store the results in a *new* data frame called `untidy_scores` (using the assignment operator `<-` ). Use the `select()` function, another `dplyr` verb, to only select two variables into this new data frame: `untidy_scores` and `breed`
+
+```{r mutate-1}
+#| output: false
+#| echo: false
+untidy_scores <- breed_traits |> 
+  mutate(untidy_score = shedding_level + 
+           coat_grooming_frequency + drooling_level) |> 
+  select(breed, untidy_score)
+```
+
+The new data set now consists of the `untidy_score` for 194 breeds (we had 195 until we dropped the Plott Hounds) and looks like this: 
+
+::: {style="font-size: 0.75em"}
+```{r mutate-1-kable}
+#| echo: false
+knitr::kable(untidy_scores |> head(5)) |> kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+The `arrange()` function can be useful to quickly sort your data set based on the value of any selected variable(s). `arrange()` defaults to ascending order, but you can specify descending order by wrapping the variable name within `desc()`, as seen in the code on the right. Try to order the data frame such that the untidiest breed is on the top, and the tidiest on the bottom.
+
+```{r arrange-1}
+#| output: false
+#| echo: false
+untidy_scores |> 
+  arrange(desc(untidy_score))
+```
+
+The result should look like this:
+
+::: {style="font-size: 0.75em; text-align: center"}
+```{r arrange-2-kable}
+#| echo: false
+knitr::kable(untidy_scores |> arrange(desc(untidy_score)) |> head(6)) |> kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+### Tidying the data
+
+We now know that Bernese Mountain Dogs are among the untidiest of all: they have the highest score of 11. So far, we've been working with the `breed_traits` data, but we have a whole other data set, `breed_ranks`, showing the popularity of different breeds across several years. 
+
+::: {style="font-size: 0.75em"}
+```{r bernese-kable-1}
+#| echo: false
+knitr::kable(breed_rank |> filter(str_detect(Breed, "Bernese"))) |>
+  kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+Remember from the class that the tidyverse is opinionated on the topic of **tidy data**. How does this this data set fail to meet the criteria for tidy data? Explain. 
+
+::: {.hidden}
+```text
+There are three interrelated rules which make a dataset tidy:
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+We have a year and a rank variable, but neither of these variables have their own column. Shown above is one observation, by dog breed. But that "one" observation is actually eight separate observations: the rank in 2013, the rank in 2014, etc. Each observation needs to have its own row.
+```
+:::
+
+
+The current structure of `breed_ranks` is in a *wide* format, and we need it to be in a *long* format. Create a new data frame called `ranks_pivoted` based on `breed_rank`. Use `pivot_longer()` to create two new variables, `year` and `rank`. Remember that the function has three arguments: the columns we want to pivot (remember we need to use back ticks because these variable names have spaces in them), the name for the new column consisting of the previous column headers, and the name for the new column consisting of the previous column *values*.
+
+```{r pivot-longer}
+#| output: false
+#| echo: false
+ranks_pivoted <- breed_rank |> 
+  pivot_longer(`2013 Rank`:`2020 Rank`,
+               names_to = "year",
+               values_to = "rank")
+```
+
+The output should look like below. This data is now tidy, with each observation (e.g., the rank in 2013) in its own row and separate columns for each variable.
+
+::: {style="font-size: 0.75em"}
+```{r bernese-kable-3}
+#| echo: false
+knitr::kable(ranks_pivoted |> filter(str_detect(Breed, "Bernese"))) |>
+  kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+
+Let's do some more cleaning. The `rename()` function makes it easy to change the names of variables (the new name comes first, followed by the original)---we can change `Breed` to `breed` to match our other data set. And the `parse_number()` function from `readr` allows us to pull out the integer from our `year` column. This is an example of how you can use `mutate()` to rewrite existing variables in addition to creating new ones. Just copy-paste this code into your project.
+
+```{r pivot-longer-2}
+ranks_pivoted <- ranks_pivoted |> 
+  rename(breed = Breed) |> 
+  mutate(year = parse_number(year))
+```
+
+::: {style="font-size: 0.75em"}
+```{r pivot-longer-2-kable}
+#| echo: false
+knitr::kable(ranks_pivoted |> filter(str_detect(breed, "Bernese"))) |>
+  kableExtra::kable_styling(full_width = FALSE)
+```
+:::
+
+**Okay but..what was that all that tidying good for?**
+
+Imagine you have this research question: How has the popularity ranking of Bernese Mountain Dogs has shifted over time? Our mew, appropriately tidy data allows us to plot an answer to that question. You haven't learned how to make plots with R yet, but there are some explanations to accompany the example below. 
+
+First, we want to `filter()` our data, because we're only interested in Bernese Mountain Dogs, and our new `ranks_pivoted` data frame contains all the breeds, the code below starts with a `filter()` statement. You could use `filter(breed == "Bernese Mountain Dogs")`, but perhaps you don't want to type all that out. The `stringr` [package](https://stringr.tidyverse.org/) (part of the core tidyverse) has many functions for dealing with string (text) data, and `str_detect()` is among the most useful. It returns `TRUE` or `FALSE` as to whether the variable you select (the first argument of the function) contains the string you provide (the second argument of the function). This function within a function will `filter` to only the observations for which our `str_detect` expression is `TRUE`. Use a combination of `filter()` and `str_detect()` to reduce the data set to only Bernese Mountain Dogs. 
+
+```{r}
+#| output: false
+#| echo: false
+ranks_pivoted <- ranks_pivoted |> 
+  filter(str_detect(breed, "Bernese")) 
+```
+
+The `ggplot` function assigns `year` to the x-axis and `rank` to the `y-axis`. The `label = rank` argument indicates that we want the `rank` variable to appear as a label. Then, to define the plot, we add a `geom_point` layer for dots as well as a `geom_text` layer to add the labels. The `vjust` argument within that function specifies the desired vertical justification for the labels to place them below the dots. Copy-paste the code below into your project.
+
+```{r dot-basic}
+#| fig-height: 3.5
+#| fig-align: center
+ranks_pivoted |>
+  ggplot(aes(x = year, y = rank, label = rank)) +
+  geom_point(size = 3) +
+  geom_text(vjust = 2)
+```
+
+More on plots next week. That's it, time to render your assignment, either as a `.pdf` or a `.html` file. Use the "Render" menu:
+
+```{r render-button, echo=FALSE, out.width="50%"}
+knitr::include_graphics("images//render-button.png")
+```
+
+Upload the rendered document in the Homework section on Moodle, under "Assignment 2".
+
+`r emoji::emoji("tada")` Party! `r emoji::emoji("tada")`
+
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/02-solution.qmd){target=_blank}
+:::

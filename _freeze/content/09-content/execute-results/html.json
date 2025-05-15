@@ -1,0 +1,17 @@
+{
+  "hash": "ca6d16a6acecc3006cc9992304e22cac",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 9: RCTs and Validity\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n## Slides\n\nThe slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n\n\n\n<p class=\"buttons\"><a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/09-slides.html\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> View all slides in new window</a> <a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/09-slides.pdf\" role=\"button\"><i class=\"fa-solid fa-file-pdf\"></i> Download PDF of all slides</a></p>\n\n\n\n\n## Readings\n\n-   @dattaniWhyRandomizedControlled2022\n\n## Data\n\n-   [{{< fa table >}} `village_randomized.csv`](../data/village_randomized.csv)\n\n## Assignment\n\nNo assignment for this session 🎉\n",
+    "supporting": [
+      "09-content_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

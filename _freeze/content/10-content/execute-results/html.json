@@ -1,0 +1,15 @@
+{
+  "hash": "cebb4d3fa5c57f354b6308d29451afd7",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 10: Scientific Publishing and the Replication Crisis\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n## Slides\n\nThe slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n\n\n\n<p class=\"buttons\"><a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/10-slides.html\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> View all slides in new window</a> <a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/10-slides.pdf\" role=\"button\"><i class=\"fa-solid fa-file-pdf\"></i> Download PDF of all slides</a></p>\n\n\n\n\n## Readings\n\nI don't expect you to read all these, but in case you're curious, here are some papers mentioned in class:\n\n-   @opensciencecollaborationEstimatingReproducibilityPsychological2015\n\n-   @simmonsFalsePositivePsychologyUndisclosed2011\n\n-   @gouldSameDataDifferent2025\n\n-   @turnerSelectivePublicationAntidepressant2008\n\nFor a refresher on hypothesis testing and statistical power, you could can have a look at the begging of [chapter 2](https://lakens.github.io/statistical_inferences/02-errorcontrol.html) in @lakensImprovingYourStatistical2022d\n\nSince the lecture did not really cover this, if you want to know what's wrong with scientific publishing, [this old (but gold!) article of the Guardian](https://www.theguardian.com/science/2017/jun/27/profitable-business-scientific-publishing-bad-for-science) is a good read. It's also available as a podcast.\n\n## Data\n\n-   [{{< fa table >}} `imaginary_beatle_experiment.csv`](../data/imaginary_beatle_experiment.csv)\n\n## Assignment\n\nNo assignment for this session 🎉\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

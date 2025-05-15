@@ -1,0 +1,15 @@
+{
+  "hash": "10f85d615201cb36b6ed26d2220e94ec",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 6: Statistical Power\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n\n\n## Slides\n\nThe slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n\n\n\n\n\n<p class=\"buttons\"><a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/06-slides.html\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> View all slides in new window</a> <a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/06-slides.pdf\" role=\"button\"><i class=\"fa-solid fa-file-pdf\"></i> Download PDF of all slides</a></p>\n\n\n\n\n\n\n## Readings\n\n-   [This guide on power simulation](../guides/power_simulation.qmd)\n\n## Assignment\n\nThis week's assignment consists only in replicating all computations done in the guide. Upload your assignment as usual on Moodle. \n\n\n\n\n\n\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

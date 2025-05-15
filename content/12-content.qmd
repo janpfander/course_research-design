@@ -1,0 +1,31 @@
+---
+title: "Class 12: Meta Analyses"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/12-slides")
+```
+
+## Readings
+
+In case you are curious to learn more about meta-analysis, check out this great (and free) book:
+
+-   [@harrerDoingMetaAnalysisHandsOn2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/)
+
+Other things:
+
+- [Interpreting Cohen's d Effect Size by Kristoffer Magnusson](https://rpsychologist.com/cohend/)
+- the [PRISMA guidelines](https://www.prisma-statement.org/) for systematic reviews and meta-analyses
+
+## Assignment
+
+No assignment for this session `r emoji::emoji("tada")`

@@ -1,0 +1,41 @@
+---
+title: "Class 11: Writing a Preregistration"
+bibliography: ../references.bib
+---
+
+There are no slides for this class. You'll have the in-class hours to work on this week's assignment. To be able to write your preregistration as a reproducible report, the guides listed below will help you with citations and cross-references for figures.
+
+## Readings
+
+-   [Guide on using Zotero](../guides/zotero.qmd)
+-   [A Guide by Posit on how to cross-reference in Quarto](https://quarto.org/docs/authoring/cross-references.html)
+
+Note that there are many different templates for preregistrations, see for example [templates on the Open Science Framework (OSF)](https://help.osf.io/article/229-select-a-registration-template). You won't need these for the assignment below, but might want to come back to them when one day you conduct research and want to write a preregistration.
+
+## Assignment
+
+This week's assignment is about Malaria and draws on materials from [J-PAL (Abdul Latif Jameel Poverty Action Lab)](https://www.povertyactionlab.org/)[^1], a well-known research institution that seeks to reduce poverty around the globe.
+
+[^1]: see e.g. [here for a summary on malaria prevention](https://www.povertyactionlab.org/evaluation/free-distribution-or-cost-sharing-evidence-malaria-prevention-experiment-kenya)
+
+### Introduction
+
+Malaria is one of the world’s foremost public health concerns. In 2023, there were almost 263 million estimated malaria cases, of which 569,000 resulted in death. While there are 83 malaria endemic countries, the majority of cases occur in sub-Saharan Africa (see the [2024 WHO Malaria report](https://www.who.int/publications/i/item/9789240104440)). Malaria is associated with poverty: the poor are most affected, potentially because they have reduced access to medical services and information, and can't avoid working in malaria epidemic areas. Even if it does no lead to death, malaria can have serious consequences, both in terms of health and economic situation. Fighting Malaria is therefor an important public policy goal. One "core intervention" to prevent Malaria infections are insecticide-treated nets (ITNs).
+
+Economists have debated whether ITNs should be distributed for free, or at a small price. Charging a small price, according to some theories, might be expected to encourage the use of malaria bed nets--a bit as if paying a gym membership makes you go to the gym, simply because you paid for it [see e.g. @thalerPositiveTheoryConsumer1980]. However, past research has shown that it is more effective to distribute the nets for free: In an RCT, @cohenFreeDistributionCostSharing2010 let prenatal clinics distribute ITNs to pregnant women. In some of clinics–randomly selected–the bed nets were for free. In others, they were charged a small price. Contrary to what proponents of pricing would have predicted, the study found that those who paid a little did not use bed nets more than those who got it for free, nor were there any differences in health. There was, however, a crucial difference: Making the bed nets available even at a small price drastically reduced the number of women who got one (by almost 60 percentage points, from 99% in the free group to 41 percent in the small price group).
+
+The aim of your study is to test whether this effect of reducing uptake replicates in a slightly different context (say, another country, and not only pregnant women but a larger population). Your treatment consists in handing out ITNs for free (treatment group), compared to making them available for people to purchase at a small cost (control group).
+
+### Your task: Write a preregistration for an RCT
+
+As for all homework assignments, make an R Studio project. Copy-paste [this quarto template for your preregistration](../problem_sets/07-template.qmd). The template already includes the relevant sections that you will have to fill out. You'll find more detailed instructions within each section.
+
+::: {.callout-tip}
+One general tip for your assignments: Note how the `yaml` header of the template contains the line `self-contained: true`. Without this line, figures and tables only display when the file is opened from inside your project. With this option enabled, you can just share the file by itself and everything will display.
+:::
+
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/07-solution.qmd){target=_blank}
+:::

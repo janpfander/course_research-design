@@ -1,0 +1,17 @@
+{
+  "hash": "ffd78add61038dcca9b94556645dc005",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Class 12: Meta Analyses\"\nbibliography: ../references.bib\n---\n\n\n\n\n\n\n## Slides\n\nThe slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n\n\n\n<p class=\"buttons\"><a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/12-slides.html\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> View all slides in new window</a> <a class=\"btn btn-danger\" target=\"_blank\" href=\"/slides/12-slides.pdf\" role=\"button\"><i class=\"fa-solid fa-file-pdf\"></i> Download PDF of all slides</a></p>\n\n\n\n\n## Readings\n\nIn case you are curious to learn more about meta-analysis, check out this great (and free) book:\n\n-   [@harrerDoingMetaAnalysisHandsOn2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/)\n\nOther things:\n\n- [Interpreting Cohen's d Effect Size by Kristoffer Magnusson](https://rpsychologist.com/cohend/)\n- the [PRISMA guidelines](https://www.prisma-statement.org/) for systematic reviews and meta-analyses\n\n## Assignment\n\nNo assignment for this session 🎉\n",
+    "supporting": [
+      "12-content_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

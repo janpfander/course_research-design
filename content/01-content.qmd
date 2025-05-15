@@ -1,0 +1,159 @@
+---
+title: "Class 1: Introduction to R, Rstudio and Quarto"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/01-slides")
+```
+
+## Data
+
+-   [{{< fa file-csv >}} `ligue1.csv`](../data/ligue1.csv)
+
+## Readings
+
+-   Chapters 2, 6 and 7 in @wickhamDataScienceImport2023
+
+## Assignment
+
+### Task 1
+
+Get familiar with the [syllabus](index.qmd) of this course.
+
+### Task 2
+
+Read the guide ["Welcome to R, RStudio, and the tidyverse"](../guides/install.qmd) on installation and install R, Rstudio, tidyverse (we'll talk more about that soon) and tinytex.
+
+### Task 3
+
+Read the [guide on `Rprojects`](../guides/r_projects.qmd), including the reference to [this short chapter](https://r4ds.hadley.nz/workflow-scripts#projects).
+
+### Task 4
+
+1.  Create an RStudio Project.
+
+2.  Create a folder named "data" in the project folder you just made.
+
+3.  Download this CSV file and place it in that folder:
+
+-   [{{< fa file-csv >}} `cars.csv`](../data/cars.csv)
+
+4.  In RStudio, go to "File" \> "New File…" \> "Quarto Document…" and click "OK" in the dialog without changing anything.
+
+5.  Delete all the placeholder text in that new file and replace it by copy-pasting this:
+
+````         
+---
+title: "Problem set 1"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+  pdf:
+    toc: true
+  docx:
+    toc: true
+---
+
+```{{r packages}}
+library(tidyverse)
+```
+
+# Learning R
+
+[Give me some Feedback on how the this first class went.]
+
+[WRITE SOMETHING HERE LIKE "It was not so hard and I managed to get it all done" or whatever.]
+
+# Read the data
+
+> Read the `cars.csv` data into R. Make sure to use the correct path ("data/cars.csv"). Name the data frame "cars" when reading it in. You don't need to understand what all the variables mean. 
+
+[PUT CHUNK HERE]
+
+# What's the class of the `model` and the `year` variable?
+
+[PUT CHUNK HERE]
+
+> Subset the cars data by selecting only rows that correspond to the manufacturer "honda" and that shows only the columns for models and the year. Name that subset "honda_data" and print it. 
+
+[PUT CHUNK HERE] 
+
+# My first plots
+
+> You haven't learned about plots yet. But to give you a taste for what's coming, execute the code chunk below and let the magic happen. Make sure your data frame is named "cars" for this to work
+
+A plot on the distance that cars can travel per gallon. Note that we will hide the code when rendering by setting `echo: false`.
+
+```{{r plot-data}}
+#| echo: false
+ggplot(cars, aes(x = hwy)) +
+geom_histogram() +
+labs(
+title = "A Histogram",
+x = "Higway MPG*", 
+caption = "*miles per gallon, is the distance, measured in miles, that a car can travel per gallon of fuel."
+)
+```
+````
+
+6.  Save the Quarto file with some sort of name (**without any spaces!**)
+
+7.  Your project folder should look something like this:
+
+```{r project-structure, echo=FALSE, out.width="30%"}
+knitr::include_graphics("images/project-structure.png", error = FALSE)
+```
+
+### Task 5
+
+Work with R:
+
+1.  Remove all the place holder text indicated by `[ ]`.
+
+```{r insert-chunk-button, echo=FALSE, out.width="19%"}
+knitr::include_graphics("images//insert-chunk-button.png", error = FALSE)
+```
+
+2.  Follow the instructions for the three chunks of code.
+
+3.  Render your document, either as a `.pdf` or a `.html` file. Use the "Render" menu:
+
+```{r render-button, echo=FALSE, out.width="50%"}
+knitr::include_graphics("images//render-button.png", error = FALSE)
+```
+
+4.  Upload the rendered document in the Homework section on Moodle, under "Assignment 1".
+
+5.  `r emoji::emoji("tada")` Party! `r emoji::emoji("tada")`
+
+::: callout-tip
+You'll be doing this same process for all your future problem sets. Each problem set will involve a Quarto file. You can either create a new RStudio Project directory for all your work:
+
+```{r single-directory, echo=FALSE, out.width="30%"}
+knitr::include_graphics("images/rproj-one-folder.png", error = FALSE)
+```
+
+Or you can create individual projects for each assignment and project:
+
+```{r multiple-directories, echo=FALSE, out.width="30%",}
+knitr::include_graphics("images/rproj-multiple-folders.png", error = FALSE)
+```
+:::
+
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/01-solution.qmd){target=_blank}
+:::
+
+## References

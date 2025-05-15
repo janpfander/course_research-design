@@ -1,0 +1,97 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "!problem_sets/07-template.qmd"
+execute:
+  freeze: auto  # Re-render only when source changes; if true, then never re-execute computational content during project render, needed for .qmd and .rmd since quarto does not render .ipynb by default
+
+website:
+  page-navigation: true
+  title: "Epistémologie et Esprit Critique (Introduction to Research Design)"
+
+  sidebar:
+    title: "Epistémologie et Esprit Critique<br>(SMD - 2025)"
+    logo: images/hex_sticker.png
+    pinned: true
+    align: center
+    tools: 
+      - icon: github
+        href: https://github.com/janpfander/course_research-design
+        text: "View github repository"
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - text: "Home"
+        href: index.qmd
+      - section: "Content"
+        contents: 
+          - text: "01 - Introduction to R, RStudio and Quarto"
+            href: content/01-content.qmd
+          - text: "02 - Data Manipulation"
+            href: content/02-content.qmd         
+          - text: "03 - Variables, Distributions, Summary Statistics"
+            href: content/03-content.qmd
+          - text: "04 - Data visualization"
+            href: content/04-content.qmd
+          - text: "05 - Statistical inference"
+            href: content/05-content.qmd         
+          - text: "06 - Statistical power"
+            href: content/06-content.qmd            
+          - text: "07 - Linear Regression"
+            href: content/07-content.qmd 
+          - text: "08 - Colliders and Confounders"
+            href: content/08-content.qmd          
+          - text: "09 - RCTs and Validity"
+            href: content/09-content.qmd 
+          - text: "10 - Scientific Publishing and the Replication Crisis"
+            href: content/10-content.qmd 
+          - text: "11 - Writing a Preregistration"
+            href: content/11-content.qmd          
+          - text: "12 - Read and Present a Scientific Paper"
+            href: content/12-content.qmd             
+          - text: "13 - Meta-Analyses"
+            href: content/13-content.qmd 
+          - text: "14 - How to Read and Present a Scientific Paper"
+            href: content/14-content.qmd          
+          - text: "15 - Presentations Group Project"
+            href: content/15-content.qmd      
+            
+      - section: "Guides"
+        contents: 
+          - href: guides/install.qmd
+          - href: guides/r_projects.qmd
+          - href: guides/random_numbers.qmd
+          - href: guides/power_simulation.qmd
+          - href: guides/zotero.qmd
+      - text: "Syllabus"
+        href: syllabus.qmd          
+          
+
+  page-footer:
+    left: |
+      Content {{< fa brands creative-commons >}} {{< var course.copyright_year >}} by [{{< var instructor.name_no_title >}}]({{< var instructor.url >}}) <br>
+      All content licensed under a {{< fa brands creative-commons >}}
+      {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-nc >}}
+      [Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
+    right: |
+      Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)<br>
+      [View the source at {{< fa brands github >}} GitHub]({{< var course.github >}}) <br>
+      The desing of this website is inspired by the [NASA Earthdata Cloud Cookbook](https://nasa-openscapes.github.io/earthdata-cloud-cookbook/)
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: [cosmo, theme-dark.scss]
+    code-background: true
+    code-copy: true
+    css: styles.css
+    toc: true
+  # revealjs:
+  #   execute:
+  #     echo: false  # Hide code by default in all slides
+  #     warning: false # Suppress warnings
+  #     message: false # Suppress messages

@@ -1,0 +1,78 @@
+---
+title: "Class 7: Linear Regression"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/07-slides")
+```
+
+## Readings
+
+-   [Watch this video on the main ideas of Linear Regression and Least Squares](https://www.youtube.com/watch?v=PaFPbb66DxQ)
+
+## Assignment
+
+For this week's assignment you'll be working with penguin data.
+
+![Cute penguins](images/penguins_cute.jpg)
+
+Between 2007 and 2009, researchers collected data on penguins in three islands in the Palmer Archipelago in Antarctica: Biscoe, Dream, and Torgersen. The `penguins` dataset has data for 342 penguins from 3 different species: Chinstrap, Gentoo, and Adélie. It includes the following variables:
+
+- `species`: The penguin's species (Chinstrap, Gentoo, and Adélie)
+- `island`: The island where the penguin lives (Biscoe, Dream, and Torgersen)
+- `bill_length_mm`: The length of the penguin's bill, in millimeters (distance from the penguin's face to the tip of the bill)
+- `bill_depth_mm`: The depth of the penguin's bill, in millimeters (height of the bill; distance from the bottom of the bill to the top of the bill)
+- `flipper_length_mm`: The length of the penguin's flippers, in millimeters
+- `body_mass_g`: The weight of the penguin, in grams
+- `sex`: The sex of the penguin
+- `year`: The year the observation was made
+
+1. As always, make a new or use an existing R Studio project for your assignment. 
+
+2. Download the penguin data set and load it into your quarto script.
+
+- [{{< fa file-csv >}} `penguins.csv`](../data/penguins.csv)
+
+
+### Graphs
+
+```{r}
+#|echo: false
+library(tidyverse)
+```
+
+1. What is the relationship between penguin weight and bill depth? Plot bill depth (`bill_depth_mm`) on the x-axis and body mass (`body_mass_g`) on the y-axis. Use `geom_point()`
+
+2. Make a new plot that colors these points by species. What can you tell about the relationship between bill depth and penguin weight?
+
+3. Add a `geom_smooth()` layer to the plot and make sure it uses a straight line (hint: include `method="lm"` in the function). What does this tell you about the relationship between bill depth and body mass?
+
+4. Change the plot so that there's a single line for all the points instead of one line per species. How does the slope of this single line differ from the slopes of the species specific lines? ***Why??***
+
+5. What is the relationship between flipper length and body mass? Make another plot with `flipper_length_mm` on the x-axis, `body_mass_g` on the y-axis, and points colored by `species`. 
+
+6. Facet (`facet_wrap`) the plot by island (`island`). What does this graph tell you ?
+
+### Regression 
+
+1. Does bill depth predict penguin weight? Run a linear regression (`lm()`) and interpret the estimate and the p.value. Interpret the result in light of previous plots that you have generated. 
+
+2. Run different regression analyses for the different species (use `filter()`) to subset the data frame. 
+
+
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/05-solution.qmd){target=_blank}
+:::
+
+

@@ -1,0 +1,15 @@
+{
+  "hash": "c52c05bd0302d2db019efd8532659790",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \" RStudio Projects\"\n---\n\n\n\n\n\n\nOne of the most powerful and useful aspects of RStudio is its ability to manage projects. \n\nWhen you first open R, it is \"pointed\" at some folder on your computer, and anything you do will be relative to that folder. The technical term for this is a \"working directory.\"\n\nWhen you first open RStudio, look in the area right at the top of the Console pane to see your current working directory. Most likely you'll see something cryptic: `~/`\n\n\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](images/working-directory.png){width=50%}\n:::\n:::\n\n\n\n\n\n\nThat tilde sign (`~`) is a shortcut that stands for your user directory. On Windows this is `C:\\Users\\your_user_name\\`; on macOS this is `/Users/your_user_name/`. With the working directory set to `~/`, R is \"pointed\" at that folder, and anything you save will end up in that folder, and R will expect any data that you load to be there too.\n\nIt's always best to point R at some other directory. If you don't use RStudio, you need to manually set the working directory to where you want it with `setwd()`, and many R scripts in the wild include something like `setwd(\"C:\\\\Users\\\\bill\\\\Desktop\\\\Important research project\")` at the beginning to change the directory. **THIS IS BAD THOUGH** ([see here for an explanation](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)). If you ever move that directory somewhere else, or run the script on a different computer, or share the project with someone, the path will be wrong and nothing will run and you will be sad.\n\nThe best way to deal with working directories with RStudio is to use RStudio Projects. These are special files that RStudio creates for you that end in a `.Rproj` extension. When you open one of these special files, a new RStudio instance will open up and be pointed at the correct directory automatically. If you move the folder later or open it on a different computer, it will work just fine and you will not be sad.\n\n[Read this super short chapter on RStudio projects to learn how to create and use them](https://r4ds.hadley.nz/workflow-scripts#projects)\n\nIn general, you can create a new project by going to File > New Project > New Directory > Empty Project, which will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,72 @@
+---
+title: "Class 5: Statistical Inference"
+bibliography: ../references.bib
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+```
+
+## Slides
+
+The slides are available online as an HTML file. You can also download them in a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/05-slides")
+```
+
+## Readings
+
+-   [This short guide on simulating data](../guides/random_numbers.qmd)
+
+## Assignment
+
+::: {.callout-important}
+Before starting this exercise, make sure you read the guide on simulations.
+:::
+
+1. [Fill out this spreadsheet](https://docs.google.com/spreadsheets/d/18DtSUFU5JT9IUnzGxG2nNjlzkcI_Tslzo4N8NUMnSGo/edit?usp=sharing) with your name, distance to school, and whether you prefer cats or dogs 
+
+::: {.callout-warning}
+Be very careful in how you fill out the sheet as in the first example row (otherwise it will be a point to analyze later for everyone).
+
+- distance to school: use the exact value in kilometers, with decimals indicated by `.`
+- preference for cats/dogs: write either "cats" or "dogs", nothing else (got to make a choice, sorry)
+:::
+
+
+**Are people who prefer cats living further away from University?** This will be your research question for the assignment. 
+
+2. Once everyone has filled out the spreadsheet, download the data and read it into R. As always, make a new or use an existing R Studio project for your assignment. 
+
+3. Complete the following steps
+
+- **Step 1: Calculate an estimate based on your sample**
+
+- **Step 2: Use simulation to invent a world where the true effect is null.**
+  - Simulate 1000 samples with the same sample size that your estimate is based on. Store the estimates of this simulation in a vector called `sampling_distribution`.
+
+- **Step 3: Plot how well this estimate fits into your null world.**  
+
+- **Step 4: Calculate the probability that your estimate could exist in the null world.**  
+  Use the standard deviation of your `sampling_distribution` to transform your initial estimate in a z-value. Based on this, calculate the p-value. 
+  
+- **Step 5: Decide if your estimate is statistically significant.**  
+  Use a significance threshold (the value at which you consider your estimate sufficiently unlikely to have occurred in the Null World) of 0.05
+
+
+4. Is this result surprising to you or not? Explain.
+
+
+### Solution
+
+::: {.callout-tip}
+[Here is a solution for the assignment](../problem_sets/04-solution.qmd){target=_blank}
+:::
+
+
+
+
+
+
+
