@@ -1,0 +1,408 @@
+---
+title: "RCTs and Validity"
+format: 
+  revealjs:
+    theme: simple
+    smaller: true
+    slide-number: true
+    # incremental: true
+    # code-link: true
+    chalkboard: true
+    history: false
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(truncnorm)
+library(broom)
+```
+
+## Overview
+
+::::: columns
+::: {.column style="font-size: smaller;"}
+1.  **The magic of randomization**
+
+2. **How to analyze RCTs**
+
+3.  **Validity**
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+:::
+:::::
+
+# The magic of randomization
+
+---
+
+## Fundamental problem of causal inference
+
+- Imagine we want to know if a treatment helps in quicker recovery of disease
+
+- Imagine there is only one patient, Angela
+
+- We could give Angela the treatment and see how quickly she gets better.
+
+- Or we could not give her the treatment and see how quickly she gets better.
+
+---
+
+## Fundamental problem of causal inference
+
+- In either case, we’d want to know “What if… 
+
+- "What if we had/had not given her the treatment”
+
+- This is also called a **counterfactual** - counter to the fact of what actually happened.
+
+---
+
+## Solution: randomization and averages
+
+- Instead of only one patient, we need to look at several patients
+
+- If we randomly assign patients to a treatment and a control condition...
+
+- And if the sample is big enough...
+
+- Then people in these groups are on average the same on all imaginable variables (e.g. age, sex, income)
+
+- That's the magic of randomization
+
+---
+
+## Randomized Controlled Trials (RCTs)
+
+![](images/wb-4-1.png){width="80%"}
+
+# How to analyze RCTs
+
+---
+
+## Analyzing RCTs is very easy
+
+<br>
+
+Step 1: Check that key variables are balanced between control and treatment group
+
+(this is something we'd expect from randomization, but with small samples you might get unlucky)
+
+<br>
+
+Step 2: Find difference in average outcome in treatment and control groups
+
+---
+
+## Example RCT
+
+```{r imaginary-program, echo=FALSE}
+set.seed(1234)
+fake_program_t <- tibble(person = 1:400, 
+                         treatment = "Treatment",
+                         age = round(rnorm(400, mean = 35, sd = 10), 0),
+                         sex = sample(c("Male", "Female"), 400, replace = TRUE),
+                         recovery_time = rnorm(400, mean = 3, sd = 3))
+
+fake_program_c <- tibble(person = 401:800, 
+                         treatment = "Control",
+                         age = round(rnorm(400, mean = 35, sd = 10), 0),
+                         sex = sample(c("Male", "Female"), 400, replace = TRUE),
+                         recovery_time = rnorm(400, mean = 6, sd = 3))
+
+imaginary_rct <- bind_rows(fake_program_t, fake_program_c) %>% 
+  mutate(male_num = ifelse(sex == "Male", 1, 0))
+```
+
+```{r show-imaginary-program}
+#| echo: true
+imaginary_rct 
+```
+
+---
+
+## 1. Check balance
+
+```{r balance-table}
+#| echo: true
+imaginary_rct %>% 
+  group_by(treatment) %>% 
+  summarize(avg_age = mean(age),
+            prop_male = mean(sex == "Male"))
+```
+
+---
+
+## 2. Calculate difference
+
+::::: columns
+::: {.column}
+
+**Group means**
+
+```{r program-group-means}
+#| echo: true
+imaginary_rct %>% 
+  group_by(treatment) %>% 
+  summarize(avg_outcome = round(mean(recovery_time), digits = 2))
+
+2.90 - 6.04
+```
+
+:::
+
+::: {.column}
+
+**Regression**
+
+```{r program-regression}
+#| echo: true
+rct_model <- lm(recovery_time ~ treatment, 
+                data = imaginary_rct)
+
+tidy(rct_model) |> 
+  select(estimate, statistic, p.value)
+```
+:::
+
+:::::
+
+---
+
+## Your turn: Analyzing an RCT
+
+Imagine an NGO is planning on launching a training program designed to boost incomes. 
+
+They ran a study on 1,000 participants over the course of 6 months and you just got your data back.
+
+1. Download and read the data set (either here: [{{< fa table >}} `village_randomized.csv`](../data/village_randomized.csv), or from this week's content on the course website)
+
+2. Before calculating the effect of the program, first check how well balanced the random assignment was.
+
+3. Estimate the treatment effect. This is simply the average outcome for people in the program minus the average outcome for people not in the program. 
+
+```{r}
+countdown::countdown(
+  minutes = 15,
+  bottom = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
+---
+
+## Solution 
+
+1. Download and read the data set
+
+```{r}
+#| echo: true
+#| eval: false
+# read data
+village_randomized <- read_csv("data/village_randomized.csv")
+```
+
+```{r}
+#| echo: false
+#| eval: true
+# read data
+village_randomized <- read_csv("../data/village_randomized.csv")
+```
+
+---
+
+## Solution 
+
+2. Before calculating the effect of the program, first check how well balanced the random assignment was.
+
+```{r}
+#| echo: true
+
+village_randomized |>
+  group_by(program) |>
+  summarize(
+    n = n(),
+    prop_male = mean(sex_num),
+    avg_age = mean(age),
+    avg_pre_income = mean(pre_income)
+    ) |> 
+  # this rounds all numeric variables in the data frame to two digits
+  mutate_if(is.numeric, ~ round(.x, digits = 2)) 
+```
+
+---
+
+## Solution 
+
+3. Estimate the treatment effect. This is simply the average outcome for people in the program minus the average outcome for people not in the program. 
+
+```{r}
+#| echo: true
+# for descriptive findings
+village_randomized |>
+  group_by(program) |>
+  summarize(avg_post = mean(post_income))
+```
+
+```{r}
+#| echo: true
+# as a regression
+model_rct <- lm(post_income ~ program, data = village_randomized)
+tidy(model_rct)
+```
+
+# Validity
+
+---
+
+## There are many different threats to validity
+
+The overarching question is always the same: 
+
+<br>
+
+Can we draw valid conclusions about our research question from the data we have?
+
+---
+
+## External vs. internal validity
+
+![](images/wb-4-4.png){width="80%"}
+
+---
+
+## Internal validity
+
+"How well does our research design in identify the (causal) effect we are looking for?"
+
+<br>
+
+RCTs allows us to establish (valid) causality, but it is not immune to everything...
+
+  - (Self-)selection
+  - Attrition
+  - Hawthorne
+  - John Henry
+  - Spillovers
+  - Intervening events
+  
+---
+  
+## Self-selection
+  
+- If people can choose to enroll in a program, those who enroll will be different from those who do not
+
+<br>
+
+How to fix it? 
+
+- Make sure randomization is happening correctly
+
+---
+
+## Attrition
+
+If the people who leave a program or study are different than those who stay, the effects will be biased
+
+<br>
+
+How to fix it? 
+
+- Check characteristics of those who stay and those who leave
+
+---
+
+## Hawthorne effect
+
+Observing people makes them behave differently
+
+<br>
+
+How to fix it? 
+
+- Hide? A tough fix...
+
+---
+
+## John Henry effect
+
+Control group works hard to prove they're as good as the treatment group
+
+<br>
+
+How to fix it? 
+
+- Keep two groups separate
+
+---
+
+## Spillover effects
+
+Control groups are sometimes naturally affected by what the treatment group is getting
+
+e.g. vaccine distribution in global south 
+
+<br>
+
+How to fix it? 
+
+- Keep two groups separate; use distant control groups
+
+---
+
+## External validity
+
+"Are our findings generalizable to the population we care about?"
+
+<br>
+
+::::: columns
+::: {.column}
+
+![](images/external-validity1.png){width="80%"}
+
+:::
+
+::: {.column}
+
+![](images/external-validity2.png){width="70%"}
+
+:::
+
+:::::
+
+---
+
+## Lab conditions vs. real world
+
+- Most study volunteers are weird
+
+- **W**estern, **e**ducated, from **i**ndustrialized. **r**ich, and **d**emocratic countries
+
+---
+
+## Validity wrap-up
+
+- RCTs are also vulnerable to some threats of internal validity
+
+- RCTs **definitely don't** magically fix external validity
+
+---
+
+That's it for today :)
+
+
+

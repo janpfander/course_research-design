@@ -1,0 +1,101 @@
+---
+title: "Problem set 3"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+  pdf:
+    toc: true
+  docx:
+    toc: true
+---
+
+3. Read in the separate data files. Make sure you have the `tidyverse` package loaded. 
+
+```{r}
+# load packages
+library(tidyverse)
+```
+
+```{r}
+# Load the separate datasets
+fellowship <- read_csv("../data/The_Fellowship_Of_The_Ring.csv")
+tt <- read_csv("../data/The_Two_Towers.csv")
+rotk <- read_csv("../data/The_Return_Of_The_King.csv")
+```
+
+4. Use the `bind_rows` function to merge the three data sets into a single data set. We haven't seen this function yet, look it up. Call the new merged data frame `lotr` (for "lord of the rings").
+
+```{r}
+# bind_rows() stacks data frames on top of each other
+lotr <- bind_rows(fellowship, tt, rotk) 
+```
+
+5. We later want to plot gender differences. Have a look at the data. Why is it not yet in a tidy format? Explain. Then use `pivot_longer` to reshape the data frame by adding two new variables, `Gender` and `Words`, to the data frame. 
+
+```{r}
+# Make this wide data tidy
+lotr <- lotr |> 
+  # This is the new way to make data long
+  pivot_longer(cols = c(Female, Male), 
+               names_to = "Gender", values_to = "Words")
+```
+
+6. Does a certain gender dominate a movie? (Hint: Make a new summary data frame for which you group by `Gender` and then count sum the words.)
+
+```{r}
+summary_data <- lotr |> 
+  group_by(Gender) |> 
+  summarise(Words = sum(Words))
+```
+
+7. Graph your summarized data. (Hint: use `geom_col` and the `Words` and `Gender` variables.)
+
+```{r}
+ggplot(summary_data, 
+       aes(x = Gender, y = Words)) +
+  geom_col()
+```
+8. You've just plotted the averages across films. (Hint: Make a new summary data frame for which you group by both `Gender` and `Film` and then count sum the words.)
+
+```{r}
+summary_data <- lotr |> 
+  group_by(Gender, Film) |> 
+  summarise(Words = sum(Words))
+```
+
+9. Try to make a new plot in which you differentiate between the different films (Hint: use faceting by `Gender` or `Film`).
+
+```{r}
+ggplot(summary_data, 
+       aes(x = Gender, y = Words)) +
+  geom_col() + 
+  facet_wrap(vars(Film))
+```
+
+10. How about species? Does the dominant species differ on average (don't differentiate between the three movies here)? (Hint: Proceed just as for `Gender` in the beginning: make a new summary data frame for which you group by `Species` and then count sum the words.)
+
+```{r}
+summary_data <- lotr |> 
+  group_by(Species) |> 
+  summarise(Words = sum(Words))
+```
+
+```{r}
+ggplot(summary_data, 
+       aes(x = Species, y = Words)) +
+  geom_col() 
+```
+
+11. Create a plot that visualizes the number of words spoken by species, gender, and film simultaneously. Use the complete tidy `lotr` data frame. You don't need to create a new summarized dataset (with `group_by(Species, Gender, Film)`) because the original data already has a row for each of those (you could make a summarized dataset, but it would be identical to the full version).
+
+You need to show `Species`, `Gender`, and `Film` at the same time, but you only have two possible aesthetics (`x` and `fill`), so you'll also need to facet by the third. Play around with different combinations (e.g. try `x = Species`, then `x = Film`) until you find one that tells the clearest story. For fun, add a `labs()` layer to add a title and subtitle and caption.
+
+```{r}
+ggplot(lotr, 
+       aes(x = Species, y = Words, fill = Gender)) +
+  geom_col() + 
+  facet_wrap(vars(Film))
+```
+
+

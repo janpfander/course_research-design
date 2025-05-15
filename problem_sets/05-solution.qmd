@@ -1,0 +1,129 @@
+---
+title: "Problem set 5"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+---
+
+```{r}
+# load packages
+library(tidyverse)
+library(broom)
+```
+
+Read the survey data.
+
+```{r}
+# Load the survey data from class
+penguins <- read_csv("../data/penguins.csv")
+```
+
+### Graphs
+
+What is the relationship between penguin weight and bill depth? This plot shows some initial trends:
+
+```{r plot-penguin-weight-depth}
+ggplot(data = penguins, 
+       aes(x = bill_depth_mm, y = body_mass_g)) +
+  geom_point()
+```
+
+Make a new plot that colors these points by species. What can you tell about the relationship between bill depth and penguin weight?
+
+```{r plot-penguin-weight-depth-by-species}
+ggplot(data = penguins, 
+       aes(x = bill_depth_mm, y = body_mass_g, color = species)) +
+  geom_point()
+```
+
+> It seems like the longer the bill, the greater the body mass, but only within species. If we ignore the species it looks like greater bill depth is associated with lower body mass.
+
+Add a `geom_smooth()` layer to the plot and make sure it uses a straight line (hint: include `method="lm"` in the function). What does this tell you about the relationship between bill depth and body mass?
+
+```{r plot-penguin-weight-depth-by-species-with-lines}
+ggplot(data = penguins, 
+       aes(x = bill_depth_mm, y = body_mass_g, color = species)) +
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+> This confirms that within different species, there is a positive relationship. 
+
+Change the plot so that there's a single line for all the points instead of one line per species. How does the slope of this single line differ from the slopes of the species specific lines? ***Why??***
+
+```{r plot-penguin-weight-depth-by-species-with-one-line}
+ggplot(data = penguins, 
+       aes(x = bill_depth_mm, y = body_mass_g)) +
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+> By removing the color layer, geom_smooth only draws one line considering all of the data. Glancing over species, there is actually a negative association between bill depth and body mass in the data. 
+
+What is the relationship between flipper length and body mass? Make another plot with `flipper_length_mm` on the x-axis, `body_mass_g` on the y-axis, and points colored by `species`. 
+
+```{r}
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+> There is a positive relationship between flipper length and body mass, both within and across species.
+
+Facet (`facet_wrap`) the plot by island (`island`). What does this graph tell you ?
+
+```{r}
+ggplot(data = penguins,
+       aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  facet_wrap(vars(island))
+```
+
+> There is a positive relationship between flipper length and body mass, for all species. However, not all species are present on all islands. Of the Gentoo, the penguins with the smalles flipper length still have flipper lengths of the size as the biggest once of the Chinstrap and Adelie.
+
+
+### Regression
+
+Does bill depth predict penguin weight? Run a linear regression (`lm()`) and interpret the estimate and the p.value. Interpret the result in light of previous plots that you have generated. 
+
+```{r model-depth-weight}
+model_depth_weight <- lm(body_mass_g ~ bill_depth_mm,
+                         data = penguins)
+
+tidy(model_depth_weight)
+```
+
+> Yes, bill depth does predict penguin weight, negatively. A one mm increase in bill depth is associated with approximately 191 gramms less body weight. However, as we saw earlier in the plots, this is only true when comparing across species. Within species the opposite is true. This result is statistically significant, as indicated by the low p-value (smaller than 0.05).
+
+Run different regression analyses for the different species (use `filter()`) to subset the data frame. 
+
+```{r}
+# check different species
+table(penguins$species)
+```
+
+```{r}
+regression_adelie <- lm(body_mass_g ~ bill_depth_mm, 
+                        data = penguins |> 
+                          filter(species == "Adelie")) 
+
+regression_chinstrap <- lm(body_mass_g ~ bill_depth_mm, 
+                        data = penguins |> 
+                          filter(species == "Chinstrap"))
+
+regression_gentoo <- lm(body_mass_g ~ bill_depth_mm, 
+                        data = penguins |> 
+                          filter(species == "Gentoo"))
+
+# we can use the modelsummary package to display the results of all three regressions at once
+modelsummary::modelsummary(list("Adelie" = regression_adelie, 
+                  "Chinstrap" = regression_chinstrap, 
+                  "Gentoo" = regression_gentoo), 
+                  statistic = "p.value", 
+                  stars = TRUE)
+```
+
+> As observered earlier in the plots, we find a positive association between bill depth and body mass for all species when analyzed seperately. These results are statistically significant, as indicated by the low p-values (smaller than 0.05).
+

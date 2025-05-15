@@ -1,0 +1,81 @@
+---
+title: Syllabus
+bibliography: references.bib
+nocite: '@*'
+reference-section-title: "Readings Assigned Throughout the Semester"
+format:
+  html: default
+  pdf: default
+---
+
+## Instructor
+
+{{< fa user >}} [{{< var instructor.name >}}]({{< var instructor.url >}}) \| {{< fa university >}} {{< var instructor.office >}} \| {{< fa envelope >}} <a href='mailto:{{< var instructor.email >}}'>{{< var instructor.email >}}</a> \| {{< iconify fa6-brands bluesky size=1.1em title='Bluesky' >}} [Bluesky]({{< var instructor.bluesky >}})
+
+## Course Description and Objectives
+
+In science, but also in politics, in court, in airport-bestsellers, or at your lunch table, claims are made based on data and science. In this course, you will learn to think critically about data, and whether it actually supports the claim it is meant to. A less fancy title for this class would have been "Introduction to Research Design".
+
+This class is hands-on, meaning that you will learn how to design a study, organize a project, analyze data, present results and read scientific literature.
+
+The class is structured into four main blocks.
+
+1.  *Data Analysis* - You will develop the competences to understand and analyze data
+2.  *Statistics* - You will learn basic statistical concepts.
+3.  *Causal Inference* - You will get an understanding of how different research designs do or do not permit causal claims.
+4.  *Science* - You will get an idea of how science works, including how evidence accumulates and how scientific publishing works
+
+## Schedule
+
+An up-to date schedule can be found on the [course website](index.qmd). This is also the place where all course content, including slides, assignments and additional resources will be posted.
+
+## Language
+
+Although the class will be held in English, you can ask questions in French at any time.
+
+## Participation
+
+This class will be highly interactive. You are strongly encouraged to participate in lectures and interrupt at any time. This means asking deep and challenging questions, but also asking simple clarification questions like “I’m just not getting this, please explain it in some new way” or “I’m lost, can you remind me why we’re talking about this?”. Don’t blame yourself if you don’t get something. Teachers are also just humans--for me to help you, I need you to communicate with me.
+
+A lot of what you do in this course will involve writing code, and coding is a skill that is best learned by doing. Therefore, as much as possible, you will be working on a variety of tasks and activities throughout each lecture.
+
+## Requirements
+
+You are expected to bring a laptop, tablet, or Chromebook (or whatever else you use and can have R and RStudio run on it) to each class so that you can participate in the in-class exercises. Please make sure your device is fully charged before you come to class, as the number of outlets in the classroom will not be sufficient to accommodate everyone.
+
+If this presents a problem for you, please let me know via email or in person and we will figure something out.
+
+## Evaluation
+
+This class is not graded--you either pass or fail. This is meant to alleviate pressure for high performance. However, you are expected to prepare for class by completing assigned readings and problem sets, attend all lectures, and meaningfully contribute to in-class exercises and discussion.
+
+### Assignments
+
+To pass this class, you will need to have completed **all assignments**. These include
+
+-   Weekly problem sets
+-   A pre-registration for a study
+-   A group presentation on a scientific paper
+
+It is ok if you get things wrong, but for you to pass, I need to see that you at least tried.
+
+### Attendance
+
+Since being present and doing your homework is the only requirement to pass, I will very strictly apply the Règlement de la scolarité et des études:
+
+> “Si une étudiante ou un étudiant est signalé absent trois fois dans une UE de 24h ou plus, au cours d’un même semestre, sans justification valable, il ou elle obtient la note finale de zéro à cette UE.”
+
+I will check presence during every session and report each absence. You can miss two classes, but starting with the third missed class, you will need to justify each absence. All justifications are to be presented to the secretary and will be validated by them
+
+## Credit
+
+The content of this course is inspired by and draws on material from openly and freely available courses from brilliant teachers, including
+
+-   Andrew Heiss' ["Program Evaluation for Public Service"](https://evalsp24.classes.andrewheiss.com/)
+-   Louis Sirugue's ["Introduction to Econometrics & Programming"](https://louissirugue.github.io/metrics_on_R/home.html)
+-   Mine Çetinkaya-Rundel's ["STA 199: Introduction to Data Science and Statistical Thinking"](https://sta199-s24.github.io/) and ["STA 101 - Data Analysis and Statistical Inference"](https://sta101-f23.github.io/)
+-   Megan Hall's workshop on ["Keeping it tidy"](https://meghan.quarto.pub/keeping-it-tidy/)
+-   Sam Shanny-Csik's [Data Visualization & Communication](https://eds-240-data-viz.github.io/)
+
+::: {#references}
+:::

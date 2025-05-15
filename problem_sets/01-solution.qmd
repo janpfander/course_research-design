@@ -1,0 +1,60 @@
+---
+title: "Problem set 1"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+  pdf:
+    toc: true
+  docx:
+    toc: true
+---
+
+```{r packages}
+library(tidyverse)
+```
+
+# Learning R
+
+# Read the data
+
+> Read the `cars.csv` data into R. Make sure to use the correct path ("data/cars.csv"). Name the data frame "cars" when reading it in. You don't need to understand what all the variables mean. 
+
+```{r}
+cars <- read_csv("../data/cars.csv")
+```
+
+# What's the class of the `model` and the `year` variable?
+
+```{r}
+class(cars$model)
+class(cars$year)
+```
+
+> Subset the cars data by selecting only rows that correspond to the manufacturer "honda" and that shows only the columns for models and the year. Name that subset "honda_data" and print it. 
+
+```{r}
+honda_data <- cars[cars$manufacturer == "honda", c("model", "year")]
+
+# alternative
+honda_data <- cars %>%
+  filter(manufacturer == "honda") %>%
+  select(model, year)
+```
+
+# My first plots
+
+> You haven't learned about plots yet. But to give you a taste for what's coming, execute the code chunk below and let the magic happen. Make sure your data frame is named "cars" for this to work
+
+A plot on the distance that cars can travel per gallon. Note that we will hide the code when rendering by setting `echo: false`.
+
+```{r plot-data}
+#| echo: false
+ggplot(cars, aes(x = hwy)) +
+geom_histogram() +
+labs(
+title = "A Histogram",
+x = "Higway MPG*", 
+caption = "*miles per gallon, is the distance, measured in miles, that a car can travel per gallon of fuel."
+)
+```

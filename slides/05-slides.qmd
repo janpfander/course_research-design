@@ -1,0 +1,1015 @@
+---
+title: "Statistical Inference"
+format: 
+  revealjs:
+    theme: simple
+    smaller: true
+    slide-number: true
+    # incremental: true
+    # code-link: true
+    chalkboard: true
+    history: false
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+```
+
+## Overview
+
+::::: columns
+::: {.column style="font-size: smaller;"}
+1.   **Population vs. Sample**
+
+3.  **Inventing Null Worlds**
+
+4.  **The Central Limit theorem**
+
+5.  **Theoretical Distributions**
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+:::
+:::::
+
+# Population vs. Sample
+
+---
+
+## Why do we do statistics ?
+
+<br>
+To make inferences about a population based on observing only a sample
+
+---
+
+## Are action movies better than comedies?
+
+. . . 
+
+### Data → Calculation → Estimate → Truth {.center}
+
+:::{.fragment}
+
+```{r}
+#| echo: false
+library(kableExtra)
+
+data <- tribble(
+  ~Category, ~Description, ~Notation,
+  "Data", "IMDB ratings", "$D$",
+  "Calculation", "Average action rating − average comedy rating", 
+  "$\\bar{D} = \\frac{\\sum{D}_\\text{Action}}{N} - \\frac{\\sum{D}_\\text{Comedy}}{N}$",
+  "Estimate", "$\\bar{D}$ in a sample of movies", "$\\hat{\\delta}$",
+  "Truth", "Difference in rating for *all* movies", "$\\delta$"
+)
+
+kable(data, escape = FALSE) 
+```
+
+
+:::
+
+---
+
+## Greek, Latin, and extra markings
+
+<br>
+
+. . . 
+
+:::: columns
+::: {.column width="50%"}
+
+**Greek**
+
+- Letters like $\delta$ are the ***truth***
+
+- Letters with extra markings like $\hat{\delta}$ are our ***estimate*** of the truth based on our sample
+
+:::
+
+::: {.column width="50%"}
+
+**Latin**
+
+- Letters like $D$ are ***actual data*** from our sample
+
+- Letters with extra markings like $\bar{D}$ are ***calculations*** from our sample
+
+:::
+::::
+
+---
+
+## Your turn #1: Calculating an estimate
+
+Collect IMDB ratings for a bunch of films via the `ggplot2movies` package.
+
+1. Install the package (use either console or the Rstudio interface. Do not use a Script)
+
+2. Load the package in your script. 
+
+3. Load the movies data (type: `data("movies")`)
+
+4. Make a new cleaned data frame by
+  - selecting only the `title`, `year`, `rating`, `Action` and `Comedy` columns
+  - filtering out films that classify as both Action and Comedy
+  - making a new variable `genre` (using `mutate()` and `case_when()`) which takes the values "Action" or "Comedy"
+  - removing the now obsolete `Action` and `Comedy` columns (use `select` and `-`)
+
+5. Calculate the average ratings for the two genres
+
+```{r}
+#| echo: false
+
+
+countdown::countdown(
+  minutes = 8,
+  bottom = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
+---
+
+## Your turn #1: Calculating an estimate 
+
+1. Install the package (use either console or the Rstudio interface. Do not use a Script)
+
+Use `install.packages("ggplot2movies")` in your console.
+
+2. Load the package in your script. 
+
+Use `library(ggplot2movies)` in your script.
+
+3. Load the movies data (type: `data("movies")`)
+
+---
+
+## Your turn #1: Calculating an estimate 
+
+4. Make a new cleaned data (`movie_data`) frame by
+  - selecting only the `title`, `year`, `rating`, `Action` and `Comedy` columns
+  - filtering out films that classify as both Action and Comedy
+  - making a new variable `genre` (using `mutate()` and `case_when()`) which takes the values "Action" or "Comedy"
+  - removing the now obsolete `Action` and `Comedy` columns (use `select` and `-`)
+  
+```{r load-imdb-data}
+#| include: false
+library(ggplot2movies)  # Lots of movies from IMDB
+```
+  
+```{r process-imdb-data}
+#| echo: true
+# Clean up data
+movie_data <- movies |> 
+  select(title, year, rating, Action, Comedy) |> 
+  filter(!(Action == 1 & Comedy == 1)) |> 
+  mutate(genre = case_when(Action == 1 ~ "Action",
+                           Comedy == 1 ~ "Comedy",
+                           TRUE ~ "Neither")) |>
+  filter(genre != "Neither") |>
+  # Make genre a factor (not necessary at this point)
+  mutate(genre = factor(genre)) |> 
+  select(-Action, -Comedy)
+```
+
+---
+
+## Your turn #1: Calculating an estimate 
+
+5. Calculate the average ratings for the two genres
+  
+```{r movie-diffs}
+#| echo: true
+movie_data |> 
+  group_by(genre) |> 
+  summarize(avg_rating = mean(rating)) 
+```
+
+---
+
+## So, are action movies better than comedies? 
+
+:::{.center}
+```{r}
+#| echo: false
+movie_data |> 
+  group_by(genre) |> 
+  summarize(avg_rating = mean(rating)) 
+```
+:::
+
+$$
+\hat{\delta} = \bar{D} = 5.24 - 5.97 = -0.73
+$$
+
+. . .
+
+Action movies seem to be slightly worse. But...
+
+. . .
+
+We don't know if the estimate we found in this sample is actually true for the population of **all films**
+
+# Inventing Null Worlds
+
+---
+
+## Simulated Null World 
+
+- Let's try to imagine a world with no differences between action and comedy movies
+
+. . .
+
+- We simulate data with ratings for 1'000'000 movies where there is no difference (the true $\delta$ is 0). Imagine that's the population, i.e. all movies ever made.
+
+```{r}
+#| echo: true
+set.seed(1234) # For reproducibility
+
+imaginary_movies <- tibble(
+  movie_id = 1:1000000,
+  rating = sample(seq(1, 10, by = 0.1), size = 1000000, replace = TRUE),
+  genre = sample(c("Comedy", "Action"), size = 1000000, replace = TRUE)
+)
+```
+
+---
+
+## Simulated Null World 
+
+Our simulated action movies and comedies don't all have the same rating, but on average there's (almost) no difference
+
+:::: columns
+::: {.column width="30%"}
+
+```{r}
+#| echo: true
+imaginary_movies |> 
+  group_by(genre) |> 
+  summarize(avg_rating = mean(rating)) 
+```
+
+:::
+
+::: {.column width="70%"}
+```{r}
+#| echo: true
+ggplot(imaginary_movies, 
+       aes(x = rating, fill = genre)) +
+  geom_bar(alpha = 0.4, position = "identity") +
+  scale_x_continuous(breaks = seq(1,10))
+```
+:::
+
+::::
+
+--- 
+
+## Sampling & Estimating in the Null world
+
+In the actual IMDB data, we looked at a sample of about 20'000 films. 
+
+. . .
+
+<br>
+
+We can randomly pick a sample of that same size from our simulated population
+
+```{r}
+#| echo: true
+
+# draw a sample of 20'000 films
+imaginary_sample <- imaginary_movies |> 
+  sample_n(20000)
+```
+
+. . .
+
+In this sample, we actually find a small difference
+
+```{r}
+#| echo: true
+
+# compute rating difference in the sample
+estimate <- imaginary_sample |> 
+  group_by(genre) |> 
+  summarize(avg_rating = mean(rating)) |> 
+  summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+  pull(diff)
+
+estimate
+```
+
+---
+
+Let's repeat this process of sampling and estimating 1000 times, and store the results.
+
+```{r}
+#| echo: true
+n_simulations <- 1000
+differences <- c() # make an empty vector
+
+for (i in 1:n_simulations) {
+  # draw a sample of 20'000 films
+  imaginary_sample <- imaginary_movies |> 
+    sample_n(20000)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+
+```
+
+---
+
+We can plot the results for an overview
+
+::::columns
+
+::: {.column width="40%"}
+```{r}
+#| echo: true
+n_simulations <- 1000
+differences <- c() # make an empty vector
+
+for (i in 1:n_simulations) {
+  # draw a sample of 20'000 films
+  imaginary_sample <- imaginary_movies |> 
+    sample_n(20000)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+
+```
+:::
+
+::: {.column width="60%"}
+```{r}
+#| echo: true
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram() +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::::
+
+---
+
+## Check $\hat{\delta}$ in the null world
+
+Does the estimate we found in the  IMDB data ($\hat{\delta}$ = -0.73) fit well into the world where the true difference $\delta$ is 0?
+
+. . .
+
+```{r}
+#| echo: true
+#| output-location: column
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram() +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+---
+
+## Check $\hat{\delta}$ in the null world
+
+Does the estimate we found in the  IMDB data ($\hat{\delta}$ = -0.73) fit well into the world where the true difference $\delta$ is 0? Not really.
+
+```{r}
+#| echo: true
+#| output-location: column
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram() +
+  geom_vline(xintercept = -0.73, color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+
+---
+
+## So, again, are action movies better than comedies? 
+
+::: {.incremental}
+
+- We can now pretty confidently say that in a world where there is no difference, observing what we observed is super unlikely. 
+
+- Therefore, we're pretty confident that in fact there is a difference.
+
+- (We still don't know what the true difference is, but at least we can say it's unlikely to be 0) 
+
+- `r emoji::emoji("tada")` Congratulations, if you got that, you got the whole intuition behind hypothesis testing. 
+
+:::
+
+---
+
+All this is good, but how (un)likely **exactly** is it to observe our $\hat{\delta}$ in the null world? 
+
+. . .
+
+That is where the central limit theorem and theoretical distributions come into play...
+
+# The central limit theorem
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+You have seen before the estimated mean differences of our imaginary samples (the $\hat{\delta}s$), somehow magically, form a curve that is...
+
+- bell-shaped 
+- centered around the true value ($\delta$), which in our case was 0. 
+
+:::{.fragment fragment-index="1"}
+This distribution of estimates is also called the **sampling distribution**.
+:::
+
+:::{.fragment fragment-index="2"}
+The central limit theorem states that, with many observations, the sampling distribution approximates a normal distribution.
+:::
+
+:::
+
+::: {.column width="60%"}
+
+:::: r-stack
+
+:::{.fragment .fade-out fragment-index="3"}
+
+```{r}
+# Compute mean and standard deviation of the simulated differences
+diff_mean <- mean(differences)
+diff_sd <- sd(differences)
+
+# Plot histogram with normal curve
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram(aes(y = ..density..)) +  # Histogram with density scaling
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density") +
+  theme_minimal()
+```
+:::
+
+:::{.fragment .fade-in fragment-index="3"}
+```{r}
+# Compute mean and standard deviation of the simulated differences
+diff_mean <- mean(differences)
+diff_sd <- sd(differences)
+
+# Plot histogram with normal curve
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram(aes(y = ..density..)) +  # Histogram with density scaling
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density") +
+  theme_minimal()
+```
+:::
+
+::::
+
+:::
+
+::::
+
+# Theoretical distributions
+
+---
+
+## Quick recap
+
+::: {.incremental}
+
+- Remember our problem: We were not sure how (un)likely exactly our observation was in the Null world 
+
+- Thanks to the central limit theorem, we know that sampling distributions approximate theoretical distributions.
+
+- And for theoretical distributions, thanks to math, we know exactly how likely a certain value is `r emoji::emoji("tada")` 
+
+:::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+The most famous bell-shaped distribution is the (standard) normal distribution. 
+
+The standard normal distribution is centered around 0 and has a standard deviation of 1. 
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+norm_dt <- tibble(x = seq(-3, 3, .001),
+                  y = (exp(-(x^2)/2)/sqrt(2*pi)))
+
+ggplot(norm_dt, aes(x = x, y = y)) + 
+  geom_line() +
+  theme(axis.title = element_blank()) +
+  theme_minimal()
+```
+
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+We know, e.g., that 99% of the distribution lie between $\pm$ 2.58
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+ggplot(norm_dt, aes(x = x, y = y)) + 
+  geom_line() +
+  #geom_segment(aes(x = -2.58, xend = -2.58, y = 0, 
+  #                 yend = y[match(-2.58, x)]), 
+  #             linetype = "dashed") +
+  #geom_segment(aes(x = 2.58, xend = 2.58, y = 0, 
+  #                 yend = y[match(2.58, x)]), 
+  #             linetype = "dashed") +
+  annotate("text", x = -2.75, y = .03, label = "0.5%") + 
+  annotate("text", x = 2.75, y = .03, label = "0.5%") + 
+  annotate("text", x = 0, y = .17, label = "99%") + 
+  scale_x_continuous(breaks = c(-3, -2.58, -2,  -1, 0, 1, 2, 2.58, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -2.58), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 2.58), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  theme(axis.title = element_blank()) +
+  theme_minimal()
+```
+
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+Or that 95% of the distribution lie between $\pm$ 1.96
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+ggplot(norm_dt, aes(x = x, y = y)) + 
+  geom_line() +
+  #geom_segment(aes(x = -1.96, xend = -1.96, y = 0, 
+  #                 yend = y[match(-1.96, x)]), 
+  #             linetype = "dashed") +
+  #geom_segment(aes(x = 1.96, xend = 1.96, y = 0, 
+  #                 yend = y[match(1.96, x)]), 
+  #             linetype = "dashed") +
+  annotate("text", x = -2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 0, y = .17, label = "95%") + 
+  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -1.96), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 1.96), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  theme(axis.title = element_blank()) +
+  theme_minimal()
+```
+
+:::
+
+::::
+
+--- 
+
+:::: columns
+::: {.column width="40%"}
+
+Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution. 
+:::
+
+::: {.column width="60%"}
+
+```{r}
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram() +
+  geom_vline(xintercept = -0.73, color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution. 
+
+We achieve this by 
+
+1. Subtracting the mean from all values (in our case, that is 0, so nothing happens) 
+```{r}
+#| echo: true
+#| code-overflow: wrap
+differences_mean_centered <- differences - mean(differences)
+```
+
+In our case, that is (almost) 0, so not much happens 
+```{r}
+#| echo: true
+mean(differences)
+```
+
+:::
+
+::: {.column width="60%"}
+
+:::: r-stack
+:::{.fragment .fade-out fragment-index="1"}
+```{r}
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram() +
+  geom_vline(xintercept = -0.73, color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+:::{.fragment .fade-in fragment-index="1"}
+```{r}
+ggplot(data.frame(differences_mean_centered), aes(x = differences_mean_centered)) +
+  geom_histogram() +
+  geom_vline(xintercept = -0.73-mean(differences), color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+::::
+
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+Now, all we need to do is bring our sampling distribution on the scale of a standard normal distribution. 
+
+We achieve this by 
+
+1. Subtracting the mean from all values 
+
+2. Dividing by the standard deviation
+
+```{r}
+#| echo: true
+differences_scaled <- differences_mean_centered / sd(differences_mean_centered)
+```
+
+Since the sd is small than 1, our values become bigger
+
+```{r}
+#| echo: true
+sd(differences_mean_centered)
+```
+
+:::
+
+::: {.column width="60%"}
+
+:::: r-stack
+:::{.fragment .fade-out fragment-index="1"}
+```{r}
+ggplot(data.frame(differences_mean_centered), aes(x = differences_mean_centered)) +
+  geom_histogram() +
+  geom_vline(xintercept = -0.73-mean(differences), color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+:::{.fragment .fade-in fragment-index="1"}
+```{r}
+ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
+  geom_histogram() +
+  # scaled version
+  geom_vline(xintercept = (-0.73-mean(differences))/ sd(differences_mean_centered), color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+::::
+
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+Instead of a histogram, we can use a density plot (which uses the same y-axis as the normal distribution, namely density)
+:::
+
+::: {.column width="60%"}
+
+:::: r-stack
+:::{.fragment .fade-out fragment-index="1"}
+```{r}
+ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
+  geom_histogram() +
+  # scaled version
+  geom_vline(xintercept = (-0.73-mean(differences))/ sd(differences_mean_centered), color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+:::{.fragment .fade-in fragment-index="1"}
+```{r}
+ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
+  geom_histogram(aes(y = ..density..), alpha = 0.5) +  # Histogram with density scaling
+  # scaled version
+  geom_vline(xintercept = (-0.73-mean(differences))/ sd(differences_mean_centered), color = "red", size = 1, linetype = "dashed") +
+  geom_density() +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density") +
+  theme_minimal()
+```
+:::
+
+::::
+
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+Finally, we can lay over the standard normal distribution
+:::
+
+::: {.column width="60%"}
+
+:::: r-stack
+:::{.fragment .fade-out fragment-index="1"}
+
+```{r}
+ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
+  geom_histogram(aes(y = ..density..), alpha = 0.5) +  # Histogram with density scaling
+  # scaled version
+  geom_vline(xintercept = (-0.73-mean(differences))/ sd(differences_mean_centered), color = "red", size = 1, linetype = "dashed") +
+  geom_density() +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density") +
+  theme_minimal()
+```
+
+:::
+
+:::{.fragment .fade-in fragment-index="1"}
+```{r}
+ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
+  geom_histogram(aes(y = ..density..), alpha = 0.5) +  # Histogram with density scaling
+  # scaled version
+  geom_vline(xintercept = (-0.73-mean(differences))/ sd(differences_mean_centered), color = "red", size = 1, linetype = "dashed") +
+  geom_line(data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1.2, linetype = "dashed")  +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density") +
+  theme_minimal()
+```
+:::
+
+::::
+
+:::
+
+::::
+
+---
+
+:::: columns
+::: {.column width="40%"}
+
+Now we can say for sure that in our Null world, chances that we get an estimate as extreme as the one in our IMBD data is **less than 5%**
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+ggplot(data.frame(differences_scaled), aes(x = differences_scaled)) +
+  geom_histogram(aes(y = ..density..), alpha = 0.5) +  # Histogram with density scaling
+  geom_line(data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1.2, linetype = "dashed")  +
+  # scaled version
+  geom_vline(xintercept = (-0.73-mean(differences))/ sd(differences_mean_centered), color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density") +
+  annotate("text", x = -2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 0, y = .17, label = "95%") + 
+  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  theme_minimal()
+```
+
+:::
+
+::::
+
+---
+
+You can even calculate the exact probability of observing the estimate in a null world...
+
+. . .
+
+1. Bring your estimate on a scale of the standard normal distribution (that is also called a z-value)
+
+```{r}
+#| echo: true
+estimate <- 0.73
+sd_sampling_distribution <- sd(differences)
+
+z_scaled_estimate = estimate / sd_sampling_distribution
+
+z_scaled_estimate
+```
+
+. . . 
+
+::: {.callout-note}
+You don't need to do a simulation of your sampling distribution all the time. 
+In general, we obtain the standard deviation of the (imaginary) sampling distribution with math. This standard deviation is so important that it has its own name: the **Standard Error (SE)**
+:::
+
+---
+
+You can even calculate the exact probability of observing the estimate in a null world...
+
+1. Bring your estimate on a scale of the standard normal distribution (that is also called a z-value)
+
+```{r}
+#| echo: true
+estimate <- 0.73
+sd_sampling_distribution <- sd(differences)
+
+z_scaled_estimate = estimate / sd_sampling_distribution
+
+z_scaled_estimate
+```
+
+2. Look up the corresponding probability (luckily, in R that's very easy)
+
+```{r}
+#| echo: true
+# the pnorm() function gives the cumulative probability from the standard normal distribution 
+
+# Two-tailed (i.e. a value "at least as extreme as", in both directions)
+probability <- 2 * (1 - pnorm(z_scaled_estimate)) 
+
+# in our case, the probability is reeaally low (practically 0)
+probability
+```
+
+. . . 
+
+::: {.callout-note}
+In the real world, people actually use a slightly different version of the standard normal distribution, the t-distribution. The principle, however, is the same.
+:::
+
+---
+
+`r emoji::emoji("tada")` The probability that you have just calculated is also called p-value `r emoji::emoji("tada")`
+
+It's the probability of observing an estimate at least as extreme as the one in our sample, in a world where there is no true effect (the Null world). 
+
+---
+
+## Hypothesis testing in a nutshell {.incremental}
+
+:::{.incremental style="font-size: smaller;"}
+- **Step 1: Calculate an estimate based on your sample ($\hat{\delta}$).**  
+  This is the main measure you care about: the difference in means, the average, the median, the proportion, the difference in proportions, etc.
+
+- **Step 2: Use simulation to invent a world where the true effect ($\delta$) is null.**  
+  Simulate what the world would look like if there was no difference between two groups, or if there was no difference in proportions, or where the average value is a specific number.
+
+- **Step 3: Look at $\hat{\delta}$ in the null world.**  
+  Put the sample statistic in the null world and see if it fits well.
+
+- **Step 4: Calculate the probability that $\hat{\delta}$ could exist in the null world.**  
+  This is the p-value, or the probability that you'd see a $\hat{\delta}$ at least that high in a world where there's no difference.
+
+- **Step 5: Decide if $\hat{\delta}$ is statistically significant.**  
+  Choose some evidentiary standard or threshold for deciding if there's sufficient proof for rejecting the null world. Standard thresholds (from least to most rigorous) are 0.1, 0.05, and 0.01.
+:::
+
+# An applied example
+
+---
+
+## Are action movies better than comedies? 
+
+. . . 
+
+We can use a single command in R to test this hypothesis
+
+```{r}
+#| echo: true
+
+# Perform a t-test to compare ratings between Action and Comedy movies
+t.test(rating ~ genre, data = movie_data)
+```
+
+. . .
+
+We get a very small p-value
+
+```{r}
+#| echo: true
+# Using format() to use non-scientific notation
+format(2.2204460493e-16, scientific = FALSE)
+```
+
+---
+
+That's it for today :)
+
+
+
+
+
+
+

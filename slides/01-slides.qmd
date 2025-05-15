@@ -1,0 +1,1893 @@
+---
+title: "Introduction to R, RStudio and Quarto"
+format: 
+  revealjs:
+    theme: simple
+    smaller: true
+    slide-number: true
+    # incremental: true
+    # code-link: true
+    chalkboard: true
+    history: false
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+```
+
+## Overview
+
+::::: columns
+::: {.column style="font-size: smaller;"}
+1.  **Getting Started**
+    -   About R
+    -   The R Studio IDE
+    -   Import and eyeball data
+2.  **Anatomy of a `data.frame`**
+    -   Data structure
+    -   Classes
+    -   Vectors
+    -   Subsetting
+3.  **Wrap Up**
+    -   Summary and key takeaways
+:::
+
+::: {.column style="font-size: smaller;"}
+4. **Markdown and universal writing** 
+    - Office Model vs. Engineering Model
+    - Excel failures
+    - Markdown
+5.  **Writing reports in Quarto**
+    -   What is Quarto?
+    -   YAML header
+    -   Code chunks
+    -   Text formatting
+    -   Run and render your code
+    -   Inline code
+    -   Tables
+    -   Preset themes
+    -   Report parameters
+:::
+:::::
+
+# Getting Started
+
+------------------------------------------------------------------------
+
+## About R
+
+::::: columns
+::: {.column width="50%"}
+-   R is a **programming language** and free software environment for **statistical computing and graphics**.
+
+-   The R language is widely (and increasingly) used in **academic and non-academic research** in fields like:
+
+    -   Economics
+    -   Statistics
+    -   Biostatistics
+:::
+
+::: {.column width="50%"}
+![](images/rstudio_logo.png){width="300"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## The R Studio IDE
+
+![](images/rstudio.png)
+
+------------------------------------------------------------------------
+
+### The Console panel
+
+::::::: columns
+::::: {.column width="50%"}
+:::: incremental
+-   This is where you **communicate with R**
+    -   You can write instructions after the **\>**, **press enter**, and R will **execute**
+    -   Try with **1+1**:
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+1+1
+```
+:::
+::::
+:::::
+
+::: {.column width="50%"}
+![](images/console.png){width="800"}
+:::
+:::::::
+
+------------------------------------------------------------------------
+
+### The Source panel
+
+::::::: columns
+::::: {.column width="50%"}
+:::: incremental
+-   This is where you **write and save your code** (File \> New File \> R Script)
+
+    -   **Separate** different commands with a **line break**
+    -   The **\#** symbol allows you to **comment** your code
+    -   Everything after the **\#** will be **ignored** by R until the next line break
+
+::: fragment
+```{r}
+#| eval: false
+#| echo: true
+1+1 # Do not put 2+2 on the same line, press enter to go to next line 
+2+2
+```
+:::
+::::
+:::::
+
+::: {.column width="50%"}
+![](images/source.png){width="800"}
+:::
+:::::::
+
+------------------------------------------------------------------------
+
+### The Source panel
+
+::::::: columns
+::::: {.column width="50%"}
+:::: incremental
+::: fragment
+-   To send the command from the source panel to the console panel:
+    1.  **Click on/Highlight** the line(s) you want to execute
+    2.  Press **ctrl + enter**
+:::
+
+-   If you do not highlight anything the line of code where your cursor stands will be executed
+
+-   Check the console to see the output of your code
+::::
+:::::
+
+::: {.column width="50%"}
+![](images/source.png){width="800"}
+:::
+:::::::
+
+------------------------------------------------------------------------
+
+### The Environment panel
+
+::::::::: columns
+::::::: {.column width="50%"}
+:::::: incremental
+-   Data analysis requires manipulating datasets, vectors, functions, etc.
+
+    -   These **elements are stored in the environment** panel.
+
+-   For instance, we can assign a value to an object using `<-`:
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+x <- 1
+```
+:::
+
+-   Now that the object `x` is stored in your environment, you can use it
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+x + 1 
+```
+:::
+
+-   You can also modify that object at any point:
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+x <- x + 1 
+x
+```
+:::
+::::::
+:::::::
+
+::: {.column width="50%"}
+![](images/environment.png){width="800"}
+:::
+:::::::::
+
+------------------------------------------------------------------------
+
+### The Files/Plots/... panel
+
+:::::: columns
+:::: {.column width="50%"}
+::: incremental
+-   In this panel, we'll mainly be interested in the following 4 tabs:
+
+    -   **Files:** Shows your working directory
+
+    -   **Plots:** Where R returns plots
+
+    -   **Packages:** A library of tools that we can load if needed
+
+    -   **Help:** Where to look for documentation on R functions
+:::
+::::
+
+::: {.column width="50%"}
+![](images/plot.png){width="800"}
+:::
+::::::
+
+------------------------------------------------------------------------
+
+### The Files/Plots/... panel
+
+:::::: columns
+::: {.column width="50%"}
+-   Enter `?getwd()` in the console to see what a help file looks like:
+
+    -   It describes what the command does
+    -   It explains the different parameters of the command
+    -   It gives examples of how to use the command
+:::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+![](images/help_file.png){width="800"}
+:::
+::::
+::::::
+
+------------------------------------------------------------------------
+
+### Practice
+
+```{r}
+countdown::countdown(
+  minutes = 3,
+  top = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
+1.  Open a new R script (`Ctrl + Shift + N`) and write a code to create these objects:
+
+::: center
+```{r}
+#| eval: true
+#| echo: false
+tibble(a = c("Object name:", "Assigned value:"), 
+       b = c("a", 2), 
+       c = c("b", 4), 
+       d = c("c", 5)) %>%
+   knitr::kable(col.names = NULL, align = "lccc", caption = "Objects to create")  %>% 
+ row_spec(2
+          #, background = "#014D64"
+          )
+```
+:::
+
+2.  Run this code and create a new object named result that takes the value $\frac{b\times c}{a} + (b-a)^c$
+
+::: center
+```{r}
+#| eval: true
+#| echo: false
+tibble(a = c("Operation:", "Symbol in R:"), 
+       b = c("Addition", "+"), 
+       c = c("Subtraction", "-"), 
+       d = c("Multiplication", "*"), 
+       e = c("Division", "/"), 
+       f = c("Exponentiation", "^"),
+       g = c("Parentheses", "()")) %>%
+  kable(col.names = NULL, align = "lcccccc", caption = "Basic operations in R") %>%
+  kable_styling(
+    font_size = 18,  # Reduce text size
+    full_width = FALSE
+  ) %>%
+  column_spec(1, width = "3cm", bold = TRUE) %>%  # Increase space for the first column
+  column_spec(2:7, width = "1.5cm")  # Set smaller widths for other columns 
+```
+:::
+
+3.  Print `result` in your console and save your script somewhere on your computer (Ctrl+S)
+
+------------------------------------------------------------------------
+
+### Solution
+
+1.  Open a new R script (`Ctrl + Shift + N`) and write a code to create these objects:
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+tibble(a = c("Object name:", "Assigned value:"), 
+       b = c("a", 2), 
+       c = c("b", 4), 
+       d = c("c", 5)) %>%
+   knitr::kable(col.names = NULL, align = "lccc", caption = "Objects to create") %>%  kable_styling(
+    font_size = 18,  # Reduce text size
+    full_width = FALSE
+  )
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: true
+a <- 2
+b <- 4
+c <- 5
+```
+:::
+:::::
+
+2.  Run this code and create a new object named result that takes the value $\frac{b\times c}{a} + (b-a)^c$
+
+```{r}
+#| eval: true
+#| echo: true
+
+result <- b*c/a + (b-a)^c
+```
+
+3.  Print `result` in your console and save your script somewhere on your computer (Ctrl+S)
+
+```{r}
+#| eval: true
+#| echo: true
+
+result
+```
+
+------------------------------------------------------------------------
+
+## Import and Eyeball Data
+
+-   We now know how to **use R** as a calculator, but our goal is **to analyze data!**
+
+    -   Take for instance the statistics from the last season of Ligue 1 available at [fbref.com](https://fbref.com/en/comps/13/schedule/Ligue-1-Scores-and-Fixtures)
+
+::: center
+![](images/fbref_2024.png){width="800"}
+:::
+
+------------------------------------------------------------------------
+
+## Import and Eyeball Data
+
+-   You can **download** the dataset for the 2021/22 season [by clicking here](https://louissirugue.github.io/metrics_on_R/lecture1/data.zip) or from the course webpage.
+    -   Note that the file extension is **.csv** (for **Comma Separated Values**).
+    -   Let's take a look at the **first 5 lines** of the raw `.csv` file:
+
+```{r}
+#| eval: false
+#| echo: true
+
+Wk,Day,Date,Time,Home,xG,Score,xG,Away,Attendance,Venue,Referee,Match Report,Notes
+1,Fri,2021-08-06,21:00,Monaco,2.0,1–1,0.3,Nantes,7500,Stade Louis II.,Antony Gautier,Match Report,
+1,Sat,2021-08-07,17:00,Lyon,1.4,1–1,0.8,Brest,29018,Groupama Stadium,Mikael Lesage,Match Report,
+1,Sat,2021-08-07,21:00,Troyes,0.8,1–2,1.2,Paris S-G,15248,Stade de l'Aube,Amaury Delerue,Match Report,
+1,Sun,2021-08-08,13:00,Rennes,0.6,1–1,2.0,Lens,22567,Roazhon Park,Bastien Dechepy,Match Report,
+```
+
+. . .
+
+-   The .csv format is very common and follows a specific structure:
+
+    -   Each line corresponds to a row (the first row typically contains column names).
+    -   For each row, values of each column are separated by commas.
+
+-   *But how do we get it into our RStudio environment?*
+
+------------------------------------------------------------------------
+
+## Import and Eyeball Data
+
+-   To import stuff in R we use read functions
+    -   They take the file directory as an input
+    -   And give the file content as an output
+-   The read function dedicated to .csv files is `read.csv` (later we will mostly use `read_csv`)
+
+- Remember we use the arrow (`<-`) to create objects in R
+
+```{r}
+#| eval: false
+#| echo: true
+
+data <- read.csv("/Users/jan/Downloads/ligue1.csv")
+```
+
+```{r}
+#| eval: true
+#| echo: false
+
+# read data in locally
+data <- read.csv("../data/ligue1.csv")
+```
+
+. . .
+
+::: callout-important
+Make sure you have the right path to your data file. Also, make sure you use correct backlashes "/". Do NOT use "\\".
+:::
+
+. . .
+
+-   Let's inspect this new object
+
+------------------------------------------------------------------------
+
+-   The first thing we can do is to use head() to print the *top rows*
+
+```{r}
+#| eval: true
+#| echo: true
+
+head(data, 3)
+```
+
+. . .
+
+-   `tail()` would print the **bottom rows**
+
+-   We can also run **`View(`**`data)` *(a new tab will pop-up in your Source panel)*
+
+------------------------------------------------------------------------
+
+::: center
+![](images/view_fb.png){width="1000"}
+:::
+
+::: center
+Seems like it worked!
+:::
+
+------------------------------------------------------------------------
+
+::: center
+![](images/view_fb_kinda.png){width="1000"}
+:::
+
+::: center
+Or kind of worked...
+:::
+
+---
+
+These kind of weird characters pop up when there is an encoding issue
+
+  - Thankfully, `read.csv()` has many options that can be set as inputs, including encoding!
+  - Usually the UTF-8 encoding is the solution to French characters
+  
+```{r}
+#| eval: false
+#| echo: true
+data <- read.csv("/Users/jan/Downloads/ligue1.csv", encoding = "UTF-8")
+```
+
+. . . 
+
+When you will be facing similar issues, check out the arguments of `read.csv()` by typing `?read.csv`
+
+::: center
+![](images/csv_help.png){width="1000"}
+:::
+
+---
+
+## Overview
+
+:::::: columns
+::::: {.column width="50%"}
+::: {.fragment .semi-fade-out}
+1.  **Getting Started**
+    -   About R
+    -   The R Studio IDE
+    -   Import and eyeball data
+:::
+
+::: {.fragment .fade-in}
+2.  **Anatomy of a `data.frame`**
+    -   Data structure
+    -   Classes
+    -   Vectors
+    -   Subsetting
+:::
+:::::
+::::::
+
+# Anatomy of a `data.frame`
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   Now that we imported the data properly, we can check out its **`str()`ucture** in more details
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   *Don't be scared of the output!*
+
+```{r}
+#| eval: true
+#| echo: true
+str(data)
+```
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   `str()` says that `data` is a `data.frame`, and gives its numbers of **observations** (rows) and **variables** (columns)
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+#| highlight: false
+## 'data.frame':    380 obs. of  14 variables:
+```
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   It also gives the **variables names**
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+#| highlight: false
+## 'data.frame':    380 obs. of  14 variables:
+##  $ Wk          
+##  $ Day         
+##  $ Date        
+##  $ Time        
+##  $ Home        
+##  $ xG          
+##  $ Score       
+##  $ xG.1        
+##  $ Away        
+##  $ Attendance  
+##  $ Venue       
+##  $ Referee     
+##  $ Match.Report
+##  $ Notes  
+```
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   The **first values** of each variable
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+#| highlight: false
+## 'data.frame':    380 obs. of  14 variables:
+##  $ Wk          :      1 1 1 1 1 1 1 1 1 1 ...
+##  $ Day         :      "Fri" "Sat" "Sat" "Sun" ...
+##  $ Date        :      "2021-08-06" "2021-08-07" "2021-08-07" "2021-08-08" ...
+##  $ Time        :      "21:00" "17:00" "21:00" "13:00" ...
+##  $ Home        :      "Monaco" "Lyon" "Troyes" "Rennes" ...
+##  $ xG          :      2 1.4 0.8 0.6 0.7 0.4 0.8 2.1 0.7 0.5 ...
+##  $ Score       :      "1–1" "1–1" "1–2" "1–1" ...
+##  $ xG.1        :      0.3 0.8 1.2 2 3.3 0.9 0.2 1.3 1.4 2 ...
+##  $ Away        :      "Nantes" "Brest" "Paris S-G" "Lens" ...
+##  $ Attendance  :      7500 29018 15248 22567 18748 23250 18030 20461 15551 13500 ...
+##  $ Venue       :      "Stade Louis II." "Groupama Stadium" "Stade de l'Aube" "Roazhon Park" ...
+##  $ Referee     :      "Antony Gautier" "Mikael Lesage" "Amaury Delerue" "Bastien Dechepy" ...
+##  $ Match.Report:      "Match Report" "Match Report" "Match Report" "Match Report" ...
+##  $ Notes       :       NA NA NA NA NA NA ...
+```
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   As well as the **class** of each variable
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+#| highlight: false
+## 'data.frame':    380 obs. of  14 variables:
+##  $ Wk          : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ Day         : chr  "Fri" "Sat" "Sat" "Sun" ...
+##  $ Date        : chr  "2021-08-06" "2021-08-07" "2021-08-07" "2021-08-08" ...
+##  $ Time        : chr  "21:00" "17:00" "21:00" "13:00" ...
+##  $ Home        : chr  "Monaco" "Lyon" "Troyes" "Rennes" ...
+##  $ xG          : num  2 1.4 0.8 0.6 0.7 0.4 0.8 2.1 0.7 0.5 ...
+##  $ Score       : chr  "1–1" "1–1" "1–2" "1–1" ...
+##  $ xG.1        : num  0.3 0.8 1.2 2 3.3 0.9 0.2 1.3 1.4 2 ...
+##  $ Away        : chr  "Nantes" "Brest" "Paris S-G" "Lens" ...
+##  $ Attendance  : int  7500 29018 15248 22567 18748 23250 18030 20461 15551 13500 ...
+##  $ Venue       : chr  "Stade Louis II." "Groupama Stadium" "Stade de l'Aube" "Roazhon Park" ...
+##  $ Referee     : chr  "Antony Gautier" "Mikael Lesage" "Amaury Delerue" "Bastien Dechepy" ...
+##  $ Match.Report: chr  "Match Report" "Match Report" "Match Report" "Match Report" ...
+##  $ Notes       : logi  NA NA NA NA NA NA ...
+```
+
+------------------------------------------------------------------------
+
+## Data Structure
+
+-   But what does the **class** correspond to?
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+#| highlight: false
+## 'data.frame':    380 obs. of  14 variables:
+##  $ Wk          : int  ?
+##  $ Day         : chr  ?
+##  $ Date        : chr  ?
+##  $ Time        : chr  ?
+##  $ Home        : chr  ?
+##  $ xG          : num  ?
+##  $ Score       : chr  ?
+##  $ xG.1        : num  ?
+##  $ Away        : chr  ?
+##  $ Attendance  : int  ?
+##  $ Venue       : chr  ?
+##  $ Referee     : chr  ?
+##  $ Match.Report: chr  ?
+##  $ Notes       : logi  ?
+```
+
+------------------------------------------------------------------------
+
+## Classes
+
+:::::: columns
+::: {.column width="33%"}
+### Numeric
+
+These are simply numbers:
+
+```{r}
+#| eval: true
+#| echo: true
+class(3)
+```
+
+```{r}
+#| eval: true
+#| echo: true
+class(-1.89278)
+```
+
+-   Numeric variable classes include:
+    -   int for round numbers
+    -   dbl for 2-decimal numbers
+:::
+
+::: {.column .fragment width="33%"}
+### Character
+
+They must be surrounded by `"` or `'`:
+
+```{r}
+#| eval: true
+#| echo: true
+class("Paris Saint-Germain")
+```
+
+```{r}
+#| eval: true
+#| echo: true
+class("35")
+```
+
+-   We also call these values:
+    -   Character strings
+    -   Or just strings
+:::
+
+::: {.column .fragment width="33%"}
+### Logical
+
+Something either `TRUE` of `FALSE`:
+
+```{r}
+#| eval: true
+#| echo: true
+3 >= 4
+```
+
+```{r}
+#| eval: true
+#| echo: true
+class(3 >= 4)
+```
+
+```{r}
+#| eval: true
+#| echo: true
+class(TRUE)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+
+# Create a table with smaller font size using inline CSS
+logical_operators <- data.frame(
+  Operator = c("==", ">", "<", ">=", "<=", "&", " | ", "!"),
+  Meaning = c(
+    "Equal to",
+    "Greater than",
+    "Less than",
+    "Greater than or equal to",
+    "Less than or equal to",
+    "And",
+    "Or",
+    "Opposite"
+  )
+)
+
+# Generate the kable table
+kable(logical_operators, col.names = c("Operator", "Meaning"), escape = TRUE, format = "html") %>% 
+  column_spec(1:2, extra_css = "font-size: 50%;")
+```
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## Classes
+
+::: fragment
+Guess the output!
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+as.numeric("2022")
+```
+:::
+
+::: fragment
+What about this one?
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+as.character(2022-2023)
+```
+:::
+
+::: fragment
+And a final one.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+as.character(2022>2023)
+```
+:::
+
+------------------------------------------------------------------------
+
+## Classes
+
+```{r}
+#| eval: true
+#| echo: false
+tibble(` ` = c("<b>as.numeric()</b>", 
+               "<b>as.character()</b>", 
+               "<b>as.logical</b>()"),
+       `numeric` = c("No effect", 
+                     "Converts numeric values <br> into strings of numbers",
+                     'Returns TRUE if != 0 <br>  Returns FALSE if 0'),
+       `character` = c('Converts strings of numbers into numeric values <br> 
+       Returns NA if characters in the string',
+                       "No effect", 
+                       'Returns TRUE if "T" or"TRUE" <br> 
+       Returns FALSE if "F" or "FALSE" <br> 
+       Returns NA otherwise'),
+       `logical` = c('Returns 1 if TRUE  <br>  
+       Returns 0 if FALSE',
+       'Returns "TRUE" if TRUE<br> 
+       Returns "FALSE" if FALSE',
+       "No effect")) %>%
+  kable(., caption = "", align = 'lccc', escape = F, format = "html") %>% 
+  kable_styling(
+    font_size = 20,  # Reduce text size
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE
+  )
+```
+
+**NA** stands for 'Not Available', it corresponds to a **missing value**
+
+------------------------------------------------------------------------
+
+## Classes
+
+One last mystery...
+
+```{r}
+#| eval: true
+#| echo: true
+str(data)
+```
+
+------------------------------------------------------------------------
+
+## Classes
+
+Are these dollar signs here for a reason?
+
+```{r}
+#| eval: false
+#| echo: true
+str(data)
+```
+
+```{r}
+#| eval: true
+#| echo: true
+#| highlight: false
+## 'data.frame':    380 obs. of  14 variables:
+##  $ Wk          
+##  $ Day         
+##  $ Date        
+##  $ Time        
+##  $ Home        
+##  $ xG          
+##  $ Score       
+##  $ xG.1        
+##  $ Away        
+##  $ Attendance  
+##  $ Venue       
+##  $ Referee     
+##  $ Match.Report
+##  $ Notes 
+```
+
+------------------------------------------------------------------------
+
+## Vectors
+
+It's actually just a reference to the fact that `$` allows to **extract a variable** from a dataset
+
+```{r}
+#| eval: true
+#| echo: true
+data$Home
+```
+
+------------------------------------------------------------------------
+
+## Vectors
+
+::::::::: incremental
+-   Variables are basically objects that we call vectors
+    -   Vectors are sequences of values that have the same class
+    -   R won't let you create a vector containing elements of different classes
+
+::: fragment
+We make our own vectors using the `c()`oncatenate function
+
+```{r}
+#| eval: true
+#| echo: true
+some_vector <- c("Hello world", 35, FALSE)
+some_vector 
+```
+:::
+
+::: fragment
+Note that R will coerce the different elements into the same class when we create a vector (in this case character)
+
+```{r}
+#| eval: true
+#| echo: true
+class(some_vector)
+```
+:::
+
+-   The fact that vectors are homogeneous in class allows that operations apply to all their elements
+
+:::::: fragment
+::::: columns
+::: column
+```{r}
+#| eval: true
+#| echo: true
+c(1, 2, 3) / 3
+```
+:::
+
+::: column
+```{r}
+#| eval: true
+#| echo: true
+3 / c(1, 2, 3) 
+```
+:::
+:::::
+::::::
+:::::::::
+
+------------------------------------------------------------------------
+
+## Subsetting
+
+-   With `$`, you can extract a single variable from a dataset
+-   You can extract several variables and specific observations from a data frame using `[]`
+
+$$\text{data}[\text{row(s)}, \:\:\text{column(s)}]$$
+
+. . .
+
+::::::: columns
+:::: column
+::: fragment
+-   Inside the brackets, indicate what you want to keep using:
+    -   Indices: e.g., the third column has index 3
+    -   Logical: A vector of TRUE and FALSE
+    -   Names: They must be in quotation marks
+:::
+::::
+
+:::: column
+::: fragment
+Example:
+
+```{r}
+#| eval: true
+#| echo: true
+data[1, c("Venue", "Attendance")]
+```
+
+We can also subset single vectors:
+
+```{r}
+#| eval: true
+#| echo: true
+vector <- c(3, 2, 1)
+vector[c(TRUE, TRUE, FALSE)]
+```
+:::
+::::
+:::::::
+
+------------------------------------------------------------------------
+
+### Practice
+
+```{r}
+countdown::countdown(
+  minutes = 4,
+  top = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
+1.  Download and import the dataset if you haven't already
+
+2.  Combine the use of `[]` and the function `nrow()` to obtain the last value of the `Wk` variable
+
+3.  Subset the home team, the score, and the away team for matches that occured during the last week
+
+::: callout-tip
+Instead of `str()`, you can use the `names()` function to display all the variable names of a data frame.
+:::
+
+------------------------------------------------------------------------
+
+### Solution
+
+1.  Download and import the dataset if you haven't already
+
+```{r}
+#| eval: false
+#| echo: true
+
+data <- read.csv("/Users/jan/Downloads/ligue1.csv")
+```
+
+2.  Combine the use of `[]` and the function `nrow()` to obtain the last value of the `Wk` variable.
+
+```{r}
+#| eval: true
+#| echo: true
+
+last_week <- data[nrow(data), "Wk"]
+last_week
+```
+
+------------------------------------------------------------------------
+
+3.  Subset the home team, the score, and the away team for matches that occured during the last week
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+#| error: true
+
+names(data)
+```
+:::
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+#| error: true
+#| output-location: fragment
+data[Wk == last_week, c("Home", "Score", "Away")]
+```
+:::
+
+:::: incremental
+-   Oops! Seems like R couldn't find the Wk variable
+    -   R was looking for Wk in our environment
+    -   But there is no Wk there
+-   We must refer to the data frame `data` which is in our environment
+    -   Then we can access Wk using the `$` symbol
+
+::: fragment
+```{r}
+#| eval: true
+#| echo: true
+data[data$Wk == last_week, c("Home", "Score", "Away")]
+```
+:::
+::::
+
+------------------------------------------------------------------------
+
+## Overview
+
+::::::: columns
+:::::: {.column width="50%"}
+::: {.fragment .semi-fade-out fragment-index="0"}
+1.  **Getting Started**
+    -   About R
+    -   The R Studio IDE
+    -   Import and eyeball data
+:::
+
+::: {.fragment .semi-fade-out fragment-index="0"}
+2.  **Anatomy of a `data.frame`**
+    -   Data structure
+    -   Classes
+    -   Vectors
+    -   Subsetting
+:::
+
+::: {.fragment .fade-in}
+3.  **Wrap Up**
+    -   Summary and key take-aways
+:::
+::::::
+:::::::
+
+------------------------------------------------------------------------
+
+## Wrap Up
+
+::: fragment
+### Import data
+
+```{r}
+#| eval: false
+#| echo: true
+
+data <- read.csv("/Users/jan/Downloads/ligue1.csv")
+```
+:::
+
+::: fragment
+### Class
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+is.numeric("1.6180339") # What would be the output?
+```
+:::
+
+::: fragment
+### Subsetting
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+data$Home[3] # What would be the output?
+```
+:::
+
+------------------------------------------------------------------------
+
+## Overview
+
+::::::::: columns
+:::::: {.column width="50%"}
+::: {.fragment .semi-fade-out fragment-index="0"}
+1.  **Getting Started**
+    -   About R
+    -   The R Studio IDE
+    -   Import and eyeball data
+:::
+
+::: {.fragment .semi-fade-out fragment-index="0"}
+2.  **Anatomy of a `data.frame`**
+    -   Data structure
+    -   Classes
+    -   Vectors
+    -   Subsetting
+:::
+
+::: {.fragment .semi-fade-out fragment-index="0"}
+3.  **Wrap Up**
+    -   Summary and key take-aways
+:::
+::::::
+
+:::: {.column width="50%"}
+::: {.fragment .fade-in}
+4. **Markdown and universal writing** 
+    - Office Model vs. Engineering Model
+    - Excel failures
+    - Markdown
+:::
+::::
+:::::::::
+
+# Markdown and universal writing
+
+## Office Model vs. Engineering Model
+
+Writing up research is a complicated, messy process!
+
+---
+
+## Office Model vs. Engineering Model
+
+- Loads of puzzle pieces:
+  - Data
+  - Statistical results
+  - Fieldwork
+  - Analysis
+  - Figures
+  - Tables
+  - Citations
+  - Text
+
+- Each of these comes from a different place
+
+---
+
+## Office Model vs. Engineering Model
+
+Two general approaches for this mess:
+
+:::: {.columns}
+
+::: {.column}
+
+The **Office** model
+
+  - Manually put everything in one document (and repeat often)
+
+:::
+
+::: {.column}
+
+The **Engineering** model
+
+  - Work with the raw pieces and compile it all in the end 
+  
+:::
+
+::::
+
+---
+
+## The Office Model 
+
+:::: {.columns}
+
+::: {.column}
+
+Everything lives in one `.docx` file
+
+  - Drag images in
+  - Copy/paste stats from R 
+  - Connect Word to Zotero or Endnote
+  - Track versions with filenames:
+    - `ms.docx`, `ms2_final.docx`, `ms2_final_final.docx`
+:::
+
+::: {.column}
+
+Final output = `.docx` file
+
+![](images/office-model.png){width="500"}
+
+:::
+
+::::
+
+---
+
+## The Engineering Model 
+
+:::: {.columns}
+
+::: {.column}
+
+Everything lives separately and is combined in the end
+
+  - Type text in a plain text document
+  - Import images automatically
+  - Import stats automatically from R scripts (`.R` or `.qmd`) or `.do` files
+  - Store citations in reference manager
+  - Track versions with git
+  
+:::
+
+::: {.column}
+
+Final output = whatever you want (Word, PDF, HTML)
+
+![](images/office-model.png){width="500"}
+
+:::
+
+::::
+
+---
+
+## Office Model vs. Engineering Model
+
+There is no one right way!
+
+::::: {.columns}
+
+:::: {.incremental}
+
+::: {.column style="font-size: smaller;"}
+
+The **Office** model
+
+Cons:
+
+  - With changing analyses or data, manually updating your doc is laborous
+  - Chaos-prone: 
+    - You got to remember which script generated what)
+  - Error-prone:
+    - It is easy to forget to update all figures, tables, results in text, etc.
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+The **Engineering** model
+
+Cons:
+
+  - A bit of an entry cost 
+    - Need to learn a new coding language
+  - You'll always work with people who only use Word
+  
+:::
+
+::::
+
+::::
+
+---
+
+## Office Model vs. Engineering Model
+
+::::: {.columns}
+
+:::: {.incremental}
+
+::: {.column style="font-size: smaller;"}
+
+The **Office** model
+
+Pros: 
+
+  - No coding, easy environments
+  - The whole world runs on Word
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+The **Engineering** model
+
+Pros: 
+
+  - Less **cognitive** load
+    - While everything seems complex in the beginning, no chaos because all is documented and transparent
+  - Less **work** load (in the long run)
+    - No need to copy/paste new results, add updated figures, reformat citation, etc.
+  - Transparency
+    - There's a record of everything you do
+    - Your findings are reproducible by anyone (and yourself!)
+  
+:::
+
+::::
+
+:::::
+---
+
+## Excel failures
+
+:::: {.columns}
+
+::: {.column style="font-size: smaller;"}
+
+![](images/rr-abstract.png){width="500"}
+
+Dept:GDP ratio 90%+ &rarr; -0.1% growth
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+![Paul Ryan's 2013 House budget resolution](images/path-to-prosperity.jpg){width="300"}
+:::
+
+::::
+
+--- 
+
+## Excel failures
+
+:::: {.columns}
+
+::: {.column style="font-size: smaller;"}
+
+![Thomas Herndon](images/thomas-herndon.jpg){width="300"}
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+![From [Paul Krugman, "The Excel Depression"](https://www.nytimes.com/2013/04/19/opinion/krugman-the-excel-depression.html)](images/krugman-allowed.png){width="500"}
+:::
+
+::::
+
+--- 
+
+## Engineering model in real life
+
+Private companies and governments use the engineering model to write reports on data
+
+:::: {.columns}
+
+::: {.column style="font-size: smaller;"}
+
+![[Airbnb](https://peerj.com/preprints/3182.pdf)](images/airbnb.png){width="500"}
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+![](images/uk-long.png){width="500"}
+
+![[The UK's reproducible analysis pipeline](https://dataingovernment.blog.gov.uk/2017/03/27/reproducible-analytical-pipeline/)](images/uk-short.png){width="300"}
+:::
+
+::::
+
+--- 
+
+## So, what is Markdown?
+
+- There are many different typesetting languages in which you can write. 
+- The most widely used ones are perhaps LaTeX (mostly scientific work), HTML (web-based stuff) and Word.
+
+:::: {.columns}
+
+::: {.column}
+
+- How to get around learning all of them and having to switch for different outputs? 
+  - Write in one simplified syntax (Markdown) 
+  - Convert to whatever output you want
+
+:::
+
+::: {.column}
+
+![](images/md-to-everything.png){width="300"}
+
+:::
+
+::::
+
+---
+
+## And what is RMarkdown/Quarto?
+
+- Quarto and RMarkdown are publishing systems which use markdown language. 
+- They allow you to render to different outcome formats
+
+```sh
+# To HTML
+quarto render manuscript.qmd --to html
+
+# To Word
+quarto render manuscript.qmd --to docx
+
+# To PDF (through LaTeX)
+quarto render manuscript.qmd --to pdf
+```
+
+- They allow to combine code, figures, tables, images, text etc. (more on that now)
+
+--- 
+
+## Overview
+
+::::::::: columns
+::: {.column style="font-size: smaller;"}
+::: {.fragment .semi-fade-out fragment-index="0"}
+1.  **Getting Started**
+    -   About R
+    -   The R Studio IDE
+    -   Import and eyeball data
+    -   Use functions
+:::
+
+::: {.fragment .semi-fade-out fragment-index="0"}
+2.  **Anatomy of a `data.frame`**
+    -   Data structure
+    -   Classes
+    -   Vectors
+    -   Subsetting
+:::
+
+::: {.fragment .semi-fade-out fragment-index="0"}
+3.  **Wrap Up**
+    -   Summary and key take-aways
+:::
+::::::
+
+::: {.column style="font-size: smaller;"}
+
+::: {.fragment .semi-fade-out fragment-index="0"}
+4. **Markdown and universal writing** 
+    - Office Model vs. Engineering Model
+    - Excel failures
+    - Markdown
+:::
+
+::: {.fragment .fade-in}
+5.  **Writing reports in Quarto**
+    -   What is Quarto?
+    -   YAML header
+    -   Code chunks
+    -   Text formatting
+    -   Run and render your code
+    -   Inline code
+    -   Tables
+    -   Preset themes
+    -   Report parameters
+:::
+::::
+:::::::::
+
+
+# Writing reports in Quarto
+
+------------------------------------------------------------------------
+
+## What is Quarto?
+
+- Quarto is an open-source publishing system in which you can both write/run code (R/Python/Julia/Observable) and edit text
+
+- Quarto is the newer, fancier version of RMarkdown (which only worked with R code)
+
+- It is structured around 3 types of content:
+
+    -   Code chunks to run and render the output
+    -   Editable text to display
+    -   YAML metadata for the Quarto build process
+
+------------------------------------------------------------------------
+
+## What is Quarto?
+
+-   Let's create our first Quarto document!
+
+-   Click on File \> New File \> Quarto document
+
+![](images/new_quarto.png){width="500"}
+
+------------------------------------------------------------------------
+
+## What is Quarto?
+
+It creates a template containing the 3 types of content:
+
+::::: columns
+::: {.column width="30%"}
+<br>
+
+YAML header
+
+<br> <br>
+
+Text
+
+<br> <br>
+
+Code Chunk
+:::
+
+::: {.column width="70%"}
+![](images/quarto_template.png){width="800"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### YAML Header
+
+-   The YAML header contains general information related to the file configuration:
+
+    -   Title/subtitle (in quotes)
+    -   Author/date (in quotes)
+    -   Output type (html/pdf)
+    -   Editor configuration (use source, not visual)
+    -   ...
+
+::: fragment
+-   It should be specified at the very beginning of the document and surrounded by three dashes like this:
+
+``` markdown
+---
+title: "My first Quarto document"
+subtitle: "What a blast"
+author: "My Name"
+date: "05/01/2024"
+format: html
+editor: source
+---
+```
+:::
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### Code Chunks
+
+-   Code chunks are blocks of R code that can be run when working on and rendering the .qmd file
+
+::: fragment
+-   You can insert a code chunk using `Ctrl + Alt + i` or by typing the backticks chunk delimiters as follows
+
+```{r}
+#| eval: false
+#| echo: true
+1 + 1
+```
+:::
+
+::: fragment
+-   When rendering the document, R will execute the code
+    -   Both the code and the output will appear in the document like so
+
+```{r}
+#| eval: true
+#| echo: true
+1 + 1
+```
+:::
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### Code Chunks
+
+-   The **content** to be **displayed** from the code chunk can be specified in **chunk options**
+    -   For instance, to display only the output and not the code chunk, you can set `echo` to `FALSE`
+
+::::: columns
+::: column
+```` markdown
+`r ''````{r, echo = F}
+1+1
+```
+````
+:::
+
+::: column
+```` markdown
+`r ''````{r}
+#| echo: false
+1+1 
+```
+````
+:::
+:::::
+
+-   And the output will only be
+
+```{r}
+#| eval: true
+#| echo: false
+1 + 1
+```
+
+-   Instead of
+
+```{r}
+#| eval: true
+#| echo: true
+1 + 1
+```
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### Code Chunks
+
+```{r, echo = F}
+kable(tibble(Option = c("eval", "echo", "warning", "error", "message", 
+"results", "fig.width", "fig.height"),
+Default = c("TRUE", "TRUE", "TRUE", "TRUE", 
+"TRUE", "'markup'", "7", "7"),
+Effect = c("Whether to evaluate the code and include its results", 
+"Whether to display code along with its results", 
+"Whether to display warnings", 
+"Whether to display errors", 
+"Whether to display messages", 
+"'hide' to hide the output", 
+"Width in inches for plots created in chunk", 
+"Height in inches for plots created in chunk")), 
+align = "lcl", 
+caption = "Chunk Options to Know") %>%
+row_spec(0, align = "c")  %>% 
+  kable_styling(
+    font_size = 20,  # Reduce text size
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE
+  )
+```
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### Code Chunks
+
+-   For an option to be the default for the whole document, set it up in the YAML header:
+
+``` markdown
+---
+title: "My first Quarto document"
+format: html
+execute:
+  echo: false
+  warning: false
+---
+```
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### Text Formatting
+
+-   Quarto is not only about rendering code but also about <b>writing</b> actual <b>text</b>
+
+  -   You can write paragraphs as you would normally do on a typical report
+  -   And Quarto provides convenient ways to format your text
+
+-   Unlike most text editing software, in source Quarto text formatting isn't about clicking on dedicated buttonds
+
+  -   It relies on symbols that should be written along with the text
+
+------------------------------------------------------------------------
+
+## Basic principles
+
+### Text Formatting
+
+::: {style="font-size: 0.6em; line-height: 1.2;"}
++------------------------------------------+-----------------------------------------------------------------------------+
+| Type...                                  | ...to get                                                                   |
++==========================================+=============================================================================+
+| ``` default                              | Some text in a paragraph.                                                   |
+| Some text in a paragraph.                |                                                                             |
+|                                          | More text in the next paragraph. Always use empty lines between paragraphs. |
+| More text in the next paragraph. Always  |                                                                             |
+| use empty lines between paragraphs.      |                                                                             |
+| ```                                      |                                                                             |
++------------------------------------------+-----------------------------------------------------------------------------+
+| `*Italic*` or `_Italic_`                 | *Italic*                                                                    |
++------------------------------------------+-----------------------------------------------------------------------------+
+| `**Bold**` or `__Bold__`                 | **Bold**                                                                    |
++------------------------------------------+-----------------------------------------------------------------------------+
+| `# Heading 1`                            | # Heading 1                                                                 |
++------------------------------------------+-----------------------------------------------------------------------------+
+| `## Heading 2`                           | ## Heading 2                                                                |
++------------------------------------------+-----------------------------------------------------------------------------+
+| `### Heading 3`                          | ### Heading 3                                                               |
++------------------------------------------+-----------------------------------------------------------------------------+
+| (Go up to heading level 6 with `######`) |                                                                             |
++------------------------------------------+-----------------------------------------------------------------------------+
+| `[Link text](https://www.example.com)`   | [Link text](https://www.example.com)                                        |
++------------------------------------------+-----------------------------------------------------------------------------+
+
+------------------------------------------------------------------------
+:::
+
+---
+
+## Basic principles
+
+### Run and render your code
+
+:::: {.columns}
+
+::: {.column}
+
+- You have different options to execute the content of a code chunk in Quarto
+
+  - Check out the buttons at the top right of the chunk
+
+:::
+
+::: {.column}
+
+![](images/code_chunks.png){width="300"}
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column}
+
+- To render a Quarto file, click on the render button
+
+:::
+
+::: {.column}
+
+![](images/render.png){width="300"}
+:::
+
+::::
+
+---
+
+## Useful features
+
+### Inline code
+
+- Quarto allows to include R output directly in text
+- To do this, use `` `r "\u0060r r_code_here\u0060"` ``
+
+
+````
+```{{r}}
+#| label: find-avg-mpg
+#| echo: false
+number_of_days <- 5
+```
+
+We are `r "\u0060r number_of_days\u0060"` days into the week. 
+
+````
+
+```{r}
+#| eval: true
+#| echo: false
+number_of_days <- 5
+```
+
+… would render to this:
+
+> We are `r number_of_days` days into the week. 
+
+---
+
+### That's it for today :)
+
+
+
+
+
+
+

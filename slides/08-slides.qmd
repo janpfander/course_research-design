@@ -1,0 +1,438 @@
+---
+title: "Colliders and Confounders"
+format: 
+  revealjs:
+    theme: simple
+    smaller: true
+    slide-number: true
+    # incremental: true
+    # code-link: true
+    chalkboard: true
+    history: false
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(truncnorm)
+library(broom)
+```
+
+## Overview
+
+::::: columns
+::: {.column style="font-size: smaller;"}
+1.  **What is Causality**
+
+2. **Correlation is not causality**
+
+3. **Confounders**
+
+4.  **Colliders**
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+:::
+:::::
+
+# What is Causality? 
+
+---
+
+## We all have an idea of what “causality” means. 
+
+<br>
+
+Whenever we ask “why” question, we are asking for a cause.
+
+---
+
+## A simple definition
+
+- We could say that X causes Y if…
+
+- we were we to intervene and change the value of X without changing anything else…
+
+- and then Y would change as a result.
+
+---
+
+## Associations vs. Causality
+
+::::: columns
+::: {.column}
+**How do we figure out associations?**
+
+<br>
+
+Looking at data, using math and statistics
+:::
+
+::: {.column}
+**How do we figure out causation? **
+
+<br>
+
+Philosophy (and good research design). No math or stats.
+:::
+
+:::::
+
+---
+
+![](images/simpsons.jpg){width="80%"}
+
+# Confounders
+
+---
+
+## Does self-confidence make you being kissed more often? 
+
+Imagine you are a researcher and have this (slightly stupid) research question. 
+
+```{r}
+#| echo: false
+set.seed(1234) # For reproducibility
+
+sample_size <- 200
+
+kisses <- tibble(
+  id = 1:sample_size,
+  relationship = sample(0:1, sample_size, replace = TRUE),
+  # we use rtruncnorm() to add some random variation
+  # a and b arguments in rtruncnorm() mark the limits of the sampling
+  kisses = 300 + 300*relationship + rtruncnorm(sample_size, mean = 0, sd = 100, a = - 300),
+  self_confidence = 4 + 2*relationship + rtruncnorm(sample_size, mean = 0, sd = 1, a = - 4, b = 2)
+) |> 
+  # pick nicer values for the relationship variable
+  mutate(relationship = recode_factor(relationship, `0` = "single", 
+                                      `1` = "in couple"))
+```
+
+---
+
+## What does this (made up!) data suggest? 
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+baseline_plot <- kisses |> 
+  ggplot(aes(y = kisses , x = self_confidence)) +
+  geom_point() +
+  guides(color=guide_legend(title="relationship status"))+
+  scale_color_viridis_d() +
+  labs(x = "Self confidence score", 
+       y = "Kisses per year") +
+  theme_minimal() 
+
+baseline_plot
+```
+
+---
+
+## There appears to be a relationship!
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+baseline_plot + 
+  geom_smooth(method = "lm") 
+```
+
+---
+
+## We can run the regression
+
+```{r}
+#| echo: true
+model <- lm(kisses ~ self_confidence, data = kisses)
+
+summary(model)
+```
+
+`r emoji::emoji("tada")` We have an answer to our research question!
+
+Or, wait, do we?
+
+---
+
+## What does plot suggest? 
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+by_relationship_plot <- kisses |> 
+  ggplot(aes(y = kisses , x = self_confidence, color = relationship)) +
+  geom_point() +
+  guides(color=guide_legend(title="relationship status"))+
+  scale_color_viridis_d() +
+  labs(x = "Self confidence score", 
+       y = "Kisses per year") +
+  theme_minimal() 
+
+by_relationship_plot
+```
+
+---
+
+## No more relationship within the different subgroups
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+by_relationship_plot + 
+  geom_smooth(method = "lm") 
+```
+
+--- 
+
+## In fact, this is how the data was generated
+
+Relationship status increases both kisses and self confidence. They are otherwise independent.  
+
+```{r}
+#| echo: true
+#| eval: false
+set.seed(1234) # For reproducibility
+
+sample_size <- 200
+
+kisses <- tibble(
+  id = 1:sample_size,
+  relationship = sample(0:1, sample_size, replace = TRUE),
+  # we use rtruncnorm() to add some random variation
+  # a and b arguments in rtruncnorm() mark the limits of the sampling
+  kisses = 300 + 300*relationship + rtruncnorm(sample_size, mean = 0, sd = 100, a = - 300),
+  self_confidence = 4 + 2*relationship + rtruncnorm(sample_size, mean = 0, sd = 1, a = - 4, b = 2)
+) |> 
+  # pick nicer values for the relationship variable
+  mutate(relationship = recode_factor(relationship, `0` = "single", 
+                                      `1` = "in couple"))
+```
+
+---
+
+## Relationship status is a "Confounder"
+
+- To account for confounders, in a regression analysis, we can add it as another predictor to our regression model. 
+
+- People also call this "controlling for a variable"
+
+- This is like looking into the two groups (relationship vs. single) separately.
+
+---
+
+## Relationship status is a "Confounder"
+
+```{r}
+#| echo: true
+model <- lm(kisses ~ self_confidence + relationship, data = kisses)
+
+summary(model)
+```
+- Our research question was about a causal effect of self confidence, so we only interpret the `self_confidence` estimate. Note how the effect is tiny now, and statistically not significantly different from 0. 
+
+---
+
+::: {.callout-note}
+As a rule, never interpret the estimates of control variables in regressions. Focus on the one variable that your research question was on. 
+:::
+
+---
+
+## Confounders
+
+In sum we want to control for confounders in our analyses
+
+# Colliders
+
+---
+
+## Are shabby-looking restaurants serving nicer food than fancy ones?
+
+```{r}
+#| echo: false
+
+sample_size <- 1000
+
+# Generate independent food quality and atmosphere scores (1 to 5)
+restaurants <- tibble(
+  id = 1:sample_size,
+  food_quality = sample(1:5, sample_size, replace = TRUE),
+  atmosphere = sample(1:5, sample_size, replace = TRUE),
+  # Overall rating depends on both factors (rounded to nearest integer)
+  rating = round((food_quality + atmosphere) / 2 )
+) |> 
+  # add an additional variable of whether 4 or more stars
+  mutate(stars = ifelse(rating >= 4, "4 or 5", "less than 4"))
+```
+
+Imagine that's your research question. 
+
+You know that restaurants in your town are rated based on two criteria: food quality and atmosphere.
+
+You check out all the greatest restaurants in town (at least 4 out of 5 stars) and this is what you observe: 
+
+---
+
+## Data of 4- and 5-star restaurants
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+baseline_plot <- restaurants |> 
+    # Keep only top-rated restaurants (4 or 5 stars)
+  filter(rating >= 4) |> 
+  ggplot(aes(x = food_quality, y = atmosphere)) +
+  geom_jitter(width = 0.1, height = 0.1, alpha = 0.5) +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 1:5) +
+  labs(
+    x = "Food Quality (1-5)",
+    y = "Atmosphere (1-5)") +
+  theme_minimal()
+
+baseline_plot
+```
+
+---
+
+## There appears to be a relationship!
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+baseline_plot +
+    geom_smooth(method = "lm", se = FALSE) 
+```
+
+---
+
+## But remember, we are only looking at the best restaurants
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+restaurants |> 
+    # Keep only top-rated restaurants (4 or 5 stars)
+  filter(rating >= 4) |> 
+  ggplot(aes(x = food_quality, y = atmosphere, color = stars)) +
+  geom_jitter(width = 0.1, height = 0.1, alpha = 0.5) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 1:5) +
+  labs(
+    x = "Food Quality (1-5)",
+    y = "Atmosphere (1-5)") +
+  theme_minimal() 
+
+baseline_plot
+```
+
+---
+
+## Yet, our research questions was about restaurants in general 
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+restaurants |> 
+  ggplot(aes(x = food_quality, y = atmosphere)) +
+  geom_jitter(aes(color = stars), width = 0.1, height = 0.1, alpha = 0.5) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 1:5) +
+  labs(
+    x = "Food Quality (1-5)",
+    y = "Atmosphere (1-5)") +
+  theme_minimal() 
+
+baseline_plot
+```
+
+---
+
+## When looking at all restaurants, there is no relationship
+
+```{r fig.dim=c(8, 4), out.width="100%"}
+restaurants |> 
+  ggplot(aes(x = food_quality, y = atmosphere)) +
+  geom_jitter(aes(color = stars), width = 0.1, height = 0.1, alpha = 0.5) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 1:5) +
+  labs(
+    x = "Food Quality (1-5)",
+    y = "Atmosphere (1-5)") +
+  theme_minimal() +
+    geom_smooth(method = "lm", se = FALSE) 
+```
+
+---
+
+## In fact, this is how the data was generated
+
+```{r}
+#| echo: true
+#| eval: false
+
+sample_size <- 1000
+
+# Generate independent food quality and atmosphere scores (1 to 5)
+restaurants <- tibble(
+  id = 1:sample_size,
+  food_quality = sample(1:5, sample_size, replace = TRUE),
+  atmosphere = sample(1:5, sample_size, replace = TRUE),
+  # Overall rating depends on both factors (rounded to nearest integer)
+  rating = round((food_quality + atmosphere) / 2 )
+) |> 
+  # add an additional variable of whether 4 or more stars
+  mutate(stars = ifelse(rating >= 4, "4 or 5", "less than 4"))
+```
+
+---
+
+## Restaurant stars is a "Collider variable"
+
+If we look at **only the best** restaurants, our model yields a **statistically significant negative association**.
+
+```{r}
+#| echo: true
+
+best_restaurants <- restaurants |> 
+  filter(stars == "4 or 5")
+
+model <- lm(atmosphere ~ food_quality, data = best_restaurants)
+
+tidy(model)
+```
+
+. . .
+
+Note that this similar to adding stars as a control variable (for both subgroups, selecting them independently yields a negative relationship)
+
+```{r}
+#| echo: true
+model <- lm(atmosphere ~ food_quality + stars, data = restaurants)
+
+tidy(model)
+```
+
+---
+
+## Restaurant stars is a "Collider variable"
+
+If we look at **all** restaurants, our model will yield **no statistically significant association** (in line with the true data generating process). 
+
+```{r}
+#| echo: true
+model <- lm(atmosphere ~ food_quality, data = restaurants)
+
+tidy(model)
+```
+
+---
+
+## Colliders
+
+We do not want to control/condition on colliders in our analyses. 
+
+---
+
+::: {.callout-note}
+Note that the restaurant case we have discussed is a special case of collider bias, which is called a **selection bias**. The idea behind a name is that you **select** a non-random sample of a population that you want to make claims about.
+:::
+
+---
+
+That's it for today :)
+
+
+
+

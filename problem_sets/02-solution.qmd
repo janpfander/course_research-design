@@ -1,0 +1,125 @@
+---
+title: "Problem set 2"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+  pdf:
+    toc: true
+  docx:
+    toc: true
+---
+
+### Getting started
+
+```{r packages}
+#| message: false
+library(tidyverse)
+library(janitor)
+```
+
+### Read the data
+
+```{r}
+#| echo: false
+
+# load the data in this document but don't show the chunk for the different file path compared to students' projects
+breed_rank <- read_csv("../data/breed_rank.csv")
+breed_traits <- read_csv("../data/breed_traits.csv")
+```
+
+```{r}
+#| eval: false
+breed_rank <- read_csv("data/breed_rank.csv")
+breed_traits <- read_csv("data/breed_traits.csv")
+```
+
+### Clean the data
+
+Display variables.
+```{r}
+names(breed_rank)
+names(breed_traits)
+```
+
+Make better names.
+```{r}
+breed_traits <- breed_traits |> 
+  clean_names()
+```
+
+### Manipulate the data using `dplyr`
+
+Maka a summary. 
+```{r}
+breed_traits |> 
+  group_by(shedding_level) |> 
+  summarise(n = n())
+```
+
+Filter the shedding_level 0. 
+```{r}
+breed_traits <- breed_traits |> 
+  filter(shedding_level != 0)
+```
+
+Check if manipulation was successful. 
+```{r}
+breed_traits |> count(shedding_level)
+```
+
+Make an untidy data frame.
+```{r}
+untidy_scores <- breed_traits |> 
+  mutate(untidy_score = shedding_level + 
+           coat_grooming_frequency + drooling_level) |> 
+  select(breed, untidy_score)
+```
+
+Arrange scores in descending order.
+```{r}
+untidy_scores |> 
+  arrange(desc(untidy_score))
+```
+
+### Tidying the data
+
+How does this this data set fail to meet the criteria for tidy data?
+
+There are three interrelated rules which make a dataset tidy:
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+We have a year and a rank variable, but neither of these variables have their own column. Shown above is one observation, by dog breed. But that "one" observation is actually eight separate observations: the rank in 2013, the rank in 2014, etc. Each observation needs to have its own row.
+
+Make pivoted data with a year and a rank variable.
+```{r}
+ranks_pivoted <- breed_rank |> 
+  pivot_longer(`2013 Rank`:`2020 Rank`,
+               names_to = "year",
+               values_to = "rank")
+```
+
+Rename breed and make the year variable numeric.
+```{r}
+ranks_pivoted <- ranks_pivoted |> 
+  rename(breed = Breed) |> 
+  mutate(year = parse_number(year))
+```
+
+Filter data to only Bernese Mountain Dogs.
+```{r}
+ranks_pivoted <- ranks_pivoted |> 
+  filter(str_detect(breed, "Bernese")) 
+```
+
+Plot rankings across time. 
+```{r}
+ranks_pivoted |>
+  ggplot(aes(x = year, y = rank, label = rank)) +
+  geom_point(size = 3) +
+  geom_text(vjust = 2)
+```
+

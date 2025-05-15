@@ -1,0 +1,101 @@
+---
+title: "Citing stuff"
+---
+
+In this guide, I will briefly outline a workflow on citing literature based on RStudio, Quarto and Zotero. It is a workflow that I find very convenient, but there are (many) other possible workflows using the same tools. In contexts outside of this class, you might not want to use Markdown and instead work with Zotero in Word, or GoogleDocs. Luckily, Zotero works very well with these, too, and you find more information on that on the [Zotero homepage](https://www.zotero.org/).
+
+Zotero is a free, open-source citation manager. It makes citing stuff (scientific journal articles, blog posts, news articles, websites, videos and more)  **a lot** easier. It also helps you organize content for research projects. I highly recommend using Zotero for your academic works, even if it is only for a term paper. 
+
+![Example of what the Zotero interface looks like](images/zotero_example.png){width=100%}
+
+# Download Zotero
+
+Download Zotero on your computer. Also, download the Zotero Connector for your browser. The connector is essential for you to get the most out of Zotero. 
+
+![Your download window will look something like this](images/zotero_download.png){width=50%}
+
+# Adding citations
+
+There are several options for you to store items to your Zotero.
+
+## Via Zotero Connector 
+
+One option is to obtain a reference with one click from a journal website (@fig-connector-journal). Imagine, e.g., that you have searched for a scientific article (e.g. via google scholar) and have landed on the journal website. You can try clicking on the Zotero connecter, which will store the elements on the website as a reference in the project folder that you have currently open in Zotero. If you are luck and the journal website provides the relevant meta data, that's a super easy way to add you reference. If you are even luckier and the article is openly accessible (i.e. not behind a paywall) this method directly adds a pdf, which you can then view in Zotero.
+
+![An examle of using the connector on a journal webiste](images/zotero_connector-journal.png){#fig-connector-journal width=70%}
+
+Sometimes you might already have a pdf. If that pdf is open in your browser, you can use the connector to store a copy in Zotero (@fig-connector-pdf). If you are lucky, the pdf comes with the relevant meta-data for Zotero to add a proper citation. If not, this will only add the pdf and you need to rely on another method to add the meta-data.
+
+![An examle of using the connector on a pdf](images/zotero_connector-pdf.png){#fig-connector-pdf width=50%}
+
+While often the most convenient option, the connector doesn't always work, it depends a lot on which meta-data specific websites/pdfs offer. 
+
+## Via Google scholar
+
+When searching an article on google scholar, the search results often come with pre-formated meta-data for citation. You can export this meta-data as an "EndNote" file (@fig-google-scholar). This will be recognized by the Zotero Connector, which then asks you if you want to add it to your library.
+
+![An examle of using the citation export function of Google Scholar](images/zotero_google-scholar.png){#fig-google-scholar width=70%}
+
+## Via an identifier
+
+Just as books have ISBNs (International Standard Book Numbers), scientific research articles have DOIs (Digital Object Identifiers). These numbers uniquely identify a piece of content (not only articles, also e.g., data bases). In Zotero, you can copy-paste these numbers into the respective search bar (@fig-identifier), and Zotero will access the relevant meta-data. 
+
+![An examle of using the Zotero identifier search bar](images/zotero_identifier.png){#fig-identifier width=70%}
+
+# RStudio + Quarto + Zotero
+
+
+If you have Zotero installed locally, its location will be detected automatically by RStudio, and you can access all citations from your main library. This is magical. In a new quarto document simply enter the visual editor mode^[Personally, this is the only case in which I use the "Visual" editor. Once I'm done with citing I switch back to the "Source" editor.] and type `@` (@fig-add-1). A drop down menu with all your Zotero references will appear (@fig-popup-1). You can type out your reference and select it as soon as it appears. This search function is, however, a bit limited. For better search options, click on the `insert` dropdown menu in RStudio (@fig-add-2). This provides you with better search options (@fig-popup-2) 
+
+::: {layout-nrow=2}
+![Adding a citation via "@"](images/citation_add-1.png){#fig-add-1}
+
+![Adding a citation via "insert"](images/citation_add-2.png){#fig-add-2}
+
+![Pop-up using "@"](images/citation_popup-1.png){#fig-popup-1}
+
+![Pop-up using "insert"](images/citation_popup-2.png){#fig-popup-2}
+:::
+
+If there isn't one already, adding a citation will create a new `.bib` file, where your citations gets stored. It will also add a new line to your yaml header `bibliography: references.bib`
+
+```yaml
+bibliography: references.bib
+```
+
+![An examle of what citation items in your .bib file look like](images/citation_bib-file.png){#fig-identifier width=50%}
+
+Once you render your document, all references will appear neatly at the bottom of your document. 
+
+# Picking a citation style
+
+There are many possible ways to cite, and different journals or scientific disciplines ask you to use different styles. If you use Zotero, switching from one style to another is super easy. For example, if you want to use the style of the American Psychological Association, you can download a formatting `.csl` file from the [Zotero Style Repository](https://www.zotero.org/styles) and drop it in your project folder. Then, simply add a line e file name in your yaml header:
+
+```yaml
+csl: apa.csl
+bibliography: references.bib
+```
+
+When you render your document, this will automatically cite according to the style you have specified. Magical. 
+ 
+# A little extra: `Better BibTex`
+
+At some point, if you want to have more flexibility (and stability) naming your citation items, you can install the [Better BibTex extension for Zotero](https://retorque.re/zotero-better-bibtex/).^[It's great and I use it, but for this class, honestly, don't bother.]  
+
+
+## More details
+
+For more information on how to cite in quarto, you can also check out these guides:
+
+- https://posit.co/blog/rstudio-1-4-preview-citations/
+- https://quarto.org/docs/authoring/citations.html
+- https://quarto.org/docs/visual-editor/technical.html#citations
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+---
+title: "Epistémologie et Esprit Critique <br>"
+subtitle: "A hands-on Introduction to `research_design` for students of the Sciences Pour un Monde Durable (SMD) undergraduate program at Paris Sciences et Lettres (PSL) University"
+slug: index
+---
+
+```{r}
+#| echo: false
+#| message: false
+library(tidyverse)
+library(kableExtra)
+```
+
+## Instructor 
+
+{{< fa user >}} [{{< var instructor.name >}}]({{< var instructor.url >}})
+ | {{< fa university >}} {{< var instructor.office >}}
+ |  {{< fa envelope >}} <a href='mailto:{{< var instructor.email >}}'>{{< var instructor.email >}}</a>
+ | {{< iconify fa6-brands bluesky size=1.1em title='Bluesky' >}} [Bluesky]({{< var instructor.bluesky >}})
+
+
+## Schedule
+
+```{r}
+#| echo: false
+schedule <- data.frame(
+  a = c(" ", 
+        0:14),
+  b = c(
+    " ",
+    text_spec("Welcome and Installation Party", link = "guides/install.qmd"),
+    text_spec("Introduction to R, RStudio and Quarto", link = "content/01-content.qmd"),
+    text_spec("Data Manipulation", link = "content/02-content.qmd"),
+    text_spec("Variables, Distributions and Summary Statistics", link = "content/03-content.qmd"),
+    text_spec("Data Visualization", link = "content/04-content.qmd"),
+    text_spec("Statistical Inference", link = "content/05-content.qmd"),
+    text_spec("Statistical Power", link = "content/06-content.qmd"),
+    text_spec("Linear Regression", link = "content/07-content.qmd"),
+    text_spec("Colliders and Confounders", link = "content/08-content.qmd"),
+    text_spec("RCTs and Validity", link = "content/09-content.qmd"),
+    text_spec("Scientific Publishing and the Replication Crisis", link = "content/10-content.qmd"),
+    text_spec("Writing a Preregistration", link = "content/11-content.qmd"),
+    text_spec("Meta-Analyses", link = "14-class/index.qmd"),
+    text_spec("How to Read and Present a Scientific Paper", link = "12-class/index.qmd"),
+    text_spec("Presentations Group Project", link = "13-class/index.qmd")
+  ),
+  c = c(
+    "Date",
+    "30/01/2025",
+    "06/02/25",
+    "13/02/25", 
+    "20/02/25", 
+    "06/03/25", 
+    "13/03/25", 
+    "20/03/25", 
+    "27/03/25", 
+    "02/04/25", 
+    "03/04/25", 
+    "10/04/25", 
+    "17/04/25", 
+    "15/05/25", 
+    "22/05/25", 
+    "05/06/25"
+  ),
+  d = c(
+    "Time",
+    rep("10h15 - 12h15", 15)
+  ),
+  e = c(
+    "Place*",
+    rep("Salle 3", 8), 
+    "Salle 5", 
+    rep("Salle 3", 6) 
+  )
+)
+
+# highlight the other room
+schedule$e[10] <- '<span style="background-color: #0C4B6A; color: white;">Salle 5</span>'
+schedule$c[10] <- '<span style="background-color: #F4C542;">02/04/25</span>'
+
+kable(schedule, col.names = NULL, align = "lll", escape = FALSE, format = "html") %>%
+  kable_styling(bootstrap_options = c("condensed", "hover"), full_width = FALSE) %>%
+  row_spec(1, font_size = 17) %>%
+  pack_rows("I Data Analysis", 2, 6) %>%
+  pack_rows("II Statistics", 7, 9) %>%
+  pack_rows("III Causal Inference", 10, 11) %>%
+  pack_rows("IV Science", 12, 16) %>%
+  footnote(symbol = "48 blvd Jourdan, Paris 14ème",
+           symbol_title = "Note:") 
+  #row_spec(10, extra_css = "background-color: #F4C542;")
+
+
+```

@@ -1,0 +1,1046 @@
+---
+title: "Statistical Power"
+format: 
+  revealjs:
+    theme: simple
+    smaller: true
+    slide-number: true
+    chalkboard: true
+    history: false
+execute:
+  echo: false  # Hide code by default
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(truncnorm)
+```
+
+## Overview
+
+::::: columns
+::: {.column style="font-size: smaller;"}
+1.  **The Central Limit Theorem revisited**
+
+2.  **From Null worlds to True effect worlds**
+
+3.  **Statistical power**
+
+4.  **A power simulation**
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+:::
+:::::
+
+# The Central Limit Theorem revisited
+
+---
+
+## Are action movies better than comedies?
+
+In the previous session on hypothesis testing, we invented a null world:
+
+We simulated a population of 1'000'000 movies with no difference.
+
+```{r}
+#| echo: true
+set.seed(1234) # For reproducibility
+
+imaginary_movies_null <- tibble(
+  movie_id = 1:1000000,
+  rating = sample(seq(1, 10, by = 0.1), size = 1000000, replace = TRUE),
+  genre = sample(c("Comedy", "Action"), size = 1000000, replace = TRUE)
+)
+```
+
+```{r}
+#| echo: false
+
+# simulate different sampling distributions
+get_sampling_distribution <- function(n_simulations = 1000, sample_size, data) {
+  
+  differences <- numeric(n_simulations)  # Pre-allocate vector for efficiency
+  
+  for (i in seq_len(n_simulations)) {
+    # Draw a sample of given size
+    imaginary_sample <- data |> 
+      sample_n(sample_size)
+    
+    # Compute rating difference
+    estimate <- imaginary_sample |> 
+      group_by(genre) |> 
+      summarize(avg_rating = mean(rating), .groups = "drop") |> 
+      summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) |> 
+      pull(diff)
+    
+    differences[i] <- estimate
+  }
+  
+  # Return a data frame with sample size
+  return(tibble(sample_size = sample_size, diff = differences))
+}
+
+# Define sample sizes to test
+sample_sizes <- c(20000, 10000, 1000)
+
+# Run the function for each sample size and combine sampling_null
+sampling_null <- bind_rows(lapply(sample_sizes, function(n) get_sampling_distribution(sample_size = n, data = imaginary_movies_null)))
+```
+
+
+---
+
+## Sampling distribution
+
+We randomly drew 1,000 samples from this population and calculated the difference between action movies and comedies for each.
+
+We called the distribution of the differences from the different samples the **sampling distribution**
+
+Our sample size was always the same: 20,000. 
+
+```{r}
+#| echo: true
+#| eval: false
+n_simulations <- 1000
+differences <- c() # make an empty vector
+sample_size <- 20000
+
+for (i in 1:n_simulations) {
+  # draw a sample of 20'000 films
+  imaginary_sample <- imaginary_movies |> 
+    sample_n(sample_size)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+```
+
+---
+
+## The Central Limit Theorem *(part I)*
+
+The sampling distribution approximates the shape of a normal distribution
+
+:::: r-stack
+
+:::{.fragment .fade-out fragment-index="3"}
+
+```{r}
+#| echo: false
+# Plot histograms with fading effect
+ggplot(sampling_null |> 
+         filter(sample_size == 20000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.3) +
+  scale_fill_viridis_d(option = "inferno") +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+:::
+
+:::{.fragment .fade-in fragment-index="3"}
+```{r}
+#| echo: false
+# Compute mean and SD for each sample size
+summary_stats <- sampling_null %>%
+  group_by(sample_size) %>%
+  summarise(mean_diff = mean(diff), sd_diff = sd(diff)) 
+
+# Compute mean and standard deviation of the simulated differences
+diff_mean <- summary_stats |> filter(sample_size == 20000) |> pull(mean_diff)
+diff_sd <- summary_stats |> filter(sample_size == 20000) |> pull(sd_diff)
+
+# Plot histogram with normal curve
+# Plot histograms with fading effect
+ggplot(sampling_null |> 
+         filter(sample_size == 20000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.3) +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  scale_fill_viridis_d(option = "inferno") +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+:::
+
+:::: 
+
+--- 
+
+## The Central Limit Theorem *(part II)*
+
+. . .
+
+This is what the sampling distribution looks like with samples of size 10,000
+
+```{r}
+#| echo: false
+# Compute mean and standard deviation of the simulated differences
+diff_mean_10000 <- summary_stats |> filter(sample_size == 10000) |> pull(mean_diff)
+diff_sd_10000 <- summary_stats |> filter(sample_size == 10000) |> pull(sd_diff)
+
+# Plot histogram with normal curve
+# Plot histograms with fading effect
+ggplot(sampling_null |> 
+         filter(sample_size == 10000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.3) +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1, alpha = 0.3) +  # Normal distribution curve
+    stat_function(fun = dnorm, args = list(mean = diff_mean_10000 , sd = diff_sd_10000), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  scale_fill_viridis_d(option = "inferno") +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+
+--- 
+
+## The Central Limit Theorem *(part II)*
+
+And with samples of size 1,000
+
+```{r}
+#| echo: false
+# Compute mean and standard deviation of the simulated differences
+diff_mean_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(mean_diff)
+diff_sd_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(sd_diff)
+
+# Plot histogram with normal curve
+# Plot histograms with fading effect
+ggplot(sampling_null |> 
+         filter(sample_size == 1000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.3) +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1, alpha = 0.3) +  # Normal distribution curve
+  stat_function(fun = dnorm, args = list(mean = diff_mean_10000 , sd = diff_sd_10000), 
+                color = "red", linetype = "dashed", size = 1, alpha = 0.3) +  # Normal distribution curve
+  stat_function(fun = dnorm, args = list(mean = diff_mean_1000 , sd = diff_sd_1000), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  scale_fill_viridis_d(option = "inferno") +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+
+--- 
+
+## The Central Limit Theorem *(part II)*
+
+The smaller the sample, the larger the standard deviation of the sampling distribution
+
+```{r}
+#| echo: false
+# Compute mean and standard deviation of the simulated differences
+diff_mean_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(mean_diff)
+diff_sd_1000 <- summary_stats |> filter(sample_size == 1000) |> pull(sd_diff)
+
+# Plot histogram with normal curve
+# Plot histograms with fading effect
+ggplot(sampling_null |> 
+         filter(sample_size == 1000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1, alpha = 0.3) +  # Normal distribution curve
+  stat_function(fun = dnorm, args = list(mean = diff_mean_10000 , sd = diff_sd_10000), 
+                color = "red", linetype = "dashed", size = 1, alpha = 0.3) +  # Normal distribution curve
+  stat_function(fun = dnorm, args = list(mean = diff_mean_1000 , sd = diff_sd_1000), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  scale_fill_viridis_d(option = "inferno") +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+
+---
+
+## How is this relevant for hypothesis testing?
+
+Imagine we find an effect of -0.2 in our sample 
+
+---
+
+In a sample based on 20'000 movies, that seems reasonably unlikely in a Null world
+
+```{r}
+# Plot histogram with normal curve
+ggplot(sampling_null |> 
+         filter(sample_size == 20000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_vline(xintercept = -0.2, color = "red", size = 1, linetype = "dashed") +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.3) +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  scale_fill_viridis_d(option = "inferno") +
+  scale_x_continuous(limits = c(-0.6, 0.6)) +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+
+
+---
+
+But the same effect in a sample of 1000 seems not so unlikely...
+
+```{r}
+# Plot histogram with normal curve
+ggplot(sampling_null |> 
+         filter(sample_size == 1000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_vline(xintercept = -0.2, color = "red", size = 1, linetype = "dashed") +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.3) +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1, alpha = 0.3) +  # Normal
+  stat_function(fun = dnorm, args = list(mean = diff_mean_1000, sd = diff_sd_1000), 
+                color = "red", linetype = "dashed", size = 1) +  # Normal distribution curve
+  scale_fill_viridis_d(option = "inferno") +
+  scale_x_continuous(limits = c(-0.6, 0.6)) +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+```
+
+--- 
+
+## The Central Limit Theorem 
+
+*(part I)*
+
+- The sampling distribution approximates the shape of a normal distribution
+
+*(part II)*
+
+- The smaller the sample, the larger the standard deviation of the sampling distribution
+
+# From Null worlds to True effect worlds
+
+---
+
+For example, let's imagine a world where the true difference between action and comedy movies is -0.2
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Generate Comedy and Action movie ratings using truncated normal distributions
+imaginary_movies_true <- tibble(
+  movie_id = 1:1000000,
+  genre = sample(c("Comedy", "Action"), size = 1000000, replace = TRUE),
+  rating = ifelse(
+    genre == "Comedy",
+    rtruncnorm(1000000, a = 1, b = 10, mean = 6.0, sd = 2), 
+    rtruncnorm(1000000, a = 1, b = 10, mean = 5.8, sd = 2)   
+  )
+)
+```
+
+
+```{r}
+#| echo: false
+
+# Define sample sizes to test
+sample_sizes <- c(20000, 10000, 1000)
+
+# Run the function for each sample size and combine sampling_null
+sampling_true <- bind_rows(lapply(sample_sizes, function(n) get_sampling_distribution(sample_size = n, data = imaginary_movies_true)))
+```
+
+---
+
+Let's plot the population data
+
+```{r}
+#| echo: true
+#| code-fold: true
+# Compute means
+means <- imaginary_movies_true |> 
+  group_by(genre) |> 
+  summarize(mean_rating = mean(rating)) |> 
+  # Adjust vertical placement for text labels
+  mutate(label_y = c(0.08, 0.06)) 
+
+# Plot
+ggplot(imaginary_movies_true, aes(x = rating, fill = genre)) +
+  geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.5, position = "identity") +
+  scale_fill_viridis_d(option = "plasma", begin = 0.2, end = 0.8) +  # Viridis color scale
+  scale_color_viridis_d(option = "plasma", begin = 0.2, end = 0.8) +  # Viridis color scale
+  geom_vline(data = means, aes(xintercept = mean_rating, color = genre), 
+             linetype = "dashed", size = 1, show.legend = FALSE) +  # Remove color legend for lines 
+  geom_text(data = means, aes(x = mean_rating, y = label_y, label = round(mean_rating, 2)),
+            hjust = -0.1, fontface = "bold") +  # Adjusted position to avoid overlap
+  labs(title = "Distribution of Movie Ratings by Genre",
+       x = "Rating",
+       y = "Density",
+       fill = "Genre") +
+  theme_minimal() 
+```
+
+---
+
+`r emoji::emoji("tada")` It worked, we see our imagined effect of ~ -0.2
+
+```{r}
+#| echo: true
+#| code-fold: true
+# Compute means
+means <- imaginary_movies_true |> 
+  group_by(genre) |> 
+  summarize(mean_rating = mean(rating)) |> 
+  # Adjust vertical placement for text labels
+  mutate(label_y = c(0.08, 0.06)) 
+
+# Plot
+ggplot(imaginary_movies_true, aes(x = rating, fill = genre)) +
+  geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.5, position = "identity") +
+  scale_fill_viridis_d(option = "plasma", begin = 0.2, end = 0.8) +  # Viridis color scale
+  scale_color_viridis_d(option = "plasma", begin = 0.2, end = 0.8) +  # Viridis color scale
+  geom_vline(data = means, aes(xintercept = mean_rating, color = genre), 
+             linetype = "dashed", size = 1, show.legend = FALSE) +  # Remove color legend for lines 
+  geom_text(data = means, aes(x = mean_rating, y = label_y, label = round(mean_rating, 2)),
+            hjust = -0.1, fontface = "bold") +  # Adjusted position to avoid overlap
+  labs(title = "Distribution of Movie Ratings by Genre",
+       x = "Rating",
+       y = "Density",
+       fill = "Genre") +
+  theme_minimal() 
+```
+
+--- 
+
+Imagine we look at a sample of 1000 movie ratings. 
+
+```{r}
+#| echo: true
+#| eval: false
+n_simulations <- 1000
+differences <- c() # make an empty vector
+sample_size <- 1000
+
+for (i in 1:n_simulations) {
+  # draw a sample of 20'000 films
+  imaginary_sample <- imaginary_movies |> 
+    sample_n(sample_size)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+```
+
+---
+
+This is what our sampling distribution would look like
+
+:::: r-stack
+
+:::{.fragment}
+
+```{r}
+# Compute mean and SD for each sample size
+summary_stats <- sampling_true %>%
+  group_by(sample_size) %>%
+  summarise(mean_diff = mean(diff), sd_diff = sd(diff)) 
+
+# Compute mean and standard deviation of the simulated differences
+diff_mean <- summary_stats |> filter(sample_size == 1000) |> pull(mean_diff)
+diff_sd <- summary_stats |> filter(sample_size == 1000) |> pull(sd_diff)
+
+# Plot histogram 
+base_plot <- ggplot(sampling_true |> 
+         filter(sample_size == 1000), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 color = "black", 
+                 alpha = 0.8) +
+  scale_fill_viridis_d(option = "inferno") +
+  labs(title = "Distribution of Rating Differences by Sample Size",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size",
+       color = "Sample Size") +
+  theme_minimal()
+
+base_plot
+```
+:::
+
+:::{.fragment}
+```{r}
+# Plot histogram with mean
+base_plot +
+  geom_vline(xintercept = diff_mean, color = "red", size = 1, linetype = "dashed") 
+```
+:::
+
+:::{.fragment}
+```{r}
+# Plot histogram with normal curve
+base_plot +
+  geom_vline(xintercept = diff_mean, color = "red", size = 1, linetype = "dashed") +
+  stat_function(fun = dnorm, args = list(mean = diff_mean, sd = diff_sd), 
+                color = "red", linetype = "dashed", size = 1)  # Normal distribution curve
+```
+:::
+
+::::
+
+---
+
+Now imagine we do a hypothesis test. 
+
+We can simulate both a null world and a true effect world (so far, nothing new)
+
+::::: columns
+::: {.column}
+
+**Null world**
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Null world population
+imaginary_movies_null <- tibble(
+  movie_id = 1:1000000,
+  rating = sample(seq(1, 10, by = 0.1), size = 1000000, replace = TRUE),
+  genre = sample(c("Comedy", "Action"), size = 1000000, replace = TRUE)
+)
+```
+
+:::
+
+::: {.column style="font-size: smaller;"}
+
+**True effect world**
+
+```{r}
+#| echo: true
+#| eval: false
+
+# True effect world population
+imaginary_movies_true <- tibble(
+  movie_id = 1:1000000,
+  genre = sample(c("Comedy", "Action"), size = 1000000, replace = TRUE),
+  rating = ifelse(
+    genre == "Comedy",
+    rtruncnorm(1000000, a = 1, b = 10, mean = 6.0, sd = 2), 
+    rtruncnorm(1000000, a = 1, b = 10, mean = 5.8, sd = 2)   
+  )
+)
+```
+
+:::
+
+:::::
+
+---
+
+And make a sampling distribution with sample size 1000 for both worlds (also nothing new)
+
+```{r}
+#| echo: true
+#| eval: false
+n_simulations <- 1000
+differences <- c() # make an empty vector
+sample_size <- 1000
+
+data <- imaginary_movies_true # replace with imaginary_movies_null
+
+for (i in 1:n_simulations) {
+  # draw a sample of films
+  imaginary_sample <- data |> 
+    sample_n(sample_size)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+```
+
+
+```{r}
+#| echo: false
+both_worlds <- bind_rows(
+  sampling_null |> mutate(world = "null"), 
+  sampling_true |> mutate(world = "true")
+) |> 
+  mutate(world = factor(world, levels = c("true", "null")))
+
+# check different standard deviations (due to different data generating process)
+# both_worlds |>
+#   group_by(world) |>
+#   filter(sample_size == 1000) |>
+#   summarize(sd = sd(diff))
+```
+
+---
+
+We can plot both simulated worlds together. 
+
+```{r}
+ggplot(both_worlds |> 
+         filter(sample_size == 1000), 
+       aes(x = diff, fill = factor(world))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 alpha = 0.8, color = "black") +
+  scale_fill_viridis_d(option = "inferno") +  # add fill color for world
+  labs(title = "Sampling distributions for worlds with and without true difference",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "World",
+       caption = "Sample Size = 1000") +  # Add separate legend for sample size
+  theme_minimal()
+```
+
+---
+
+Let's bring both worlds on the scale of a standard normal distribution, dividing their respective standard deviation
+
+:::: r-stack
+
+:::{.fragment}
+```{r}
+both_worlds_scaled <- both_worlds |> 
+  group_by(world, sample_size) |> 
+  mutate(diff = diff/sd(diff)) |> 
+  ungroup() |> 
+  mutate(significant = ifelse(diff <= -1.96, "yes", "no"))
+
+plot_both_worlds_scaled <- ggplot(both_worlds_scaled |> 
+                                    filter(sample_size == 1000), 
+                                  aes(x = diff, fill = factor(world))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 alpha = 0.8, color = "black") +
+  scale_fill_viridis_d(option = "inferno") +  # add fill color for world
+  labs(title = "Scaled sampling distributions for both worlds",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "World",
+       caption = "Sample Size = 1000") +  # Add separate legend for sample size
+  theme_minimal()
+
+plot_both_worlds_scaled
+```
+:::
+
+:::{.fragment}
+```{r}
+norm_dt <- tibble(x = seq(-3, 3, .001),
+                  y = (exp(-(x^2)/2)/sqrt(2*pi)))
+
+# same for t-distribution
+# t_dt <- tibble(
+#   x = seq(-3, 3, .001),
+#   y = dt(x, df = 999)  # t-distribution with df = n - 1
+# )
+
+plot_both_worlds_scaled +
+  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1, linetype = "dashed", alpha = 0.7) 
+  
+  
+```
+:::
+
+::::
+
+---
+
+With a sample size of 1000, in many cases, we would say: "This could have occurred in a Null World"
+
+```{r}
+ggplot(both_worlds_scaled |> 
+         filter(sample_size == 1000 & world == "true"), 
+       aes(x = diff, fill = factor(world))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 alpha = 0.8, color = "black") +
+  scale_fill_viridis_d(option = "inferno") +  # add fill color for world
+  labs(title = "Scaled sampling distributions for both worlds",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "World",
+       caption = "Sample Size = 1000") +  # Add separate legend for sample size
+  theme_minimal() +
+  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1, linetype = "dashed", alpha = 0.7)  +
+  annotate("text", x = -2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 0, y = .25, label = "95%") + 
+  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_vline(xintercept = -1.96, color = "#014D64", size = 1, linetype = "dashed") 
+  
+```
+
+---
+
+## Two errors
+
+![](images/two_errors.jpg){fig-align="center" width="800"}
+
+::: {.absolute left="5%" top="55%" style="font-size:1.8em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;" .fragment}
+Hypothesis Testing
+:::
+
+::: {.absolute left="55%" top="55%" style="font-size:1.8em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;" .fragment}
+Statistical Power
+:::
+
+---
+
+## Two errors
+
+```{r}
+# Create the table as a data frame
+table_data <- data.frame(
+  Category = c("Aim", "Error question", "Typical threshold for acceptable error"),
+  `Hypothesis Testing` = c(
+    "Rule out that we observe something just by chance.",
+    '"What are the chances that we find an effect at least this large in our sample, given that there is <b>no effect</b> in the population?"',
+    "$\\alpha$ = 5 %"
+  ),
+  `Power Analysis` = c(
+    "Ensure that we would find an effect.",
+    '"What are the chances that we <b>do not<b> find a statistically significant effect in our sample, although there is <b>a certain effect</b> in the population?"',
+    "$\\beta$ = 20 %"
+  )
+)
+
+# Rename columns
+colnames(table_data) <- c("", "Hypothesis Testing", "Power Analysis")
+
+# Manually format first column to be bold
+table_data[,1] <- paste0("<b>", table_data[,1], "</b>")
+
+# Create the table without kable_styling or column_spec
+kable(table_data, escape = FALSE, align = "l")
+
+```
+
+# Statistical Power
+
+---
+
+## Statistical Power
+
+Statistical power is the probability of detecting an effect with a hypothesis test, *given a certain effect size*
+
+(Or $1 - \beta$)
+
+---
+
+## Your turn #1: Calculating power
+
+1. Create your true effect world: Simulate a population with a true difference of -0.5 between action and comedy movies.
+
+2. Get your sampling distribution: Simulate 1000 random samples of size n = 1000 and store the results.
+
+3. Plot your Sampling distribution (use `data.frame()` to turn your vector into a data frame that can be read by `ggplot`)
+
+4. Prepare for hypothesis testing: bring the results on scale of the standard normal distribution (divide by the standard deviation of your distribution)
+
+5. Check the transformation: plot the new, standardized values
+
+6. Calculate your power: Check how many (standardized) differences are below the 5% threshold, i.e. smaller than or equal to -1.96 (hint: use `mutate()` in combination with `ifelse` to create a new variable `significant` that takes the values of `TRUE` or `FALSE`. Then use `summarize()` and `sum()` to calculate the share). Are you above the 80% power threshold? 
+
+```{r}
+countdown::countdown(
+  minutes = 15,
+  bottom = 0, 
+  right = 0,
+  # Fanfare when it's over
+  play_sound = FALSE,
+  color_border              = "#FFFFFF",
+  color_text                = "#7aa81e",
+  color_running_background  = "#7aa81e",
+  color_running_text        = "#FFFFFF",
+  color_finished_background = "#ffa07a",
+  color_finished_text       = "#FFFFFF",
+  font_size = "1em",
+  start_immediately = TRUE
+  )
+```
+
+---
+
+1. Create your true effect world: Simulate a population with a true difference of -0.5 between action and comedy movies.
+
+```{r}
+#| echo: true
+
+# True effect world population
+imaginary_movies_true <- tibble(
+  movie_id = 1:1000000,
+  genre = sample(c("Comedy", "Action"), size = 1000000, replace = TRUE),
+  rating = ifelse(
+    genre == "Comedy",
+    rtruncnorm(1000000, a = 1, b = 10, mean = 6.0, sd = 2), 
+    rtruncnorm(1000000, a = 1, b = 10, mean = 5.5, sd = 2)   
+  )
+)
+```
+
+---
+
+
+
+2. Get your sampling distribution: Simulate 1000 random samples of size n = 1000 and store the results.
+
+```{r}
+#| echo: true
+
+n_simulations <- 1000
+differences <- c() # make an empty vector
+sample_size <- 1000
+
+data <- imaginary_movies_true # replace with imaginary_movies_null
+
+for (i in 1:n_simulations) {
+  # draw a sample of films
+  imaginary_sample <- data |> 
+    sample_n(sample_size)
+  # compute rating difference in the sample
+  estimate <- imaginary_sample |> 
+    group_by(genre) |> 
+    summarize(avg_rating = mean(rating)) |> 
+    summarise(diff = avg_rating[genre == "Action"] - avg_rating[genre == "Comedy"]) %>%
+    pull(diff)
+  
+  differences[i] <- estimate
+}
+```
+
+---
+
+
+
+3. Plot your Sampling distribution (use `data.frame()` to turn your vector into a data frame that can be read by `ggplot`)
+
+```{r}
+#| echo: true
+
+ggplot(data.frame(differences), aes(x = differences)) +
+  geom_histogram() +
+  labs(title = "Sampling Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+---
+
+
+
+4. Prepare for hypothesis testing: bring the results on scale of the standard normal distribution (divide by the standard deviation of your distribution)
+
+```{r}
+#| echo: true
+
+differences_standardized <- differences/sd(differences)
+```
+
+---
+
+
+
+5. Check the transformation: plot the new, standardized values
+
+```{r}
+#| echo: true
+
+ggplot(data.frame(differences_standardized), aes(x = differences_standardized)) +
+  geom_histogram() +
+  labs(title = "Sampling Distribution of Rating Differences",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+---
+
+
+
+6. Calculate your power: Check how many (standardized) differences are below the 5% threshold, i.e. smaller than or equal to -1.96 (hint: use `mutate()` in combination with `ifelse` to create a new variable `significant` that takes the values of `TRUE` or `FALSE`. Then use `summarize()` and `sum()` to calculate the share). Are you above the 80% power threshold? 
+
+```{r}
+#| echo: true
+
+data.frame(differences_standardized) |> 
+  mutate(significant = ifelse(differences_standardized <= -1.96, TRUE, FALSE)) |> 
+  summarize(sum_significant = sum(significant), 
+            # you can also calculate the share directly
+            share_significant = sum(significant) / n()
+            )
+```
+
+# A power simulation 
+
+---
+
+## The central limit theorem (again)
+
+The larger the sample size, the more statistical power
+
+:::: r-stack
+
+:::{.fragment}
+
+```{r}
+ggplot(both_worlds_scaled |> 
+         filter(sample_size == 1000 & world == "true"), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 alpha = 0.8, color = "black") +
+  scale_fill_viridis_d(option = "inferno") +  # add fill color for world
+  labs(title = "Sampling distributions for worlds with and without true difference",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size") +
+  theme_minimal() +
+  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1, linetype = "dashed", alpha = 0.7)  +
+  annotate("text", x = -2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 0, y = .25, label = "95%") + 
+  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  theme_minimal()
+```
+:::
+
+:::{.fragment}
+
+```{r}
+ggplot(both_worlds_scaled |> 
+         filter(sample_size == 10000 & world == "true"), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 alpha = 0.8, color = "black") +
+  scale_fill_viridis_d(option = "inferno") +  # add fill color for world
+  labs(title = "Sampling distributions for worlds with and without true difference",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size") +
+  theme_minimal() +
+  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1, linetype = "dashed", alpha = 0.7)  +
+  annotate("text", x = -2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 0, y = .25, label = "95%") + 
+  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  theme_minimal()
+```
+:::
+
+:::{.fragment}
+```{r}
+ggplot(both_worlds_scaled |> 
+         filter(sample_size == 20000 & world == "true"), 
+       aes(x = diff, fill = factor(sample_size))) +
+  geom_histogram(aes(y = ..density..), 
+                 position = "identity", 
+                 alpha = 0.8, color = "black") +
+  scale_fill_viridis_d(option = "inferno") +  # add fill color for world
+  labs(title = "Sampling distributions for worlds with and without true difference",
+       x = "Mean Rating Difference (Action - Comedy)",
+       y = "Density",
+       fill = "Sample Size") +
+  theme_minimal() +
+  geom_line(inherit.aes = FALSE, data = norm_dt, aes(x = x, y = y), color = "black",
+            size = 1, linetype = "dashed", alpha = 0.7)  +
+  annotate("text", x = -2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 2.5, y = .045, label = "2.5%") + 
+  annotate("text", x = 0, y = .25, label = "95%") + 
+  scale_x_continuous(breaks = c(-3, -1.96, -1, 0, 1, 1.96, 3)) +
+  geom_area(data = norm_dt %>% filter(x < -1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  geom_area(data = norm_dt %>% filter(x > 1.96), aes(x = x, y = y), fill = "#6794A7", color = "#014D64", alpha = .6) +
+  theme_minimal()
+```
+:::
+
+::::
+
+# An example of a power analysis
+
+For an example, head over to the [guide on power analysis](../guides/power_simulation.qmd) on the course website.
+
+---
+
+That's it for today :)
+
+
+
+
+
