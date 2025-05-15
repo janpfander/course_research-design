@@ -105,6 +105,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -336,20 +338,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>There are no slides for this class.</p>
+<p>There are no slides for this class. You will need to work on your group presentations (more information to come)</p>
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<p>You’ll need to the paper that you have been assigned to (see assignment)</p>
-<ul>
-<li><a href="../guides/zotero.html">Guide on using Zotero</a></li>
-<li><a href="https://quarto.org/docs/authoring/cross-references.html">A Guide by Posit on how to cross-reference in Quarto</a></li>
-</ul>
-<p>Note that there are many different templates for preregistrations, see for example <a href="https://help.osf.io/article/229-select-a-registration-template">templates on the Open Science Framework (OSF)</a>. You won’t need these for the assignment below, but might want to come back to them when one day you conduct research and want to write a preregistration.</p>
+<p>For your presentations, you need to read the papers you have been assigne (see next section). You can find PDFs for all papers on Moodle.</p>
 </section>
 <section id="assignment" class="level2">
 <h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
-<p>For this week’s assignment, you have been randomly assigned to read one of 5 papers:</p>
+<p>For this week’s assignment, you have been randomly assigned to read one of 5 papers (see below). Your assignment is to prepare group a presentation on your paper.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Jiwoo"</span>, <span class="st">"Arthur"</span>, <span class="st">"Justin"</span>, <span class="st">"Tom"</span>, <span class="st">"Alice C."</span>, <span class="st">"Agathe"</span>, <span class="st">"Lisa"</span>, <span class="st">"Jeanne"</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Valentine"</span>, <span class="st">"Micaela"</span>, <span class="st">"Assya"</span>, <span class="st">"Cyriac"</span>, <span class="st">"Alice G."</span>, <span class="st">"Thelma"</span>, <span class="st">"Titouan"</span>,</span>
@@ -372,51 +371,194 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">6</span>, <span class="st">"Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). </span><span class="sc">\n</span><span class="st"> Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal. </span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># build data frame to which names can be assigned</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>groups_empty <span class="ot">&lt;-</span> <span class="fu">crossing</span>(texts, <span class="at">spot_by_group =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># random group allocation</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="do">## make reproducible</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># randomly shuffle order of names </span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>names_random_order <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">sample</span>(names, <span class="fu">length</span>(names))) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># pair with groups</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>random_groups <span class="ot">&lt;-</span> <span class="fu">right_join</span>(groups_empty, names_random_order, <span class="at">by =</span> <span class="st">"row_number"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(spot_by_group, row_number))</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>random_groups <span class="sc">|&gt;</span> </span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># build data frame to which names can be assigned</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>groups_empty <span class="ot">&lt;-</span> <span class="fu">crossing</span>(texts, <span class="at">spot_by_group =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># random group allocation</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="do">## make reproducible</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># randomly shuffle order of names </span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>names_random_order <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">sample</span>(names, <span class="fu">length</span>(names))) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># pair with groups</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>random_groups <span class="ot">&lt;-</span> <span class="fu">right_join</span>(groups_empty, names_random_order, <span class="at">by =</span> <span class="st">"row_number"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(group, name, text, <span class="sc">-</span><span class="fu">c</span>(spot_by_group, row_number))</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>random_groups <span class="sc">%&gt;%</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Name"</span>, <span class="st">"Text"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"left"</span>, <span class="at">font_size =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 2%">
-<col style="width: 94%">
-<col style="width: 3%">
-</colgroup>
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th style="text-align: right;">group</th>
-<th style="text-align: left;">text</th>
-<th style="text-align: left;">name</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Group</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Text</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022).</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">Alice G.</td>
+<td style="text-align: left;">Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Cyriac</td>
+<td style="text-align: left;">Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Tom</td>
+<td style="text-align: left;">Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Mael</td>
+<td style="text-align: left;">Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Jiwoo</td>
+<td style="text-align: left;">Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Damian</td>
+<td style="text-align: left;">Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Micaela</td>
+<td style="text-align: left;">Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Anitha</td>
+<td style="text-align: left;">Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Selma</td>
+<td style="text-align: left;">Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Etienne</td>
+<td style="text-align: left;">Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Camille</td>
+<td style="text-align: left;">dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Assya</td>
+<td style="text-align: left;">dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Thelma</td>
+<td style="text-align: left;">dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Alice C.</td>
+<td style="text-align: left;">dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Maho</td>
+<td style="text-align: left;">dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Titouan</td>
+<td style="text-align: left;">Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Marie</td>
+<td style="text-align: left;">Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Ariane</td>
+<td style="text-align: left;">Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Josephine</td>
+<td style="text-align: left;">Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Valentine</td>
+<td style="text-align: left;">Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Agathe</td>
+<td style="text-align: left;">Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Jeanne</td>
+<td style="text-align: left;">Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Justin</td>
+<td style="text-align: left;">Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Candice</td>
+<td style="text-align: left;">Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Eloïse</td>
+<td style="text-align: left;">Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Olga</td>
+<td style="text-align: left;">Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Arthur</td>
+<td style="text-align: left;">Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Rivka</td>
+<td style="text-align: left;">Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Lisa</td>
+<td style="text-align: left;">Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal.</td>
 </tr>
 </tbody>
 </table>
-<p>Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43. |Alice G. | | 1|Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43. |Cyriac | | 1|Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43. |Tom | | 1|Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43. |Mael | | 1|Simonsohn, U., Simmons, J., &amp; Nelson, L. D. (2022). Above averaging in literature reviews. + [105] Meaningless Means #1: The Average Effect of Nudging Is d = .43. |Jiwoo | | 2|Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging. |Damian | | 2|Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging. |Micaela | | 2|Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging. |Anitha | | 2|Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging. |Selma | | 2|Mertens, S., Herberz, M., Hahnel, U. J. J., &amp; Brosch, T. (2022). The effectiveness of nudging. |Etienne | | 3|dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice. |Camille | | 3|dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice. |Assya | | 3|dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice. |Thelma | | 3|dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice. |Alice C. | | 3|dos Santos, Q., Perez-Cueto, F. J. A., Rodrigues, V. M., Appleton, K., Giboreau, A., Saulais, L., Monteleone, E., Dinnella, C., Brugarolas, M., &amp; Hartwell, H. (2020). Impact of a nudging intervention and factors associated with vegetable dish choice. |Maho | | 4|Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment. |Titouan | | 4|Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment. |Marie | | 4|Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment. |Ariane | | 4|Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment. |Josephine | | 4|Bacon, L., &amp; Krpan, D. (2018). (Not) Eating for the environment. |Valentine | | 5|Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents. |Agathe | | 5|Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents. |Jeanne | | 5|Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents. |Justin | | 5|Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents. |Candice | | 5|Tavernier, R., &amp; Adam, E. K. (2017). Text message intervention improves objective sleep hours among adolescents. |Eloïse | | 6|Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal. |Olga | | 6|Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal. |Arthur | | 6|Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal. |Rivka | | 6|Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal. |Lucas | | 6|Diliberti, N., Bordi, P. L., Conklin, M. T., Roe, L. S., &amp; Rolls, B. J. (2004). Increased Portion Size Leads to Increased Energy Intake in a Restaurant Meal. |Lisa |</p>
+
+
 </div>
 </div>
-<p>Your assignment is to prepare group a presentation on your paper.</p>
 
 
 </section>
