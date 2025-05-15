@@ -50,14 +50,12 @@ website:
             href: content/10-content.qmd 
           - text: "11 - Writing a Preregistration"
             href: content/11-content.qmd          
-          - text: "12 - Read and Present a Scientific Paper"
-            href: content/12-content.qmd             
-          - text: "13 - Meta-Analyses"
-            href: content/13-content.qmd 
-          - text: "14 - How to Read and Present a Scientific Paper"
-            href: content/14-content.qmd          
-          - text: "15 - Presentations Group Project"
-            href: content/15-content.qmd      
+          - text: "12 - Meta-Analyses"
+            href: content/12-content.qmd 
+          - text: "13 - How to Read and Present a Scientific Paper"
+            href: content/13-content.qmd          
+          - text: "14 - Presentations Group Project"
+            href: content/14-content.qmd      
             
       - section: "Guides"
         contents: 

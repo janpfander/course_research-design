@@ -1,0 +1,101 @@
+---
+title: "Problem set 7"
+author: "Put your name here"
+format: 
+  html:
+    toc: true
+    self-contained: true  # ensures standalone HTML
+  pdf: default
+---
+
+
+```{r}
+# load packages
+library(tidyverse)
+library(broom)
+```
+
+
+# Background
+
+> This section is an introduction, in which you very briefly line out the motivation of your research project. Copy-paste the introduction of this assignment in this section. Search the references, store them in Zotero and cite them properly at the correct location in this quarto document.
+
+
+# Hypotheses
+
+> In this section, you try to state as clearly as possible what you want to test. What is the prediction that you have, based on what you know from the literature in the previous section? This should be very short, a single sentence.
+
+
+# Research design
+
+> This is where you describe the methods of your study. Fill out the different sub-sections.
+
+## Procedure
+
+> Describe the experimental procedure, and in particular your treatment. How would you run the experiment?
+
+## Measures
+
+> Briefly describe your outcome measure. Use a binary outcome (you could, e.g., call it "uptake", with values "uptake" vs. "no_update"). 
+
+## Analystical Procedure
+
+> Describe exactly which statistical model you will use to evaluate your hypothesis. Insert this model in the below code chunk (the option "evaluate: false" ensures that when rendering the dokument, R inores this code - otherwise it would yield an error, since you haven't specified any data. Use a linear regression, with the treatment as predictor variable, and uptake as the outcome variable. Since we have a binary outcome, there are other, often more appropriate models than a simple linear regression, but for simplicity, we stick to what you have learned. 
+
+```{r}
+#| eval: false
+
+
+```
+
+
+## Pariticipants
+
+> In this section, you describe your participants (where will they be from, how will you recruit them? Be creative, and keep in mind that you want to have a different population than pregnant women in Kenya, as in the reference paper). Importantly, determine your sample size. Assume that the minimal effect you care about is a difference in uptake of 10 percentage points (remember that in the reference study in Kenya, it was 60%, so that seems a conservative lower bound). You want to be able to detect such an effect with a power of 0.8, given a significance threshold of 0.05. Run a power simulation. Refer to the different steps in the guide on power simulation, and the lecture slides of the exercise in the class on linear regression. Take the sample generating function below as a starting point. The final result should be a figure with a power curve. Reference the figure in your text following the Quarto cross-references guidelines.
+
+```{r}
+# set a seed for reproducibility
+set.seed(239875)
+```
+
+```{r}
+generate_sample <- function(sample_size){
+  tibble(
+    # an id for each participant
+    id = 1:sample_size,
+      # randomly assign a treatment
+    condition = sample(c("free", "small_price"), size = sample_size, replace = TRUE)
+  ) |>
+    # calculate the outcome
+    mutate(
+      # We assume a treatment effect of 10 percentage points, 
+      # 95% in the free group and 85% in the control group.
+      # We add a little bit of noise to these average probabilities for each 
+      # individual
+      prob = case_when(
+        condition == "free" ~ rnorm(sample_size, mean = 0.95, sd = 0.5),
+        condition == "small_price" ~ rnorm(sample_size, mean = 0.85, sd = 0.5)
+      ),
+      # Because of the noise, some values might be out of the bounds (probabilites can only range from 0 to 1). 
+      # The next line ensures to keep probabilities within [0, 1] bounds. 
+      prob = pmin(pmax(prob, 0), 1),
+      # Finally, we can simulate our binary uptake variable based on the noisy probabilities
+      uptake = rbinom(n(), size = 1, prob = prob)
+    )
+}
+```
+
+> For the power analysis, you will need to write several functions. Remember to test your function after each step. 
+
+```{r}
+sample <- generate_sample(sample_size = 1000) 
+
+head(sample)
+```
+
+
+# References
+
+> At the end of your document, Quarto will automatically list your references. 
+
+
