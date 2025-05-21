@@ -9,16 +9,43 @@ library(tidyverse)
 library(kableExtra)
 ```
 
+There are no slides for this class. This is a practical sessions during which you will work work on your group presentations. 
 
-There are no slides for this class. You will need to work on your group presentations (more information to come)
+## Group presentations
+
+### The rules
+
+- You have 5 minutes per group. 
+- Followed by 10 mins plenary discussion. 
+- Each group member presents (~1min per member).
+
+### Strategy
+
+5mins is short. It requires making a selection of what to tell, and that is difficult. The main goal is to: 
+
+- gather interest among your audience 
+- sketch out the main idea
+
+Everything else will be raised in the discussion. You can prepare some back up slides if you anticipate certain questions or plan raising certain discussion points.
+
+### A (possible) outline
+
+1. Why should you care? (~1min)
+  - State the research question, make it relatable to the audience, potentially add some context to raise a broader puzzle that is interesting to someone who is not an expert
+
+2. What did they do? (~2mins)
+  - Describe the experimental design and process
+  - A good technique is to take the perspective of a participant (i.e. describe what they saw, exactly)
+
+3. What do they find? (~1min)
+  - Focus on the one main result & authors' conclusions from it
+  
+4. What’s your take on that? (~1min)
+  - You can make the link to the initial puzzle or highlight what they did well / what you found not convincing
 
 ## Readings
 
-For your presentations, you need to read the papers you have been assigne (see next section). You can find PDFs for all papers on Moodle.
-
-## Assignment
-
-For this week's assignment, you have been randomly assigned to read one of 5 papers (see below). Your assignment is to prepare group a presentation on your paper. 
+For your presentations, you have been randomly assigned to read one of 5 papers (see below). You can find PDFs for all papers on Moodle.
 
 ```{r}
 #| code-fold: true
@@ -66,6 +93,11 @@ random_groups %>%
   kable(escape = FALSE, col.names = c("Group", "Name", "Text")) %>%
   kable_styling(full_width = FALSE, position = "left", font_size = 11)
 ```
+
+## Assignment
+
+If you do not manage to finish your presentations in class, you will need to finish them at home before next session. 
+
 
 
 
